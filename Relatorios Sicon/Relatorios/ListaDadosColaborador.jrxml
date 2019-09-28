@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaColaboradorFuncao" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0417783b-14c1-4388-9568-080baeeded93">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Vertical Center Align">
+		<box topPadding="4" leftPadding="0" bottomPadding="0"/>
+	</style>
+	<style name="Barcode" hTextAlign="Center">
+		<box topPadding="4"/>
+	</style>
+	<subDataset name="ListaDadosDataset" uuid="91e9c51f-71c7-4fd7-94cf-f60d33f1028d">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon"/>
+		<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="503"/>
+		<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="483"/>
+		<scriptlet name="Dados" class="compec.ufam.sicon.interfaces.JasperDriver">
+			<scriptletDescription><![CDATA[]]></scriptletDescription>
+		</scriptlet>
+		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
+		<parameter name="TABLE_GROUP" class="java.lang.String"/>
+		<parameter name="TABLE_FUNCAO" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[select colab.nome as COLAB_NOME, colab.doc_identidade as COLAB_RG, colab.pispasep as COLAB_PIS, colab.banco as COLAB_BANCO, colab.agencia as COLAB_AGENCIA, colab.contacorrente as COLAB_CC, substring(inst.nome,5) as INST_NOME
+from colaborador colab, instituicao inst, inscricao inscr
+where inscr.idconcurso  = $P!{TABLE_CONCURSO}
+  and inscr.idFuncao = $P!{TABLE_FUNCAO}
+  and inscr.idColaborador = colab.idColaborador
+  and inscr.idinstituicaoopcao1 = inst.idinstituicao
+order by COLAB_NOME]]>
+		</queryString>
+		<field name="COLAB_NOME" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="COLAB_NOME"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+		</field>
+		<field name="COLAB_RG" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="COLAB_RG"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+		</field>
+		<field name="COLAB_PIS" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="COLAB_PIS"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+		</field>
+		<field name="COLAB_BANCO" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="COLAB_BANCO"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+		</field>
+		<field name="COLAB_AGENCIA" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="COLAB_AGENCIA"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+		</field>
+		<field name="COLAB_CC" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="COLAB_CC"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+		</field>
+		<field name="INST_NOME" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="INST_NOME"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="instituicao"/>
+		</field>
+	</subDataset>
+	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
+	<parameter name="PAR_CONCURSO" class="java.lang.Integer"/>
+	<parameter name="PAR_FUNCAO" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select c.descricao as CONCURSO, f.atividade as FUNCAO
+from concurso c, funcao f
+where c.idconcurso = $P{PAR_CONCURSO}
+and f.idFuncao   = $P{PAR_FUNCAO}]]>
+	</queryString>
+	<field name="CONCURSO" class="java.lang.String"/>
+	<field name="FUNCAO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="211" splitType="Stretch">
+			<componentElement>
+				<reportElement key="" x="0" y="159" width="800" height="50" uuid="205d3a49-bbd0-4930-8a01-79099feb4d16">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="ListaDadosDataset" uuid="b696e747-b129-4028-8d0a-02d5bbac0942">
+						<datasetParameter name="TABLE_CONCURSO">
+							<datasetParameterExpression><![CDATA[$P{PAR_CONCURSO}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="TABLE_FUNCAO">
+							<datasetParameterExpression><![CDATA[$P{PAR_FUNCAO}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="30" uuid="6a6c9247-464f-479c-889c-532614c20cde">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="30" height="20" uuid="bac845c7-aff8-4457-9d1e-120482fd1a9d"/>
+								<box topPadding="4"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Ord.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<textField>
+								<reportElement style="Vertical Center Align" x="0" y="0" width="30" height="20" uuid="5f8d4c24-21ee-4ceb-aa22-81e0980f09a0"/>
+								<box leftPadding="0"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="210" uuid="1e5e7e67-f568-4225-b3e2-37aab45e0fcf">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
+							<box topPadding="0"/>
+							<staticText>
+								<reportElement x="0" y="0" width="210" height="20" uuid="ed912e57-7f90-42d7-9ffd-ae6c4eaa71d8"/>
+								<box topPadding="4"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Nome]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField>
+								<reportElement style="Vertical Center Align" x="0" y="0" width="210" height="20" uuid="31586b8c-5acd-4317-a006-6d622c0235b8"/>
+								<box leftPadding="5"/>
+								<textFieldExpression><![CDATA[$P{Dados_SCRIPTLET}.formatName($F{COLAB_NOME})]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="162bf3ed-7f69-46e0-bb0a-7f43a2452d13">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="20" uuid="38c6a9bb-c1df-4f6e-8815-edc0975e9101"/>
+								<box topPadding="4"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[RG]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField>
+								<reportElement style="Vertical Center Align" x="0" y="0" width="50" height="20" uuid="8815741a-d65b-4721-8a50-9a01cb1d669b"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{COLAB_RG}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="3a3e3e7e-9d1d-4349-a9f5-78cd4f831cc3">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="20" uuid="413e39aa-93a8-4700-b9fa-3bb8475b76db"/>
+								<box topPadding="4"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[PIS]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField>
+								<reportElement style="Vertical Center Align" x="0" y="0" width="90" height="20" uuid="a48af951-1cb9-43f4-84c6-cdc49a69131a"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$P{Dados_SCRIPTLET}.formatPIS($F{COLAB_PIS})]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="b4716000-f49a-432a-9daa-d8b9e8dee2f5">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="20" uuid="696d3618-a5e4-4c83-8967-6c540988f45a"/>
+								<box padding="0" topPadding="4"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Banco]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField>
+								<reportElement style="Vertical Center Align" x="0" y="0" width="70" height="20" uuid="d7361d7c-4af4-416b-a04b-eabe98c7fb55"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$P{Dados_SCRIPTLET}.formatName($F{COLAB_BANCO})]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="68249ca0-0361-4eee-919e-1487c48c04ff">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="20" uuid="833f2c10-f91a-47fe-920b-9a6d2fa038a0"/>
+								<box topPadding="4"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Agência]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField>
+								<reportElement style="Vertical Center Align" x="0" y="0" width="50" height="20" uuid="1dd92965-841f-41d9-a006-2d8cc0c104ad"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{COLAB_AGENCIA}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="60" uuid="61535a32-cbaf-4d74-900a-c8c4fc952b80">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="60" height="20" uuid="837dadab-6e80-44af-81a0-f34d819a7a18"/>
+								<box topPadding="4"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[CC]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField>
+								<reportElement style="Vertical Center Align" x="0" y="0" width="60" height="20" uuid="9fd15224-ed8d-4ae5-8831-c95cc7b87f29"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{COLAB_CC}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="240" uuid="1dd5bf6d-4d67-40d8-b8ac-d843a5602ef7">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="240" height="20" uuid="56243992-975f-4144-b8db-ea82ddbb534f"/>
+								<box topPadding="4"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Local de Trabalho]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField>
+								<reportElement style="Vertical Center Align" x="0" y="0" width="240" height="20" uuid="971d749c-5331-4d2f-9d30-81336dc17642"/>
+								<box leftPadding="5"/>
+								<textFieldExpression><![CDATA[$F{INST_NOME}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField>
+				<reportElement x="0" y="137" width="800" height="20" uuid="7ea2b6ad-89c2-4f5d-aba8-9dc864a66fe6"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CONCURSO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="109" width="800" height="20" uuid="b4bb44c6-2303-4c08-b28f-d2b1543d2c92"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relação de " + $F{FUNCAO}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="1" y="5" width="800" height="95" uuid="c222ebc1-fe9d-4ae1-a655-9578b75b4e60"/>
+				<imageExpression><![CDATA[$P{PAR_LOGO}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="290" y="6" width="100" height="30" uuid="06250e94-058b-47ef-93ea-02ad5f30fc32"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="390" y="6" width="100" height="30" uuid="968badb6-5a3c-40f7-be1f-fc13b6b65f9b"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

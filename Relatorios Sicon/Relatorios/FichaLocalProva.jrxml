@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FichaLocalProva" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f6e4db4-9f8f-4ffe-9759-6e1fd142f492">
+	<property name="template.type" value="columnar"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Title" forecolor="#000000" fontName="Times New Roman" fontSize="50" isBold="false"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<style name="Static Texts" hTextAlign="Right" fontSize="12" isBold="true"/>
+	<style name="Subtitles" fontSize="18" isBold="true">
+		<box leftPadding="5"/>
+		<paragraph rightIndent="0"/>
+	</style>
+	<style name="Dynamic Texts" isBlankWhenNull="true" fontSize="12"/>
+	<parameter name="PAR_HEADER" class="java.awt.image.BufferedImage"/>
+	<parameter name="PAR_CONCURSO" class="java.lang.String"/>
+	<parameter name="PAR_DATA_CONCURSO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nomeCompleto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="logradouro" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cidade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bairro" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="responsavelNome" class="java.lang.String"/>
+	<field name="responsavelEmail" class="java.lang.String"/>
+	<field name="responsavelC1" class="java.lang.String"/>
+	<field name="responsavelC2" class="java.lang.String"/>
+	<field name="responsavelC3" class="java.lang.String"/>
+	<field name="instituicaoEmail" class="java.lang.String"/>
+	<field name="instituicaoC1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="instituicaoC2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="Group1">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
+	</group>
+	<group name="Group2">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/5)]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="386" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="98" width="555" height="24" forecolor="#B89F7D" backcolor="#95CAF8" uuid="9e26f120-749d-409c-8f3b-8c06aa511309"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Subtitles" x="2" y="1" width="479" height="23" forecolor="#FFFFFF" uuid="de62353b-9a72-4e8c-bac1-b3c9770c8d15"/>
+					<textElement>
+						<font size="18" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Concurso"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField>
+				<reportElement style="Dynamic Texts" x="100" y="125" width="320" height="20" uuid="16759bb3-c001-408a-a64e-f1c481bacd42">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{PAR_CONCURSO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Static Texts" x="3" y="125" width="86" height="20" uuid="8692de3a-6342-428a-96e5-a7ba1b5a0880"/>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Static Texts" x="420" y="125" width="40" height="20" uuid="de22244f-0463-4b12-9610-88fb16260e2e">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Data:]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="148" width="555" height="24" forecolor="#B89F7D" backcolor="#95CAF8" uuid="463daa15-c417-4e61-aeef-08b110e26970"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Subtitles" x="2" y="1" width="479" height="23" forecolor="#FFFFFF" uuid="abf8f68b-fb35-4bc9-9d51-2677ca6d30f3"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Instituição"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement style="Static Texts" x="380" y="196" width="80" height="15" uuid="face563b-5aab-420c-a62b-a6286eb659ce">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Número:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Static Texts" x="380" y="216" width="80" height="15" uuid="96bc716a-27c8-4023-a644-13b09efdbc0b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Bairro:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Static Texts" x="2" y="216" width="88" height="15" uuid="a25266cb-45f3-4670-8a1e-aa8c5ed46f06">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Cidade:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Static Texts" x="2" y="196" width="88" height="15" uuid="1b6d2edf-4efe-4b54-94bb-2362acdc4692">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Logradouro:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Static Texts" x="2" y="176" width="88" height="15" uuid="753d53f9-6fcc-4791-b955-93e09d2952a3">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="2" y="236" width="551" height="1" uuid="10a03226-5cbd-4988-9165-61db60069ddc"/>
+			</line>
+			<staticText>
+				<reportElement style="Static Texts" x="4" y="240" width="85" height="15" uuid="cef90090-8574-4b78-a413-95d67d3c061b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[e-mail:]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="279" width="555" height="24" forecolor="#B89F7D" backcolor="#95CAF8" uuid="f9303c5c-4d6e-4f98-afbd-c26218350555">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Subtitles" x="2" y="2" width="479" height="23" forecolor="#FFFFFF" uuid="8cabb568-4fb7-4ecc-a07b-e3502460c95e"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Responsável"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement style="Static Texts" x="388" y="352" width="58" height="15" uuid="a56f69cf-29a0-4841-b106-3c5b1eee8f40"/>
+				<text><![CDATA[Cel. 02:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Static Texts" x="213" y="352" width="58" height="15" uuid="496d278b-335c-4ad0-9be1-0a8b51389959">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Cel. 01:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Static Texts" x="4" y="327" width="88" height="15" uuid="ec4a1460-91a0-44fd-9dcc-563d06769b08">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[e-mail:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Static Texts" x="4" y="307" width="88" height="15" uuid="3c08aca7-8aff-4bc8-bf68-cdc41ed7c087">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Static Texts" x="4" y="352" width="88" height="15" uuid="a3ec1428-5f3d-41f1-8f72-c6999286f5fc"/>
+				<text><![CDATA[Tel. Res.:]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="2" y="346" width="551" height="1" uuid="dd8ed7e8-848e-4001-a408-2f737decba5f"/>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="4" y="379" width="550" height="1" uuid="f5ad39d4-3690-4c32-907d-76b7b592d414">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<image>
+				<reportElement x="0" y="4" width="555" height="60" uuid="481e8c7a-e105-4efc-9a80-b820cacd08ae"/>
+				<imageExpression><![CDATA[$P{PAR_HEADER}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="113" y="69" width="328" height="22" uuid="7e1668fd-b56f-4384-82cb-cff1e9535a15"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Identificação de Local de Prova]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Dynamic Texts" x="98" y="176" width="456" height="15" uuid="7e62db8e-2dfb-4164-8047-340680997cc3">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nomeCompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Dynamic Texts" x="98" y="196" width="270" height="15" uuid="f839632a-032a-4c33-ae4d-0c4bf246325e">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{logradouro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Dynamic Texts" x="98" y="217" width="270" height="15" uuid="7a589fb9-b99f-463c-92b8-5d04bc4ce6d2">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Dynamic Texts" x="470" y="125" width="84" height="20" uuid="e72c8705-a3aa-47a5-ba9b-524258c648d2">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{PAR_DATA_CONCURSO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Dynamic Texts" x="471" y="196" width="84" height="15" uuid="4a2644a6-c9cd-4403-a6af-fde71ba31dff">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Dynamic Texts" x="471" y="216" width="84" height="15" uuid="1bb18672-d1c1-43a4-87e0-6ba66b37de4c">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{bairro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Dynamic Texts" x="98" y="307" width="456" height="15" uuid="c64984ed-20dd-499a-b72d-c0bbdf4bfe15">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{responsavelNome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Dynamic Texts" x="98" y="327" width="456" height="15" uuid="b2211ea8-7c8c-4284-9fd4-1e2c452b29f0">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{responsavelEmail}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Dynamic Texts" x="98" y="352" width="102" height="15" uuid="caad1e93-2617-4402-84e6-accb133b684d">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{responsavelC1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Dynamic Texts" x="453" y="352" width="102" height="15" uuid="9130e573-ce97-4ebb-bd3b-7a1c88db4c1a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{responsavelC3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Dynamic Texts" x="278" y="352" width="102" height="15" uuid="10fd86d3-4615-40af-9630-a4132a5d28e9">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{responsavelC2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Static Texts" x="4" y="260" width="85" height="15" uuid="8b34cb2a-b67b-4da1-bade-9447b3b598c6">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Tel. 01:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Dynamic Texts" x="98" y="260" width="102" height="15" uuid="30599fd9-584a-4a77-b6f9-585e063e5bdd">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{instituicaoC1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Static Texts" x="213" y="260" width="58" height="15" uuid="76d231d4-f0f2-450d-98d0-1783ebac4d7b">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Tel. 02:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Dynamic Texts" x="278" y="260" width="102" height="15" uuid="f4858383-e103-477e-bfb9-a482639f4794">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{instituicaoC2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Dynamic Texts" x="98" y="240" width="455" height="15" uuid="ff70681d-f5b2-4167-a6b5-cc44f62dd2f6">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{instituicaoEmail}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
