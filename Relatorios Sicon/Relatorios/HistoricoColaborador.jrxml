@@ -46,6 +46,7 @@
 		<box topPadding="4" leftPadding="5"/>
 		<paragraph leftIndent="0"/>
 	</style>
+	<style name="Rodapé" fontName="DejaVu" fontSize="10"/>
 	<subDataset name="HistoricoDataset" uuid="91e9c51f-71c7-4fd7-94cf-f60d33f1028d">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon"/>
@@ -84,7 +85,7 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 	<pageHeader>
 		<band height="109">
 			<image>
-				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="800" height="95" uuid="deda4d07-8d16-4abd-9a51-43aae898b651">
+				<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="800" height="95" uuid="deda4d07-8d16-4abd-9a51-43aae898b651">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<imageExpression><![CDATA[$P{PAR_LOGO}]]></imageExpression>
@@ -216,23 +217,19 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 		<band height="25" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="290" y="10" width="100" height="15" uuid="06250e94-058b-47ef-93ea-02ad5f30fc32">
+				<reportElement style="Rodapé" x="290" y="10" width="100" height="15" uuid="06250e94-058b-47ef-93ea-02ad5f30fc32">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu"/>
-				</textElement>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="390" y="10" width="100" height="15" uuid="968badb6-5a3c-40f7-be1f-fc13b6b65f9b">
+				<reportElement style="Rodapé" x="390" y="10" width="100" height="15" uuid="968badb6-5a3c-40f7-be1f-fc13b6b65f9b">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Left">
-					<font fontName="DejaVu"/>
-				</textElement>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
