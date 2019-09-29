@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry exported="true" kind="con" path="net.sf.jasperreports.JR_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="com.jaspersoft.server.JRS_CONTAINER"/>
-	<classpathentry exported="true" kind="lib" path="/home/felipe/Dropbox/Workspaces/Eclipse - Compec/Phills Libs/bin"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="fonts-extention.jar"/>
+	<classpathentry kind="lib" path="libs/fonts-extention.jar"/>
+	<classpathentry kind="lib" path="libs/sicon.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
