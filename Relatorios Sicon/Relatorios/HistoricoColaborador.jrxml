@@ -11,7 +11,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon Online"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -39,11 +39,11 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Títulos (Tabela)" hTextAlign="Center" fontName="DejaVu" fontSize="10" isBold="true">
+	<style name="Títulos (Tabela)" hTextAlign="Center" vTextAlign="Middle" fontName="DejaVu" fontSize="10" isBold="true">
 		<box topPadding="4"/>
 	</style>
-	<style name="Fields (Tabela)" hTextAlign="Left" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="10">
-		<box topPadding="4" leftPadding="5"/>
+	<style name="Fields (Tabela)" hTextAlign="Left" vTextAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="10">
+		<box topPadding="2" leftPadding="5"/>
 		<paragraph leftIndent="0"/>
 	</style>
 	<style name="Rodapé" fontName="DejaVu" fontSize="10"/>
@@ -110,7 +110,6 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
 								<reportElement style="Títulos (Tabela)" x="0" y="0" width="30" height="20" uuid="bac845c7-aff8-4457-9d1e-120482fd1a9d"/>
-								<box topPadding="4"/>
 								<text><![CDATA[#]]></text>
 							</staticText>
 						</jr:columnHeader>
@@ -129,7 +128,6 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 							<box topPadding="0"/>
 							<staticText>
 								<reportElement key="" style="Títulos (Tabela)" positionType="Float" x="0" y="0" width="270" height="20" uuid="51c6d040-43c7-4e8a-bec1-b2893fbe9027"/>
-								<box topPadding="4"/>
 								<text><![CDATA[Nome do Concurso]]></text>
 							</staticText>
 						</jr:columnHeader>
@@ -145,7 +143,6 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
 								<reportElement style="Títulos (Tabela)" x="0" y="0" width="240" height="20" uuid="38c6a9bb-c1df-4f6e-8815-edc0975e9101"/>
-								<box topPadding="4"/>
 								<text><![CDATA[Nome da Instituição]]></text>
 							</staticText>
 						</jr:columnHeader>
@@ -161,13 +158,14 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
 								<reportElement style="Títulos (Tabela)" x="0" y="0" width="140" height="20" uuid="696d3618-a5e4-4c83-8967-6c540988f45a"/>
-								<box padding="0" topPadding="4"/>
+								<box padding="0"/>
 								<text><![CDATA[Função]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
 							<textField isStretchWithOverflow="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="140" height="20" uuid="6aba6f0a-a861-4282-a175-982bf0272c2a"/>
+								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{FUNCAO}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -177,7 +175,6 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
 								<reportElement style="Títulos (Tabela)" x="0" y="0" width="120" height="20" uuid="833f2c10-f91a-47fe-920b-9a6d2fa038a0"/>
-								<box topPadding="4"/>
 								<text><![CDATA[Inscrição]]></text>
 							</staticText>
 						</jr:columnHeader>

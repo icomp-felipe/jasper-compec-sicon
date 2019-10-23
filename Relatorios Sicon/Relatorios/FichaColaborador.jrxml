@@ -417,7 +417,7 @@
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="555" height="13" forecolor="#000000" backcolor="#FFFFFF" uuid="bfdca178-800d-445c-9a31-bb616a00e8ce"/>
 				<textField evaluationTime="Report">
-					<reportElement x="540" y="0" width="10" height="13" forecolor="#000000" uuid="2fba0f87-635e-476d-858f-d102b26146fe"/>
+					<reportElement style="Rodapé" x="540" y="0" width="10" height="13" forecolor="#000000" uuid="2fba0f87-635e-476d-858f-d102b26146fe"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
