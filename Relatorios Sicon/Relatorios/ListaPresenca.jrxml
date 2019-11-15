@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaPresenca" pageWidth="842" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="009f7ba2-334c-4bd3-a6a1-b9fcc23d991f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon Local"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon Online"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -70,6 +70,9 @@
 	<subDataset name="ListaPresencaDataset" uuid="c5f437a3-021a-4cca-905e-a15b65013dd6">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon"/>
+		<scriptlet name="JASPER_DRIVER" class="compec.ufam.sicon.interfaces.JasperDriver">
+			<scriptletDescription><![CDATA[]]></scriptletDescription>
+		</scriptlet>
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<queryString>
@@ -142,7 +145,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 				<textElement textAlignment="Left" markup="html">
 					<font size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b>Impresso em: </b>" + new SimpleDateFormat("dd/MM/yyyy 'às' HH:mm:ss",new Locale("pt","BR")).format(new java.util.Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Gerado em: </b>" + new SimpleDateFormat("dd/MM/yyyy 'às' HH:mm:ss",new Locale("pt","BR")).format(new java.util.Date())]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement style="Identificações" x="580" y="140" width="221" height="15" uuid="5d713b9c-3934-49c5-85a0-a5f4e35c4eba">
@@ -200,7 +203,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							<textField isStretchWithOverflow="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="210" height="26" uuid="8e148ba4-4b70-4daf-adf5-fb84ed02015a"/>
 								<box topPadding="5" leftPadding="5" bottomPadding="5" rightPadding="5"/>
-								<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{NOME})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
