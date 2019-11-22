@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaServidorUpdate" pageWidth="842" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="009f7ba2-334c-4bd3-a6a1-b9fcc23d991f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PIS Inválido"/>
@@ -22,6 +22,15 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
+	<style name="Título" hTextAlign="Center" fontName="DejaVu" fontSize="15" isBold="true"/>
+	<style name="Títulos (Tabela)" hTextAlign="Center" fontName="DejaVu" fontSize="10" isBold="true">
+		<box topPadding="4"/>
+	</style>
+	<style name="Fields (Tabela)" hTextAlign="Left" vTextAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="10">
+		<box topPadding="0" leftPadding="0"/>
+		<paragraph leftIndent="0"/>
+	</style>
+	<style name="Rodapé" fontName="DejaVu" fontSize="10"/>
 	<subDataset name="ListaServidorUpdateDataset" uuid="c5f437a3-021a-4cca-905e-a15b65013dd6">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
@@ -44,13 +53,20 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="118" splitType="Stretch">
+		<band height="135" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
-				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="-10" width="800" height="95" uuid="0cde5cff-fda2-4685-9b50-73cc2393f58c"/>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="800" height="95" uuid="0cde5cff-fda2-4685-9b50-73cc2393f58c">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
 				<imageExpression><![CDATA[$P{PAR_LOGO}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="210" y="90" width="380" height="20" uuid="921da31f-3668-4f79-a0e0-b3e2cbc66a9c"/>
+				<reportElement style="Título" x="0" y="105" width="801" height="20" uuid="921da31f-3668-4f79-a0e0-b3e2cbc66a9c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Center">
 					<font fontName="DejaVu Sans" size="14" isBold="true"/>
 				</textElement>
@@ -59,7 +75,8 @@
 		</band>
 	</title>
 	<detail>
-		<band height="50" splitType="Stretch">
+		<band height="40" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<componentElement>
 				<reportElement x="0" y="0" width="800" height="40" uuid="3cc53829-fa4a-4915-a057-8518c18f4670">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
@@ -73,12 +90,12 @@
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 						<jr:columnHeader style="Table 3_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="40" height="18" uuid="35a3d002-6312-46ea-ad15-33a075f7d74b"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="40" height="18" uuid="35a3d002-6312-46ea-ad15-33a075f7d74b"/>
 								<box topPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="10" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Ord.]]></text>
+								<text><![CDATA[#]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="18">
@@ -96,7 +113,7 @@
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnHeader style="Table 3_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="250" height="18" uuid="babe1417-c9ba-4d45-a40f-7f1158c08c3f"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="250" height="18" uuid="babe1417-c9ba-4d45-a40f-7f1158c08c3f"/>
 								<box topPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="10" isBold="true"/>
@@ -106,7 +123,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="18">
 							<textField isStretchWithOverflow="true">
-								<reportElement x="0" y="0" width="250" height="18" uuid="310f4d5b-40b3-4521-ba73-67947db50ae3"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="250" height="18" uuid="310f4d5b-40b3-4521-ba73-67947db50ae3"/>
 								<box leftPadding="5"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{jasperNome}]]></textFieldExpression>
@@ -117,7 +134,7 @@
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:columnHeader style="Table 3_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="30" height="18" uuid="e3be6f18-dc83-4ced-a7f8-7818a5b51c21"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="30" height="18" uuid="e3be6f18-dc83-4ced-a7f8-7818a5b51c21"/>
 								<box topPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="10" isBold="true"/>
@@ -127,7 +144,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="18">
 							<textField>
-								<reportElement x="0" y="0" width="30" height="18" uuid="70c9feca-a240-44b2-af5d-0f10b2576f0c"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="30" height="18" uuid="70c9feca-a240-44b2-af5d-0f10b2576f0c"/>
 								<box leftPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{jasperSexo}]]></textFieldExpression>
@@ -138,7 +155,7 @@
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:columnHeader style="Table 3_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="18" uuid="4d3ed640-4ef6-4a94-bf2d-361789da0bc8"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="90" height="18" uuid="4d3ed640-4ef6-4a94-bf2d-361789da0bc8"/>
 								<box topPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="10" isBold="true"/>
@@ -148,7 +165,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="18">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="18" uuid="de8b9860-1cf6-4f12-a0a2-cb98bf0cacf3"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="90" height="18" uuid="de8b9860-1cf6-4f12-a0a2-cb98bf0cacf3"/>
 								<box leftPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{jasperCPF}]]></textFieldExpression>
@@ -159,7 +176,7 @@
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
 						<jr:columnHeader style="Table 3_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="60" height="18" uuid="50b07d99-3f06-4b56-a2db-0b712bc879b9"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="60" height="18" uuid="50b07d99-3f06-4b56-a2db-0b712bc879b9"/>
 								<box topPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="10" isBold="true"/>
@@ -169,7 +186,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="18">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="60" height="18" uuid="4fcb3227-2d11-4ca4-b5a7-e88789b6bac5"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="60" height="18" uuid="4fcb3227-2d11-4ca4-b5a7-e88789b6bac5"/>
 								<box leftPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{matricula}]]></textFieldExpression>
@@ -180,7 +197,7 @@
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
 						<jr:columnHeader style="Table 3_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="70" height="18" uuid="4822b573-5312-4c22-a097-3d2fe6b998e7"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="70" height="18" uuid="4822b573-5312-4c22-a097-3d2fe6b998e7"/>
 								<box topPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="10" isBold="true"/>
@@ -190,9 +207,8 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="18">
 							<textField>
-								<reportElement x="0" y="0" width="70" height="18" uuid="1cf473cf-ae79-4884-9deb-28145f61a60d"/>
-								<box leftPadding="0"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="70" height="18" uuid="1cf473cf-ae79-4884-9deb-28145f61a60d"/>
+								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{jasperVinculo}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -201,7 +217,7 @@
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
 						<jr:columnHeader style="Table 3_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="260" height="18" uuid="5998393c-35f4-4274-8bb6-94077cff5d88"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="260" height="18" uuid="5998393c-35f4-4274-8bb6-94077cff5d88"/>
 								<box topPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="10" isBold="true"/>
@@ -211,9 +227,8 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="18">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="260" height="18" uuid="87f104c9-0cdc-4f6e-a282-ff12b1c8f676"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="260" height="18" uuid="87f104c9-0cdc-4f6e-a282-ff12b1c8f676"/>
 								<box leftPadding="5"/>
-								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{lotacao}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -223,14 +238,19 @@
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="34" splitType="Stretch">
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="310" y="5" width="100" height="29" uuid="aa3b8dee-793b-4cb2-9054-25fc0de67723"/>
+				<reportElement style="Rodapé" x="310" y="5" width="100" height="15" uuid="aa3b8dee-793b-4cb2-9054-25fc0de67723">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="410" y="5" width="100" height="29" uuid="e545d702-704e-46bd-ae57-defcbaa13c6e"/>
+				<reportElement style="Rodapé" x="410" y="5" width="100" height="15" uuid="e545d702-704e-46bd-ae57-defcbaa13c6e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
