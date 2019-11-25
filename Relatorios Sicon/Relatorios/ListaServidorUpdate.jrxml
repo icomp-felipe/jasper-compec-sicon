@@ -56,7 +56,7 @@
 		<band height="135" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
-				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="800" height="95" uuid="0cde5cff-fda2-4685-9b50-73cc2393f58c">
+				<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="800" height="95" uuid="0cde5cff-fda2-4685-9b50-73cc2393f58c">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<imageExpression><![CDATA[$P{PAR_LOGO}]]></imageExpression>
