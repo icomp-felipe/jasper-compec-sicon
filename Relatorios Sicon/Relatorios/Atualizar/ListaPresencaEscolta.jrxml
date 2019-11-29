@@ -80,9 +80,9 @@
 from colaborador c, funcao f, inscricao i
 where c.idColaborador = i.idColaborador
   and f.idFuncao = i.idFuncao
-  and f.idFuncao not in (36,41)
+  and f.idFuncao = 41
   and i.idconcurso = $P{TABLE_CONCURSO}
-  and i.idinstituicaoopcao1 = $P{TABLE_INSTITUICAO}
+  and i.idinstituicaoopcao1 = 4
 order by i.tipoinscricao, FUNCAO, NOME]]>
 		</queryString>
 		<field name="NOME" class="java.lang.String"/>
@@ -102,7 +102,7 @@ order by i.tipoinscricao, FUNCAO, NOME]]>
 		<![CDATA[select c.descricao as SQL_CONCURSO, i.nome as SQL_INSTITUICAO
 from concurso c, instituicao i
 where c.idconcurso = $P{PAR_CONCURSO}
-  and i.idinstituicao = $P{PAR_INSTITUICAO}]]>
+  and i.idinstituicao = 4]]>
 	</queryString>
 	<field name="SQL_CONCURSO" class="java.lang.String"/>
 	<field name="SQL_INSTITUICAO" class="java.lang.String"/>
