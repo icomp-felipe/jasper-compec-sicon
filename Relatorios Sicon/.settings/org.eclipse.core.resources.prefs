@@ -1,7 +1,6 @@
 eclipse.preferences.version=1
 encoding//Relatorios/Atualizar/FichaInstituicao.jrxml=UTF-8
 encoding//Relatorios/Atualizar/FichaInstituicaoResumo.jrxml=UTF-8
-encoding//Relatorios/Atualizar/FolhaPagamentoExterno.jrxml=UTF-8
 encoding//Relatorios/Atualizar/FolhaPagamentoExterno2.jrxml=UTF-8
 encoding//Relatorios/Atualizar/FolhaPagamentoPM.jrxml=UTF-8
 encoding//Relatorios/Atualizar/ListaDadosColaborador.jrxml=UTF-8
@@ -15,6 +14,7 @@ encoding//Relatorios/FichaColaborador.jrxml=UTF-8
 encoding//Relatorios/FichaLocalProva.jrxml=UTF-8
 encoding//Relatorios/FolhaPagamentoServidorFederal.jrxml=UTF-8
 encoding//Relatorios/HistoricoColaborador.jrxml=UTF-8
+encoding//Relatorios/LC.jrxml=UTF-8
 encoding//Relatorios/ListaColaboradorFuncao.jrxml=UTF-8
 encoding//Relatorios/ListaColaboradorFuncaoMaps.jrxml=UTF-8
 encoding//Relatorios/ListaPISInvalido.jrxml=UTF-8
