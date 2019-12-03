@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LC Policiamento (Geral)" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="00f41a4a-8156-4bc1-a848-71fb48e494f1">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon Online"/>
@@ -146,17 +146,14 @@ order by COLAB_NOME]]>
 	</subDataset>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_CONC_COD" class="java.lang.Integer"/>
-	<parameter name="PAR_INST_COD" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select c.descricao AS CONCURSO, DATE_FORMAT(e.data_realizacao,'%d/%m/%Y') AS DATA_REALIZACAO, i.nome as INSTITUICAO
-from concurso c, etapa e, instituicao i
+		<![CDATA[select c.descricao AS CONCURSO, DATE_FORMAT(e.data_realizacao,'%d/%m/%Y') AS DATA_REALIZACAO
+from concurso c, etapa e
 where c.idconcurso=e.idconcurso
-  and c.idconcurso=$P{PAR_CONC_COD}
-  and i.idinstituicao=$P{PAR_INST_COD}]]>
+  and c.idconcurso=$P{PAR_CONC_COD}]]>
 	</queryString>
 	<field name="CONCURSO" class="java.lang.String"/>
 	<field name="DATA_REALIZACAO" class="java.lang.String"/>
-	<field name="INSTITUICAO" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -232,7 +229,7 @@ where c.idconcurso=e.idconcurso
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="Blank">
-					<datasetRun subDataset="LCDataset" uuid="f254f0b8-163b-4ddb-9449-80cf73b06088">
+					<datasetRun subDataset="LCDataset" uuid="2d40990a-8d60-4249-830c-9fa3404e777c">
 						<datasetParameter name="TABLE_CONCURSO">
 							<datasetParameterExpression><![CDATA[$P{PAR_CONC_COD}]]></datasetParameterExpression>
 						</datasetParameter>

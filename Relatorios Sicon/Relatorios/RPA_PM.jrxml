@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPA Coordenação PM" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="331c611e-9a05-4f6f-9858-8c0ae81a1a5b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon"/>
@@ -48,21 +48,17 @@
 	</scriptlet>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_ID_ETAPA" class="java.lang.Integer"/>
-	<parameter name="PAR_ID_INSTITUICAO" class="java.lang.Integer"/>
 	<parameter name="PAR_CONC_NOME" class="java.lang.String"/>
 	<parameter name="PAR_CONC_DATA" class="java.util.Date"/>
-	<parameter name="PAR_INST_NOME" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[select colab.nome as COLAB_NOME, colab.pispasep as COLAB_PIS, colab.cpf as COLAB_CPF, colab.doc_identidade as COLAB_RG, colab.orgao_identidade as COLAB_ORGAO, func.descricao as FUNCAO_NOME, conf.remuneracaodia AS VALOR_BRUTO, ROUND(conf.remuneracaodia * 0.11,2) as DESC_INSS, ROUND(conf.remuneracaodia * 0.05,2) as DESC_ISS, ROUND(conf.remuneracaodia - ROUND(conf.remuneracaodia * 0.11,2) - ROUND(conf.remuneracaodia * 0.05,2),2) as VALOR_LIQUIDO
 from inscricao insc, colaborador colab, funcao func, config_concurso conf
-where   insc.idetapa=$P{PAR_ID_ETAPA}
-	and insc.idinstituicaoopcao1=$P{PAR_ID_INSTITUICAO}
+where   insc.idetapa = $P{PAR_ID_ETAPA}
+    and insc.idFuncao = 36
     and insc.idColaborador = colab.idColaborador
     and insc.idFuncao = func.idFuncao
     and insc.idFuncao = conf.idFuncao
-    and insc.idFuncao = 36
-    and conf.idetapa=$P{PAR_ID_ETAPA}
-    and conf.idinstituicao=$P{PAR_ID_INSTITUICAO}
+    and conf.idetapa=insc.idetapa
     and colab.tipo_vinculo not in (1,4)
 order by COLAB_NOME]]>
 	</queryString>
@@ -107,7 +103,7 @@ order by COLAB_NOME]]>
 		<variableExpression><![CDATA[$F{DESC_INSS} + $F{DESC_ISS}]]></variableExpression>
 	</variable>
 	<variable name="VAR_MAIN_TEXT" class="java.lang.String">
-		<variableExpression><![CDATA["&#09;Recebi da <b>Fundação Universidade do Amazonas</b>, CNPJ <b>04.378.626/0001-97</b>, a importância líquida de <b>" + NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($F{VALOR_LIQUIDO}) + " (" + $P{JASPER_DRIVER_SCRIPTLET}.getExtenso($F{VALOR_LIQUIDO}) + ")</b>, pela prestação de serviços como <b>" + $F{FUNCAO_NOME} + "</b> no <b>" + $P{PAR_CONC_NOME} + "</b>, realizado pela Comissão Permanente de Concursos – COMPEC/UFAM no dia <b>" + new SimpleDateFormat("dd/MM/yyyy",new Locale("pt","BR")).format($P{PAR_CONC_DATA}) + "</b> no(a) <b>" + $P{PAR_INST_NOME} + "</b>. Será efetuado o recolhimento dos impostos discriminados abaixo."]]></variableExpression>
+		<variableExpression><![CDATA["&#09;Recebi da <b>Fundação Universidade do Amazonas</b>, CNPJ <b>04.378.626/0001-97</b>, a importância líquida de <b>" + NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($F{VALOR_LIQUIDO}) + " (" + $P{JASPER_DRIVER_SCRIPTLET}.getExtenso($F{VALOR_LIQUIDO}) + ")</b>, pela prestação de serviços como <b>" + $F{FUNCAO_NOME} + "</b> no <b>" + $P{PAR_CONC_NOME} + "</b>, realizado pela Comissão Permanente de Concursos – COMPEC/UFAM no dia <b>" + new SimpleDateFormat("dd/MM/yyyy",new Locale("pt","BR")).format($P{PAR_CONC_DATA}) + "</b>. Será efetuado o recolhimento dos impostos discriminados abaixo."]]></variableExpression>
 	</variable>
 	<variable name="VAR_VALOR_BRUTO" class="java.lang.String">
 		<variableExpression><![CDATA[NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($F{VALOR_BRUTO})]]></variableExpression>
