@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPA" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="331c611e-9a05-4f6f-9858-8c0ae81a1a5b">
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPA Coordenação PM" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="331c611e-9a05-4f6f-9858-8c0ae81a1a5b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon"/>
-	<style name="TABLE_CONTEUDO" mode="Opaque" backcolor="#FFFFFF" hTextAlign="Center" vTextAlign="Middle">
+	<style name="TABLE_CONTEUDO" mode="Opaque" backcolor="#FFFFFF" hTextAlign="Center" vTextAlign="Middle" fontName="DejaVu">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -12,7 +12,7 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="TABLE_TITLE" mode="Opaque" backcolor="#BFE1FF" vTextAlign="Middle">
+	<style name="TABLE_TITLE" mode="Opaque" backcolor="#BFE1FF" vTextAlign="Middle" fontName="DejaVu">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -21,7 +21,7 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="TABLE_COLUNAS" mode="Opaque" backcolor="#FFFFFF" vTextAlign="Middle" fontSize="9" isBold="true">
+	<style name="TABLE_COLUNAS" mode="Opaque" backcolor="#FFFFFF" vTextAlign="Middle" fontName="DejaVu" fontSize="9" isBold="true">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -30,9 +30,9 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="COLAB_TITULOS" hTextAlign="Right" vTextAlign="Middle" fontSize="11" isBold="true"/>
-	<style name="COLAB_CONTEUDO" hTextAlign="Left" vTextAlign="Middle" isBlankWhenNull="true" fontSize="11"/>
-	<style name="ASSINATURAS" hTextAlign="Center" fontSize="7"/>
+	<style name="COLAB_TITULOS" hTextAlign="Right" vTextAlign="Middle" fontName="DejaVu" fontSize="11" isBold="true"/>
+	<style name="COLAB_CONTEUDO" hTextAlign="Left" vTextAlign="Middle" isBlankWhenNull="true" fontName="DejaVu" fontSize="11"/>
+	<style name="ASSINATURAS" hTextAlign="Center" fontName="DejaVu" fontSize="7"/>
 	<subDataset name="Calculos" uuid="5d047050-9a48-4660-ba3a-c889991cc668">
 		<parameter name="TABLE_VAL_BRUTO" class="java.lang.String"/>
 		<parameter name="TABLE_DESC_INSS" class="java.lang.String"/>
@@ -107,7 +107,7 @@ order by COLAB_NOME]]>
 		<variableExpression><![CDATA[$F{DESC_INSS} + $F{DESC_ISS}]]></variableExpression>
 	</variable>
 	<variable name="VAR_MAIN_TEXT" class="java.lang.String">
-		<variableExpression><![CDATA["&#09;Recebi da <b>Fundação Universidade do Amazonas</b>, CNPJ <b>04.378.626/0001-97</b>, a importância líquida de <b>" + NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($F{VALOR_LIQUIDO}) + " (" + $P{JASPER_DRIVER_SCRIPTLET}.getExtenso($F{VALOR_LIQUIDO}) + ")</b>, pela prestação de serviços como <b>" + $F{FUNCAO_NOME} + "</b> no <b>" + $P{PAR_CONC_NOME} + "</b>, realizado pela Comissão Permanente de Concursos – COMPEC/UFAM no dia <b>" + new SimpleDateFormat("dd/MM/yyyy",new Locale("pt","BR")).format($P{PAR_CONC_DATA}) + "</b> no <b>" + $P{PAR_INST_NOME} + "</b>. Será efetuado o recolhimento dos impostos discriminados abaixo."]]></variableExpression>
+		<variableExpression><![CDATA["&#09;Recebi da <b>Fundação Universidade do Amazonas</b>, CNPJ <b>04.378.626/0001-97</b>, a importância líquida de <b>" + NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($F{VALOR_LIQUIDO}) + " (" + $P{JASPER_DRIVER_SCRIPTLET}.getExtenso($F{VALOR_LIQUIDO}) + ")</b>, pela prestação de serviços como <b>" + $F{FUNCAO_NOME} + "</b> no <b>" + $P{PAR_CONC_NOME} + "</b>, realizado pela Comissão Permanente de Concursos – COMPEC/UFAM no dia <b>" + new SimpleDateFormat("dd/MM/yyyy",new Locale("pt","BR")).format($P{PAR_CONC_DATA}) + "</b> no(a) <b>" + $P{PAR_INST_NOME} + "</b>. Será efetuado o recolhimento dos impostos discriminados abaixo."]]></variableExpression>
 	</variable>
 	<variable name="VAR_VALOR_BRUTO" class="java.lang.String">
 		<variableExpression><![CDATA[NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($F{VALOR_BRUTO})]]></variableExpression>
@@ -148,7 +148,7 @@ order by COLAB_NOME]]>
 			<staticText>
 				<reportElement x="107" y="70" width="340" height="20" uuid="a3f57c23-ef89-4768-b7e6-f0033add7b31"/>
 				<textElement textAlignment="Center">
-					<font size="13" isBold="true" isUnderline="true"/>
+					<font fontName="DejaVu" size="13" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Recibo de Pagamento a Autônomo (RPA)]]></text>
 			</staticText>
@@ -158,14 +158,14 @@ order by COLAB_NOME]]>
 			<staticText>
 				<reportElement x="469" y="73" width="89" height="11" uuid="47591da5-0c2c-4b3e-8c3d-c1fe5fd06a84"/>
 				<textElement textAlignment="Center">
-					<font size="9" isBold="true"/>
+					<font fontName="DejaVu" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[VIA COMPEC]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="0" y="99" width="560" height="90" uuid="6adeae7e-c0f2-488a-938c-541f2ae39a31"/>
 				<textElement textAlignment="Justified" markup="html">
-					<font size="12"/>
+					<font fontName="DejaVu" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{VAR_MAIN_TEXT}]]></textFieldExpression>
 			</textField>
@@ -306,7 +306,7 @@ order by COLAB_NOME]]>
 			<staticText>
 				<reportElement x="142" y="261" width="270" height="15" uuid="2f8b0ba2-2dec-4b6b-b65c-d4e75fdc295c"/>
 				<textElement textAlignment="Center">
-					<font size="11" isBold="true"/>
+					<font fontName="DejaVu" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Identificação do Prestador de Serviços]]></text>
 			</staticText>
@@ -353,7 +353,7 @@ order by COLAB_NOME]]>
 			<textField>
 				<reportElement x="0" y="332" width="218" height="15" uuid="c29786e5-95fa-4359-ad3f-a98ce613cfd9"/>
 				<textElement>
-					<font size="11"/>
+					<font fontName="DejaVu" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{VAR_LOCAL_DATA}]]></textFieldExpression>
 			</textField>
@@ -392,7 +392,7 @@ order by COLAB_NOME]]>
 			<staticText>
 				<reportElement x="4" y="240" width="476" height="10" uuid="74a9c22c-034e-4baa-b5ee-a97eeace8b52"/>
 				<textElement>
-					<font size="8"/>
+					<font fontName="DejaVu" size="8"/>
 				</textElement>
 				<text><![CDATA[* Todos os descontos são calculados com base no valor bruto deste RPA.]]></text>
 			</staticText>
@@ -409,7 +409,7 @@ order by COLAB_NOME]]>
 			<staticText>
 				<reportElement x="108" y="470" width="340" height="20" uuid="22f79055-0359-47b4-9f5d-590c06105e26"/>
 				<textElement textAlignment="Center">
-					<font size="13" isBold="true" isUnderline="true"/>
+					<font fontName="DejaVu" size="13" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Recibo de Pagamento a Autônomo (RPA)]]></text>
 			</staticText>
@@ -419,14 +419,14 @@ order by COLAB_NOME]]>
 			<staticText>
 				<reportElement x="470" y="473" width="89" height="11" uuid="8d1525c6-0695-4fd4-a4b7-f9728b815daf"/>
 				<textElement textAlignment="Center">
-					<font size="9" isBold="true"/>
+					<font fontName="DejaVu" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[VIA PRESTADOR]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="1" y="499" width="560" height="90" uuid="95cdd55e-58a7-4de8-97d2-544dfd8eef3c"/>
 				<textElement textAlignment="Justified" markup="html">
-					<font size="12"/>
+					<font fontName="DejaVu" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{VAR_MAIN_TEXT}]]></textFieldExpression>
 			</textField>
@@ -567,7 +567,7 @@ order by COLAB_NOME]]>
 			<staticText>
 				<reportElement x="143" y="661" width="270" height="15" uuid="18bc7944-217b-456f-b094-4cb6dab7ee05"/>
 				<textElement textAlignment="Center">
-					<font size="11" isBold="true"/>
+					<font fontName="DejaVu" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Identificação do Prestador de Serviços]]></text>
 			</staticText>
@@ -614,7 +614,7 @@ order by COLAB_NOME]]>
 			<textField>
 				<reportElement x="1" y="732" width="218" height="15" uuid="045f51a9-e57f-4220-9b44-05d8dc79e5a9"/>
 				<textElement>
-					<font size="11"/>
+					<font fontName="DejaVu" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{VAR_LOCAL_DATA}]]></textFieldExpression>
 			</textField>
@@ -645,7 +645,7 @@ order by COLAB_NOME]]>
 			<staticText>
 				<reportElement x="5" y="640" width="476" height="10" uuid="5b0e6c52-38de-4a4c-b32e-e6789b1d46f9"/>
 				<textElement>
-					<font size="8"/>
+					<font fontName="DejaVu" size="8"/>
 				</textElement>
 				<text><![CDATA[* Todos os descontos são calculados com base no valor bruto deste RPA.]]></text>
 			</staticText>
@@ -657,12 +657,16 @@ order by COLAB_NOME]]>
 			</line>
 			<textField>
 				<reportElement x="459" y="365" width="100" height="16" uuid="19f2a291-11c7-4a3b-8bd2-e9a3e70f3e93"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="459" y="765" width="100" height="16" uuid="26aa1d09-1a38-467f-a3f9-03f92a625389"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
