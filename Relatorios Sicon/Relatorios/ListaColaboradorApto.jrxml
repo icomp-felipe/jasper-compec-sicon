@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaServidorUpdate" pageWidth="842" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="009f7ba2-334c-4bd3-a6a1-b9fcc23d991f">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaColaboradorApto" pageWidth="842" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="009f7ba2-334c-4bd3-a6a1-b9fcc23d991f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PIS Inválido"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
-	<style name="Table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+	<style name="Table 3_CH" mode="Opaque" backcolor="#BFE1FF" fontName="DejaVu">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -13,7 +13,7 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+	<style name="Table 3_TD" mode="Opaque" backcolor="#FFFFFF" fontName="DejaVu">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -31,14 +31,14 @@
 		<paragraph leftIndent="0"/>
 	</style>
 	<style name="Rodapé" fontName="DejaVu" fontSize="10"/>
-	<subDataset name="ListaServidorUpdateDataset" uuid="c5f437a3-021a-4cca-905e-a15b65013dd6">
+	<subDataset name="ListaColaboradorAptoDataset" uuid="c5f437a3-021a-4cca-905e-a15b65013dd6">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
 		<field name="jasperNome" class="java.lang.String"/>
-		<field name="jasperTipoVinculo" class="java.lang.Character"/>
+		<field name="jasperTipoVinculo" class="java.lang.String"/>
 		<field name="jasperCelular" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
@@ -50,7 +50,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="135" splitType="Stretch">
+		<band height="160" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
 				<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="800" height="95" uuid="0cde5cff-fda2-4685-9b50-73cc2393f58c">
@@ -65,10 +65,20 @@
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
-					<font fontName="DejaVu Sans" size="14" isBold="true"/>
+					<font fontName="DejaVu" size="15" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lista de Colaboradores aptos a trabalhar em concursos]]></text>
 			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="0" y="140" width="801" height="15" uuid="1fa15531-1deb-446a-8381-b18cdbc9b598">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement markup="html">
+					<font fontName="DejaVu" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>* Listagem extraída em: </b>" + new SimpleDateFormat("dd/MM/yyyy 'às' HH:mm:ss", new Locale("pt","BR")).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<detail>
@@ -80,7 +90,7 @@
 					<property name="net.sf.jasperreports.export.headertoolbar.table.name" value=""/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="ListaServidorUpdateDataset" uuid="50100481-f283-434c-bd6b-9b3638a433aa">
+					<datasetRun subDataset="ListaColaboradorAptoDataset" uuid="50100481-f283-434c-bd6b-9b3638a433aa">
 						<dataSourceExpression><![CDATA[$P{PAR_LISTA}]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="40" uuid="383289b9-1989-4672-912b-e5f9fdd0c63f">
@@ -97,7 +107,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="18">
 							<textField textAdjust="StretchHeight">
-								<reportElement x="0" y="0" width="40" height="18" uuid="29f086f4-7fe1-40d9-a783-6612090b9106"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="40" height="18" uuid="29f086f4-7fe1-40d9-a783-6612090b9106"/>
 								<box topPadding="5" leftPadding="5" bottomPadding="5" rightPadding="5"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="10"/>
@@ -106,11 +116,11 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="610" uuid="f326c2ea-91f0-4d3d-84b5-65234aca0736">
+					<jr:column width="490" uuid="f326c2ea-91f0-4d3d-84b5-65234aca0736">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnHeader style="Table 3_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="610" height="18" uuid="babe1417-c9ba-4d45-a40f-7f1158c08c3f"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="490" height="18" uuid="babe1417-c9ba-4d45-a40f-7f1158c08c3f"/>
 								<box topPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="10" isBold="true"/>
@@ -120,28 +130,28 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="18">
 							<textField textAdjust="StretchHeight">
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="610" height="18" uuid="310f4d5b-40b3-4521-ba73-67947db50ae3"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="490" height="18" uuid="310f4d5b-40b3-4521-ba73-67947db50ae3"/>
 								<box leftPadding="5"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{jasperNome}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="40" uuid="49e82a39-4a51-4b0b-b598-c0f230ea28f5">
+					<jr:column width="160" uuid="49e82a39-4a51-4b0b-b598-c0f230ea28f5">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:columnHeader style="Table 3_CH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="40" height="18" uuid="e3be6f18-dc83-4ced-a7f8-7818a5b51c21"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="160" height="18" uuid="e3be6f18-dc83-4ced-a7f8-7818a5b51c21"/>
 								<box topPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="10" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Tipo]]></text>
+								<text><![CDATA[Tipo de Vínculo]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="18">
 							<textField>
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="40" height="18" uuid="70c9feca-a240-44b2-af5d-0f10b2576f0c"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="160" height="18" uuid="70c9feca-a240-44b2-af5d-0f10b2576f0c"/>
 								<box leftPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{jasperTipoVinculo}]]></textFieldExpression>
