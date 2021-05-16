@@ -1,5 +1,4 @@
 eclipse.preferences.version=1
-encoding//Relatorios/Atualizar/FichaInstituicao.jrxml=UTF-8
 encoding//Relatorios/Atualizar/FichaInstituicaoResumo.jrxml=UTF-8
 encoding//Relatorios/Atualizar/ListaDadosColaborador.jrxml=UTF-8
 encoding//Relatorios/Atualizar/ListaEntregaFolder.jrxml=UTF-8
@@ -7,6 +6,7 @@ encoding//Relatorios/Atualizar/ListaPresencaCI.jrxml=UTF-8
 encoding//Relatorios/Atualizar/ListaPresencaEscolta.jrxml=UTF-8
 encoding//Relatorios/Atualizar/ListaPresencaFiscal.jrxml=UTF-8
 encoding//Relatorios/FichaColaborador.jrxml=UTF-8
+encoding//Relatorios/FichaInstituicao.jrxml=UTF-8
 encoding//Relatorios/FichaLocalProva.jrxml=UTF-8
 encoding//Relatorios/FolhaPagamentoServidorFederal.jrxml=UTF-8
 encoding//Relatorios/HistoricoColaborador.jrxml=UTF-8
