@@ -273,7 +273,7 @@
 					<text><![CDATA[Celular Institucional:]]></text>
 				</staticText>
 				<textField isBlankWhenNull="true">
-					<reportElement key="" style="Texto Dinâmico" x="380" y="255" width="100" height="15" uuid="18942069-d374-436c-941d-d8724c60e23c">
+					<reportElement key="" style="Texto Dinâmico" x="380" y="255" width="110" height="15" uuid="18942069-d374-436c-941d-d8724c60e23c">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
