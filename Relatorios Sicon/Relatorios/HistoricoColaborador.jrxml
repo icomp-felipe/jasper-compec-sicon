@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HistoricoColaborador" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0417783b-14c1-4388-9568-080baeeded93">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -11,7 +11,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -54,10 +54,10 @@
 			<parameterDescription><![CDATA[]]></parameterDescription>
 		</parameter>
 		<queryString>
-			<![CDATA[select con.descricao as NOME_CONCURSO, inst.nome as NOME_INSTITUICAO, fun.descricao as FUNCAO, date_format(insc.dt_hr,'%d/%m/%Y - %H:%i:%s') as DATA_INSCRICAO
+			<![CDATA[select con.descricao as NOME_CONCURSO, inst.inst_nome as NOME_INSTITUICAO, fun.descricao as FUNCAO, date_format(insc.dt_hr,'%d/%m/%Y - %H:%i:%s') as DATA_INSCRICAO
 from colaborador col, instituicao inst, concurso con, funcao fun, inscricao insc
 where insc.idColaborador = col.idColaborador
-  and insc.idinstituicaoopcao1 = inst.idinstituicao
+  and insc.idinstituicaoopcao1 = inst.inst_id_pk
   and insc.idconcurso = con.idconcurso
   and insc.idFuncao = fun.idFuncao
   and insc.idColaborador = $P!{TABLE_ID_COLABORADOR}
@@ -132,7 +132,7 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="270" height="20" uuid="c96bd75f-273f-495b-a9df-85eedccb5f54"/>
 								<textFieldExpression><![CDATA[$F{NOME_CONCURSO}]]></textFieldExpression>
 							</textField>
@@ -147,7 +147,7 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="240" height="20" uuid="ab9a3be6-fd4d-4aba-9956-b350ee459088"/>
 								<textFieldExpression><![CDATA[$F{NOME_INSTITUICAO}]]></textFieldExpression>
 							</textField>
@@ -163,7 +163,7 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="140" height="20" uuid="6aba6f0a-a861-4282-a175-982bf0272c2a"/>
 								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{FUNCAO}]]></textFieldExpression>
