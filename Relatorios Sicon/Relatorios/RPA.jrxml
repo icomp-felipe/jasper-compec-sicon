@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPA" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="331c611e-9a05-4f6f-9858-8c0ae81a1a5b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (WEB)"/>
 	<style name="TABLE_CONTEUDO" mode="Opaque" backcolor="#FFFFFF" hTextAlign="Center" vTextAlign="Middle" fontName="DejaVu">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -47,23 +47,25 @@
 		<scriptletDescription><![CDATA[]]></scriptletDescription>
 	</scriptlet>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
-	<parameter name="PAR_ID_ETAPA" class="java.lang.Integer"/>
-	<parameter name="PAR_ID_INSTITUICAO" class="java.lang.Integer"/>
+	<parameter name="PAR_ETAPA_ID" class="java.lang.Integer"/>
+	<parameter name="PAR_INST_ID" class="java.lang.Integer"/>
+	<parameter name="PAR_INST_MUNICIPIO" class="java.lang.String"/>
+	<parameter name="PAR_INST_UF" class="java.lang.String"/>
 	<parameter name="PAR_CONC_NOME" class="java.lang.String"/>
 	<parameter name="PAR_CONC_DATA" class="java.util.Date"/>
 	<parameter name="PAR_INST_NOME" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[select colab.nome as COLAB_NOME, colab.pispasep as COLAB_PIS, colab.cpf as COLAB_CPF, colab.doc_identidade as COLAB_RG, colab.orgao_identidade as COLAB_ORGAO, func.descricao as FUNCAO_NOME, conf.remuneracaodia AS VALOR_BRUTO, ROUND(conf.remuneracaodia * 0.11,2) as DESC_INSS, ROUND(conf.remuneracaodia * 0.05,2) as DESC_ISS, ROUND(conf.remuneracaodia - ROUND(conf.remuneracaodia * 0.11,2) - ROUND(conf.remuneracaodia * 0.05,2),2) as VALOR_LIQUIDO
 from inscricao insc, colaborador colab, funcao func, config_concurso conf
-where   insc.idetapa=$P{PAR_ID_ETAPA}
-	and insc.idinstituicaoopcao1=$P{PAR_ID_INSTITUICAO}
+where   insc.idetapa = $P{PAR_ETAPA_ID}
+	and insc.idinstituicaoopcao1 = $P{PAR_INST_ID}
     and insc.idColaborador = colab.idColaborador
     and insc.idFuncao = func.idFuncao
     and insc.idFuncao = conf.idFuncao
     and insc.idFuncao not in (36)
-    and conf.idetapa=$P{PAR_ID_ETAPA}
-    and conf.idinstituicao=$P{PAR_ID_INSTITUICAO}
-    and colab.tipo_vinculo not in (1,4)
+    and conf.idetapa = $P{PAR_ETAPA_ID}
+    and conf.idinstituicao = $P{PAR_INST_ID}
+    and colab.colab_categoria_id not in (1,4)
 order by COLAB_NOME]]>
 	</queryString>
 	<field name="COLAB_NOME" class="java.lang.String">
@@ -134,7 +136,7 @@ order by COLAB_NOME]]>
 		<variableExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatCPF($F{COLAB_CPF})]]></variableExpression>
 	</variable>
 	<variable name="VAR_LOCAL_DATA" class="java.lang.String">
-		<variableExpression><![CDATA["Manaus-AM, " + new SimpleDateFormat("dd 'de' MMMM 'de' yyyy",new Locale("pt","BR")).format($P{PAR_CONC_DATA})]]></variableExpression>
+		<variableExpression><![CDATA[$P{PAR_INST_MUNICIPIO} + " - " + $P{PAR_INST_UF} + ", " + new SimpleDateFormat("dd 'de' MMMM 'de' yyyy",new Locale("pt","BR")).format($P{PAR_CONC_DATA})]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -350,8 +352,10 @@ order by COLAB_NOME]]>
 				<reportElement style="COLAB_CONTEUDO" x="464" y="301" width="90" height="15" uuid="d9f905f3-3cb2-455b-942e-2f03b6e3a12e"/>
 				<textFieldExpression><![CDATA[$F{COLAB_ORGAO}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="0" y="332" width="218" height="15" uuid="c29786e5-95fa-4359-ad3f-a98ce613cfd9"/>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="0" y="332" width="218" height="15" uuid="c29786e5-95fa-4359-ad3f-a98ce613cfd9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement>
 					<font fontName="DejaVu" size="11"/>
 				</textElement>
@@ -611,8 +615,10 @@ order by COLAB_NOME]]>
 				<reportElement style="COLAB_CONTEUDO" x="465" y="701" width="90" height="15" uuid="21bc471f-6b1b-4f9a-b590-1ec7ad99b7ad"/>
 				<textFieldExpression><![CDATA[$F{COLAB_ORGAO}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="1" y="732" width="218" height="15" uuid="045f51a9-e57f-4220-9b44-05d8dc79e5a9"/>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="1" y="732" width="218" height="15" uuid="045f51a9-e57f-4220-9b44-05d8dc79e5a9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement>
 					<font fontName="DejaVu" size="11"/>
 				</textElement>
