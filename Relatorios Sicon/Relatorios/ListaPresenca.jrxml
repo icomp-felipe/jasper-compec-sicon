@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaPresenca" pageWidth="842" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="009f7ba2-334c-4bd3-a6a1-b9fcc23d991f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon Online"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (WEB)"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -76,14 +76,15 @@
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select c.nome as NOME, c.cpf as ID, f.nome as FUNCAO, case i.tipoinscricao when 1 then 'NET' else 'INT' end as TIPO, c.banco as BANCO, c.agencia as AGENCIA, c.contacorrente as CONTA
-from colaborador c, funcao f, inscricao i
+			<![CDATA[select c.nome as NOME, c.cpf as ID, f.nome as FUNCAO, case i.tipoinscricao when 1 then 'NET' else 'INT' end as TIPO, b.banco_nome as BANCO, c.agencia as AGENCIA, c.contacorrente as CONTA
+from colaborador c, funcao f, inscricao i, banco b
 where c.idColaborador = i.idColaborador
   and f.idFuncao = i.idFuncao
   and f.idFuncao not in (36,41)
   and i.idconcurso = $P{TABLE_CONCURSO}
+  and c.colab_banco_id = b.banco_id_pk
   and i.idinstituicaoopcao1 = $P{TABLE_INSTITUICAO}
-order by i.tipoinscricao, FUNCAO, NOME]]>
+order by TIPO, FUNCAO, NOME]]>
 		</queryString>
 		<field name="NOME" class="java.lang.String"/>
 		<field name="ID" class="java.lang.Long"/>
@@ -97,15 +98,40 @@ order by i.tipoinscricao, FUNCAO, NOME]]>
 	<parameter name="PAR_CONCURSO" class="java.lang.Integer"/>
 	<parameter name="PAR_INSTITUICAO" class="java.lang.Integer"/>
 	<parameter name="PAR_OBS" class="java.lang.String"/>
-	<parameter name="PAR_DATA_CONCURSO" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select c.descricao as SQL_CONCURSO, i.nome as SQL_INSTITUICAO
-from concurso c, instituicao i
+		<![CDATA[select c.descricao as SQL_CONCURSO, e.data_realizacao as SQL_DATA, i.inst_nome as SQL_INSTITUICAO, m.muni_nome as SQL_MUNICIPIO, u.uf_sigla as SQL_UF
+from concurso c, instituicao i, municipio m, uf u, etapa e
 where c.idconcurso = $P{PAR_CONCURSO}
-  and i.idinstituicao = $P{PAR_INSTITUICAO}]]>
+  and i.inst_id_pk = $P{PAR_INSTITUICAO}
+  and c.idconcurso = e.idconcurso
+  and i.inst_municipio_id = m.muni_id_pk
+  and i.inst_uf_id = u.uf_id_pk]]>
 	</queryString>
-	<field name="SQL_CONCURSO" class="java.lang.String"/>
-	<field name="SQL_INSTITUICAO" class="java.lang.String"/>
+	<field name="SQL_CONCURSO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.label" value="SQL_CONCURSO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
+	</field>
+	<field name="SQL_DATA" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="data_realizacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="SQL_DATA"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="etapa"/>
+	</field>
+	<field name="SQL_INSTITUICAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="inst_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="SQL_INSTITUICAO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="instituicao"/>
+	</field>
+	<field name="SQL_MUNICIPIO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="muni_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="SQL_MUNICIPIO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="municipio"/>
+	</field>
+	<field name="SQL_UF" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="uf_sigla"/>
+		<property name="com.jaspersoft.studio.field.label" value="SQL_UF"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="uf"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -125,9 +151,10 @@ where c.idconcurso = $P{PAR_CONCURSO}
 				<textFieldExpression><![CDATA[$F{SQL_CONCURSO}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Título" x="0" y="105" width="801" height="20" uuid="921da31f-3668-4f79-a0e0-b3e2cbc66a9c">
+				<reportElement style="Título" x="0" y="105" width="800" height="20" uuid="921da31f-3668-4f79-a0e0-b3e2cbc66a9c">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<text><![CDATA[Lista de Presença de Colaborador]]></text>
 			</staticText>
@@ -135,7 +162,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 				<reportElement style="Identificações" x="0" y="155" width="560" height="15" uuid="c242f3f1-c4f1-4c31-a9dc-cd6d32056bad">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{SQL_INSTITUICAO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{SQL_INSTITUICAO} + " (" + $F{SQL_MUNICIPIO} + " - " + $F{SQL_UF} + ")"]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy à&apos;s&apos; HH:mm:ss">
 				<reportElement style="Identificações" x="580" y="155" width="221" height="15" uuid="4cb54b2a-ca54-4276-9064-b12d5515016a">
@@ -153,12 +180,13 @@ where c.idconcurso = $P{PAR_CONCURSO}
 				<textElement textAlignment="Left" markup="html">
 					<font size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b>Data de Realização: </b>" + $P{PAR_DATA_CONCURSO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Data de Realização: </b>" + new SimpleDateFormat("dd/MM/yyyy",new Locale("pt","BR")).format($F{SQL_DATA})]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
 	<detail>
-		<band height="50" splitType="Stretch">
+		<band height="55" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<componentElement>
 				<reportElement x="0" y="0" width="800" height="50" uuid="3cc53829-fa4a-4915-a057-8518c18f4670">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
@@ -182,7 +210,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="26">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="30" height="26" uuid="c105d90c-d268-4756-857e-8f6aaec9ecfe"/>
 								<box topPadding="5" leftPadding="5" bottomPadding="5" rightPadding="5"/>
 								<textElement textAlignment="Center"/>
@@ -199,7 +227,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="26">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="210" height="26" uuid="8e148ba4-4b70-4daf-adf5-fb84ed02015a"/>
 								<box topPadding="5" leftPadding="5" bottomPadding="5" rightPadding="5"/>
 								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{NOME})]]></textFieldExpression>
@@ -263,7 +291,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="26">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="90" height="26" uuid="96a55aad-24f0-4f95-a721-723c1bfb84f4"/>
 								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{FUNCAO}]]></textFieldExpression>
@@ -295,7 +323,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="26">
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="80" height="26" uuid="2f39eada-881f-4d58-8602-c21693eb6196"/>
 								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{BANCO}]]></textFieldExpression>
@@ -311,7 +339,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="26">
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="50" height="26" uuid="6689ed7c-5113-4da6-89ac-325a1068386c"/>
 								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{AGENCIA}]]></textFieldExpression>
@@ -327,7 +355,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="26">
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="80" height="26" uuid="f818e9d7-80b5-44cc-bf30-f1fc25b8522d"/>
 								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{CONTA}]]></textFieldExpression>
@@ -349,18 +377,20 @@ where c.idconcurso = $P{PAR_CONCURSO}
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="20" splitType="Stretch">
+		<band height="15" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement style="Rodapé" x="310" y="5" width="100" height="15" uuid="aa3b8dee-793b-4cb2-9054-25fc0de67723">
+				<reportElement style="Rodapé" x="310" y="0" width="100" height="15" uuid="aa3b8dee-793b-4cb2-9054-25fc0de67723">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement style="Rodapé" x="410" y="5" width="100" height="15" uuid="e545d702-704e-46bd-ae57-defcbaa13c6e">
+				<reportElement style="Rodapé" x="410" y="0" width="100" height="15" uuid="e545d702-704e-46bd-ae57-defcbaa13c6e">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
@@ -385,7 +415,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 					<printWhenExpression><![CDATA[($P{PAR_OBS} != null) && (!$P{PAR_OBS}.trim().equals(""))]]></printWhenExpression>
 				</reportElement>
 			</line>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement style="Identificações" positionType="Float" stretchType="ElementGroupHeight" x="3" y="36" width="798" height="15" isPrintWhenDetailOverflows="true" uuid="f1c98768-b28c-4119-be18-88dfc18ad0c2">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<printWhenExpression><![CDATA[($P{PAR_OBS} != null) && (!$P{PAR_OBS}.trim().equals(""))]]></printWhenExpression>
