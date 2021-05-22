@@ -88,7 +88,7 @@ where j.idinstituicaoopcao1 =  $P{TABLE_INSTITUICAO}
   and c.colab_categoria_id not in (1,4)
   and c.idColaborador=j.idColaborador
   and c.colab_banco_id = b.banco_id_pk
-  and g.idetapa=j.idetapa
+  and g.mapa_concurso_id = j.idconcurso
   and g.idFuncao=j.idFuncao
   and g.idFuncao not in (35,36,41)
   and g.idinstituicao=j.idinstituicaoopcao1
@@ -152,10 +152,9 @@ order by COLAB_NOME]]>
 	<parameter name="PAR_CONC_COD" class="java.lang.Integer"/>
 	<parameter name="PAR_INST_COD" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select c.descricao AS CONCURSO, DATE_FORMAT(e.data_realizacao,'%d/%m/%Y') AS DATA_REALIZACAO, i.inst_nome as INSTITUICAO, m.muni_nome as MUNICIPIO, u.uf_sigla as UF
-from concurso c, etapa e, instituicao i, municipio m, uf u
-where c.idconcurso=e.idconcurso
-  and i.inst_municipio_id = m.muni_id_pk
+		<![CDATA[select c.descricao AS CONCURSO, DATE_FORMAT(c.conc_data_realizacao,'%d/%m/%Y') AS DATA_REALIZACAO, i.inst_nome as INSTITUICAO, m.muni_nome as MUNICIPIO, u.uf_sigla as UF
+from concurso c, instituicao i, municipio m, uf u
+where i.inst_municipio_id = m.muni_id_pk
   and i.inst_uf_id = u.uf_id_pk
   and c.idconcurso = $P{PAR_CONC_COD}
   and i.inst_id_pk = $P{PAR_INST_COD}]]>

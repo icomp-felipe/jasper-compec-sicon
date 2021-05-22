@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FolhaPagamentoServidorExterno" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="00f41a4a-8156-4bc1-a848-71fb48e494f1">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon Online"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
@@ -83,12 +83,13 @@
 		</scriptlet>
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select c.nome AS COLAB_NOME, c.matriculaservidor as COLAB_SIAPE, c.orgaoservidor as COLAB_LOTACAO, c.cpf AS COLAB_CPF, c.banco as COLAB_BANCO, c.agencia as COLAB_AGENCIA, c.contacorrente as COLAB_CC, g.remuneracaodia AS VALOR_BRUTO
-	from colaborador c, config_concurso g, inscricao j
+			<![CDATA[select c.nome AS COLAB_NOME, c.matriculaservidor as COLAB_SIAPE, c.orgaoservidor as COLAB_LOTACAO, c.cpf AS COLAB_CPF, b.banco_nome as COLAB_BANCO, c.agencia as COLAB_AGENCIA, c.contacorrente as COLAB_CC, g.remuneracaodia AS VALOR_BRUTO
+	from colaborador c, config_concurso g, inscricao j, banco b
 where j.idconcurso = $P{TABLE_CONCURSO}
-  and c.tipo_vinculo = 1
+  and c.colab_categoria_id = 1
+  and c.colab_banco_id = b.banco_id_pk
   and c.idColaborador=j.idColaborador
-  and g.idetapa=j.idetapa
+  and g.mapa_concurso_id=j.idconcurso
   and g.idFuncao=j.idFuncao
   and g.idinstituicao=j.idinstituicaoopcao1
 order by VALOR_BRUTO DESC, COLAB_NOME]]>
@@ -132,10 +133,9 @@ order by VALOR_BRUTO DESC, COLAB_NOME]]>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_CONC_COD" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select c.descricao AS CONCURSO, DATE_FORMAT(e.data_realizacao,'%d/%m/%Y') AS DATA_REALIZACAO
-from concurso c, etapa e
-where c.idconcurso=e.idconcurso
-  and c.idconcurso=$P{PAR_CONC_COD}]]>
+		<![CDATA[select c.descricao AS CONCURSO, DATE_FORMAT(c.conc_data_realizacao,'%d/%m/%Y') AS DATA_REALIZACAO
+from concurso c
+where c.idconcurso=$P{PAR_CONC_COD}]]>
 	</queryString>
 	<field name="CONCURSO" class="java.lang.String"/>
 	<field name="DATA_REALIZACAO" class="java.lang.String"/>
@@ -224,7 +224,7 @@ where c.idconcurso=e.idconcurso
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="20">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="20" uuid="adf30c97-4ce9-4e32-887c-bfb6f0363192"/>
 								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 							</textField>
@@ -243,7 +243,7 @@ where c.idconcurso=e.idconcurso
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="20">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="200" height="20" uuid="e2b7f216-ae5f-4df4-836c-1c6c1733c74c"/>
 								<box leftPadding="5"/>
 								<textElement textAlignment="Left"/>
@@ -295,7 +295,7 @@ where c.idconcurso=e.idconcurso
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="20">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="20" uuid="281c6283-09c5-4856-9f59-523dedb4dbb0"/>
 								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatCPF($F{COLAB_CPF})]]></textFieldExpression>
 							</textField>
@@ -311,7 +311,7 @@ where c.idconcurso=e.idconcurso
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="20">
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="70" height="20" uuid="ecae0000-7129-469e-8262-5bfb4981ed7e"/>
 								<textFieldExpression><![CDATA[$F{COLAB_BANCO}]]></textFieldExpression>
 							</textField>
@@ -327,7 +327,7 @@ where c.idconcurso=e.idconcurso
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="20">
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="50" height="20" uuid="8892e286-4429-4c7d-87be-191defbd4d73"/>
 								<textFieldExpression><![CDATA[$F{COLAB_AGENCIA}]]></textFieldExpression>
 							</textField>
@@ -343,7 +343,7 @@ where c.idconcurso=e.idconcurso
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="20">
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="65" height="20" uuid="1b6aff72-b578-4fe4-ac6a-65f5809ca0c7"/>
 								<textFieldExpression><![CDATA[$F{COLAB_CC}]]></textFieldExpression>
 							</textField>
@@ -364,7 +364,7 @@ where c.idconcurso=e.idconcurso
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="20">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" stretchType="RelativeToBandHeight" x="0" y="0" width="60" height="20" uuid="0e300d4d-a6c4-4fcf-8bd4-8702c6a06b0a"/>
 								<textFieldExpression><![CDATA[NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($F{VALOR_BRUTO})]]></textFieldExpression>
 							</textField>
