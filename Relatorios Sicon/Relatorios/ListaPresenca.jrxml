@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaPresenca" pageWidth="842" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="009f7ba2-334c-4bd3-a6a1-b9fcc23d991f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (WEB)"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -76,7 +76,7 @@
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select c.nome as NOME, c.cpf as ID, f.nome as FUNCAO, case i.tipoinscricao when 1 then 'NET' else 'INT' end as TIPO, b.banco_nome as BANCO, c.agencia as AGENCIA, c.contacorrente as CONTA
+			<![CDATA[select c.nome as NOME, c.cpf as ID, f.nome as FUNCAO, case i.tipoinscricao when 1 then 'NET' else 'INT' end as TIPO, b.banco_apelido as BANCO, c.agencia as AGENCIA, c.contacorrente as CONTA
 from colaborador c, funcao f, inscricao i, banco b
 where c.idColaborador = i.idColaborador
   and f.idFuncao = i.idFuncao
