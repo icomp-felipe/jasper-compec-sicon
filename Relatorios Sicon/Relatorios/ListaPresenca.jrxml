@@ -184,7 +184,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 		</band>
 	</title>
 	<detail>
-		<band height="55" splitType="Stretch">
+		<band height="50" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<componentElement>
 				<reportElement x="0" y="0" width="800" height="50" uuid="3cc53829-fa4a-4915-a057-8518c18f4670">
@@ -376,10 +376,10 @@ where c.idconcurso = $P{PAR_CONCURSO}
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="15" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement style="Rodapé" x="310" y="0" width="100" height="15" uuid="aa3b8dee-793b-4cb2-9054-25fc0de67723">
+				<reportElement style="Rodapé" x="310" y="5" width="100" height="15" uuid="aa3b8dee-793b-4cb2-9054-25fc0de67723">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -387,9 +387,8 @@ where c.idconcurso = $P{PAR_CONCURSO}
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement style="Rodapé" x="410" y="0" width="100" height="15" uuid="e545d702-704e-46bd-ae57-defcbaa13c6e">
+				<reportElement style="Rodapé" x="410" y="5" width="100" height="15" uuid="e545d702-704e-46bd-ae57-defcbaa13c6e">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
@@ -398,6 +397,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 	</pageFooter>
 	<summary>
 		<band height="61" splitType="Stretch">
+			<printWhenExpression><![CDATA[($P{PAR_OBS} != null) && !($P{PAR_OBS}.isBlank())]]></printWhenExpression>
 			<line>
 				<reportElement positionType="Float" x="0" y="10" width="800" height="1" uuid="96b551df-7417-4c5c-a508-ce429a48d12b">
 					<printWhenExpression><![CDATA[($P{PAR_OBS} != null) && (!$P{PAR_OBS}.trim().equals(""))]]></printWhenExpression>
