@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaColaboradorFuncao" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0417783b-14c1-4388-9568-080baeeded93">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -11,7 +11,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon Local"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (WEB)"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -61,20 +61,19 @@
 		<parameter name="TABLE_GROUP" class="java.lang.String"/>
 		<parameter name="TABLE_FUNCAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select c.nome as COLAB_NOME, c.cpf as COLAB_CPF, i.cod_interno as INST_COD, substring(i.nome,5) as INST_NOME, c.celular as COLAB_CELULAR, c.bairro as COLAB_BAIRRO
+			<![CDATA[select c.nome as COLAB_NOME, i.inst_codigo as INST_COD, i.inst_nome as INST_NOME, c.celular as COLAB_CELULAR
 from colaborador c, inscricao f, instituicao i
 where c.idColaborador = f.idColaborador
-  and i.idinstituicao = f.idinstituicaoopcao1
-  and f.idconcurso    = $P!{TABLE_CONCURSO}
-  and f.idFuncao      = $P!{TABLE_FUNCAO} and i.cod_interno <> 1
+  and i.inst_id_pk = f.idinstituicaoopcao1
+  and f.idconcurso = $P!{TABLE_CONCURSO}
+  and f.idFuncao     = $P!{TABLE_FUNCAO} 
+  and i.inst_codigo <> 1
 order by $P!{TABLE_GROUP}]]>
 		</queryString>
 		<field name="COLAB_NOME" class="java.lang.String"/>
-		<field name="COLAB_CPF" class="java.lang.Long"/>
 		<field name="INST_COD" class="java.lang.Integer"/>
 		<field name="INST_NOME" class="java.lang.String"/>
 		<field name="COLAB_CELULAR" class="java.lang.String"/>
-		<field name="COLAB_BAIRRO" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_CONCURSO" class="java.lang.Integer"/>
@@ -164,96 +163,52 @@ and f.idFuncao   = $P{PAR_FUNCAO}]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="210" uuid="1e5e7e67-f568-4225-b3e2-37aab45e0fcf">
+					<jr:column width="340" uuid="1e5e7e67-f568-4225-b3e2-37aab45e0fcf">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<box topPadding="0"/>
 							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="210" height="20" uuid="fa667e49-5c10-46ae-b39c-bd1ffca653f0"/>
+								<reportElement style="Títulos (Tabela)" x="0" y="0" width="340" height="20" uuid="fa667e49-5c10-46ae-b39c-bd1ffca653f0"/>
 								<box topPadding="4"/>
 								<textElement textAlignment="Center">
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[Nome do Colaborador]]></text>
+								<text><![CDATA[Instituição]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="26">
-							<textField isStretchWithOverflow="true">
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="210" height="26" uuid="5292e224-80ac-4c52-b0db-748649a4479c">
+							<textField textAdjust="StretchHeight">
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="340" height="26" uuid="5292e224-80ac-4c52-b0db-748649a4479c">
 									<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 								</reportElement>
+								<box leftPadding="5"/>
+								<textFieldExpression><![CDATA[String.format("%03d. %s", $F{INST_COD}, $F{INST_NOME})]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="330" uuid="b4716000-f49a-432a-9daa-d8b9e8dee2f5">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement style="Títulos (Tabela)" x="0" y="0" width="330" height="20" uuid="696d3618-a5e4-4c83-8967-6c540988f45a"/>
+								<box padding="0" topPadding="4"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Nome do Colaborador
+]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="26">
+							<textField textAdjust="StretchHeight">
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="330" height="26" uuid="229f1cf6-5e65-4179-aa3a-467af204d7f4"/>
 								<box leftPadding="5"/>
 								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{COLAB_NOME})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="162bf3ed-7f69-46e0-bb0a-7f43a2452d13">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
-						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
-							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="90" height="20" uuid="38c6a9bb-c1df-4f6e-8815-edc0975e9101"/>
-								<box topPadding="4"/>
-								<textElement textAlignment="Center">
-									<font isBold="true"/>
-								</textElement>
-								<text><![CDATA[Barras (CPF)]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="26">
-							<componentElement>
-								<reportElement style="Barcode" x="0" y="0" width="90" height="26" uuid="bd239935-8f00-4e9e-8f6a-419715a3ca24">
-									<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-									<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-									<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-								</reportElement>
-								<jr:barbecue type="EAN13" drawText="true" checksumRequired="false">
-									<jr:codeExpression><![CDATA[String.format("%012d",$F{COLAB_CPF})]]></jr:codeExpression>
-								</jr:barbecue>
-							</componentElement>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="30" uuid="3a3e3e7e-9d1d-4349-a9f5-78cd4f831cc3">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
-						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
-							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="30" height="20" uuid="413e39aa-93a8-4700-b9fa-3bb8475b76db"/>
-								<box topPadding="4"/>
-								<textElement textAlignment="Center">
-									<font isBold="true"/>
-								</textElement>
-								<text><![CDATA[Cód.]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="26">
-							<textField>
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="30" height="26" uuid="33995889-f21c-4ebf-95e9-628e76896504"/>
-								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$F{INST_COD}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="210" uuid="b4716000-f49a-432a-9daa-d8b9e8dee2f5">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
-						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
-							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="210" height="20" uuid="696d3618-a5e4-4c83-8967-6c540988f45a"/>
-								<box padding="0" topPadding="4"/>
-								<textElement textAlignment="Center">
-									<font isBold="true"/>
-								</textElement>
-								<text><![CDATA[Nome da Instituição]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="26">
-							<textField isStretchWithOverflow="true">
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="210" height="26" uuid="229f1cf6-5e65-4179-aa3a-467af204d7f4"/>
-								<box leftPadding="5"/>
-								<textFieldExpression><![CDATA[$F{INST_NOME}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
 					<jr:column width="100" uuid="68249ca0-0361-4eee-919e-1487c48c04ff">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
 								<reportElement style="Títulos (Tabela)" x="0" y="0" width="100" height="20" uuid="833f2c10-f91a-47fe-920b-9a6d2fa038a0"/>
@@ -269,26 +224,6 @@ and f.idFuncao   = $P{PAR_FUNCAO}]]>
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="100" height="26" uuid="fe264695-a9b7-46fd-8b63-6df318b8e1b5"/>
 								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{COLAB_CELULAR}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="130" uuid="61535a32-cbaf-4d74-900a-c8c4fc952b80">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
-						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
-							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="130" height="20" uuid="837dadab-6e80-44af-81a0-f34d819a7a18"/>
-								<box topPadding="4"/>
-								<textElement textAlignment="Center">
-									<font isBold="true"/>
-								</textElement>
-								<text><![CDATA[Bairro (Colab)]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="26">
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="130" height="26" uuid="13fb7d81-2ec5-4bd5-81c7-4c3375ae176a"/>
-								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{COLAB_BAIRRO})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
