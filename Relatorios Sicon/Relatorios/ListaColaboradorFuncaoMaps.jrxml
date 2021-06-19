@@ -11,7 +11,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (WEB)"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -58,7 +58,7 @@
 		<parameter name="TABLE_GROUP" class="java.lang.String"/>
 		<parameter name="TABLE_FUNCAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select c.nome as COLAB_NOME, c.bairro as COLAB_BAIRRO, i.inst_codigo as INST_COD, i.inst_nome as INST_NOME, i.inst_bairro as INST_BAIRRO, i.inst_maps as INST_MAPS
+			<![CDATA[select c.nome as COLAB_NOME, i.inst_codigo as INST_COD, i.inst_nome as INST_NOME, i.inst_bairro as INST_BAIRRO, i.inst_maps as INST_MAPS
 from colaborador c, instituicao i, inscricao inscr
 where inscr.idconcurso = $P!{TABLE_CONCURSO}
   and inscr.idFuncao   = $P!{TABLE_FUNCAO}
@@ -71,12 +71,12 @@ order by $P!{TABLE_GROUP}]]>
 			<property name="com.jaspersoft.studio.field.label" value="COLAB_NOME"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 		</field>
-		<field name="COLAB_BAIRRO" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="COLAB_BAIRRO"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
-		</field>
 		<field name="INST_NOME" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="INST_NOME"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="instituicao"/>
+		</field>
+		<field name="INST_COD" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.label" value="INST_COD"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="instituicao"/>
 		</field>
 		<field name="INST_BAIRRO" class="java.lang.String">
@@ -93,18 +93,31 @@ order by $P!{TABLE_GROUP}]]>
 	<parameter name="PAR_GROUP" class="java.lang.String"/>
 	<parameter name="PAR_FUNCAO" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select c.descricao as CONCURSO, f.atividade as FUNCAO
+		<![CDATA[select c.descricao as CONCURSO, c.conc_data_realizacao as CONC_DATA, f.atividade as FUNCAO
 from concurso c, funcao f
 where c.idconcurso = $P{PAR_CONCURSO}
 and f.idFuncao   = $P{PAR_FUNCAO}]]>
 	</queryString>
-	<field name="CONCURSO" class="java.lang.String"/>
-	<field name="FUNCAO" class="java.lang.String"/>
+	<field name="CONCURSO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.label" value="CONCURSO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
+	</field>
+	<field name="CONC_DATA" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="conc_data_realizacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="CONC_DATA"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
+	</field>
+	<field name="FUNCAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="atividade"/>
+		<property name="com.jaspersoft.studio.field.label" value="FUNCAO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="funcao"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="150" splitType="Stretch">
+		<band height="170" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
 				<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="800" height="95" uuid="c222ebc1-fe9d-4ae1-a655-9578b75b4e60">
@@ -118,17 +131,39 @@ and f.idFuncao   = $P{PAR_FUNCAO}]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA["Relação de " + $F{FUNCAO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Lista de " + $F{FUNCAO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Título" x="0" y="130" width="801" height="20" uuid="7ea2b6ad-89c2-4f5d-aba8-9dc864a66fe6">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<reportElement style="Título" x="0" y="140" width="420" height="15" uuid="7ea2b6ad-89c2-4f5d-aba8-9dc864a66fe6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CONCURSO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="580" y="130" width="221" height="15" uuid="57b9ef52-da6b-4b29-bda7-f924aa5c8e1b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" markup="html">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Data de Realização: </b>" + new SimpleDateFormat("dd/MM/yyyy",new Locale("pt","BR")).format($F{CONC_DATA})]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy à&apos;s&apos; HH:mm:ss">
+				<reportElement x="430" y="145" width="371" height="15" uuid="391bd96e-5027-45d7-88c2-d17ae601a8e1">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" markup="html">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Lista extraída em: </b>" + new SimpleDateFormat("dd/MM/yyyy 'às' HH:mm:ss",new Locale("pt","BR")).format(new java.util.Date())]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -179,22 +214,22 @@ and f.idFuncao   = $P{PAR_FUNCAO}]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="180" uuid="1e5e7e67-f568-4225-b3e2-37aab45e0fcf">
+					<jr:column width="210" uuid="1e5e7e67-f568-4225-b3e2-37aab45e0fcf">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<box topPadding="0"/>
 							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="180" height="20" uuid="b495a469-14dc-415a-935f-924d0520e7f9"/>
+								<reportElement style="Títulos (Tabela)" x="0" y="0" width="210" height="20" uuid="b495a469-14dc-415a-935f-924d0520e7f9"/>
 								<box topPadding="4"/>
 								<textElement textAlignment="Center">
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[Nome do Colaborador]]></text>
+								<text><![CDATA[Colaborador]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="19">
 							<textField>
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="180" height="19" uuid="c1d2952f-2331-4c14-9d19-001698e4433c"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="210" height="19" uuid="c1d2952f-2331-4c14-9d19-001698e4433c"/>
 								<box topPadding="2" leftPadding="5" bottomPadding="2"/>
 								<textElement>
 									<font size="9"/>
@@ -203,54 +238,31 @@ and f.idFuncao   = $P{PAR_FUNCAO}]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="162bf3ed-7f69-46e0-bb0a-7f43a2452d13">
+					<jr:column width="280" uuid="b4716000-f49a-432a-9daa-d8b9e8dee2f5">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="90" height="20" uuid="38c6a9bb-c1df-4f6e-8815-edc0975e9101"/>
-								<box topPadding="4"/>
-								<textElement textAlignment="Center">
-									<font isBold="true"/>
-								</textElement>
-								<text><![CDATA[Bairro (Colab)]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="19">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="90" height="19" uuid="1b428544-0252-43f4-89ff-3c73e60748b8"/>
-								<box topPadding="2" leftPadding="5" bottomPadding="2"/>
-								<textElement textAlignment="Center">
-									<font size="9"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{COLAB_BAIRRO})]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="220" uuid="b4716000-f49a-432a-9daa-d8b9e8dee2f5">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
-						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
-							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="220" height="20" uuid="696d3618-a5e4-4c83-8967-6c540988f45a"/>
+								<reportElement style="Títulos (Tabela)" x="0" y="0" width="280" height="20" uuid="696d3618-a5e4-4c83-8967-6c540988f45a"/>
 								<box padding="0" topPadding="4"/>
 								<textElement textAlignment="Center">
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[Nome da Instituição]]></text>
+								<text><![CDATA[Instituição]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="19">
 							<textField textAdjust="StretchHeight" isBlankWhenNull="false">
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="220" height="19" uuid="f3d8eacb-742d-41ba-8aae-e08f65077164"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="280" height="19" uuid="f3d8eacb-742d-41ba-8aae-e08f65077164"/>
 								<box topPadding="2" leftPadding="5" bottomPadding="2"/>
 								<textElement>
 									<font size="9"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{INST_NOME}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[String.format("%03d. %s",  $F{INST_COD}, $F{INST_NOME})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="100" uuid="68249ca0-0361-4eee-919e-1487c48c04ff">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
 								<reportElement style="Títulos (Tabela)" x="0" y="0" width="100" height="20" uuid="833f2c10-f91a-47fe-920b-9a6d2fa038a0"/>
@@ -258,7 +270,7 @@ and f.idFuncao   = $P{PAR_FUNCAO}]]>
 								<textElement textAlignment="Center">
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[Bairro (Inst)]]></text>
+								<text><![CDATA[Bairro]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="19">
@@ -273,7 +285,7 @@ and f.idFuncao   = $P{PAR_FUNCAO}]]>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="180" uuid="61535a32-cbaf-4d74-900a-c8c4fc952b80">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
 								<reportElement style="Títulos (Tabela)" x="0" y="0" width="180" height="20" uuid="837dadab-6e80-44af-81a0-f34d819a7a18"/>
@@ -281,7 +293,7 @@ and f.idFuncao   = $P{PAR_FUNCAO}]]>
 								<textElement textAlignment="Center">
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[Localização (Inst)]]></text>
+								<text><![CDATA[Localização (Google)]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="19">
