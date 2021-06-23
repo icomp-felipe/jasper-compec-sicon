@@ -83,7 +83,7 @@
 		</scriptlet>
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select c.nome AS COLAB_NOME, c.matriculaservidor as COLAB_SIAPE, c.orgaoservidor as COLAB_LOTACAO, c.cpf AS COLAB_CPF, b.banco_nome as COLAB_BANCO, c.agencia as COLAB_AGENCIA, c.contacorrente as COLAB_CC, g.remuneracaodia AS VALOR_BRUTO
+			<![CDATA[select c.nome AS COLAB_NOME, c.matriculaservidor as COLAB_SIAPE, c.orgaoservidor as COLAB_LOTACAO, c.cpf AS COLAB_CPF, b.banco_apelido as COLAB_BANCO, c.agencia as COLAB_AGENCIA, c.contacorrente as COLAB_CC, g.remuneracaodia AS VALOR_BRUTO
 	from colaborador c, config_concurso g, inscricao j, banco b
 where j.idconcurso = $P{TABLE_CONCURSO}
   and c.colab_categoria_id = 1
