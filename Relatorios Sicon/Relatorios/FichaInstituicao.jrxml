@@ -36,8 +36,8 @@
 	<parameter name="PAR_CIDADE" class="java.lang.String"/>
 	<parameter name="PAR_ESTADO" class="java.lang.String"/>
 	<parameter name="PAR_MAPS" class="java.lang.String"/>
-	<parameter name="PAR_FIXO" class="java.lang.String"/>
-	<parameter name="PAR_CELULAR" class="java.lang.String"/>
+	<parameter name="PAR_CELULAR1" class="java.lang.String"/>
+	<parameter name="PAR_CELULAR2" class="java.lang.String"/>
 	<parameter name="PAR_EMAIL" class="java.lang.String"/>
 	<parameter name="PAR_COORD_NOME" class="java.lang.String"/>
 	<parameter name="PAR_COORD_EMAIL" class="java.lang.String"/>
@@ -246,40 +246,40 @@
 					<textFieldExpression><![CDATA[$P{PAR_CEP}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement key="" style="Texto Estático" positionType="FixRelativeToBottom" x="0" y="255" width="100" height="15" uuid="80845e3a-cfb4-400b-beda-44e4abff0da5">
+					<reportElement key="" style="Texto Estático" positionType="FixRelativeToBottom" x="0" y="255" width="160" height="15" uuid="80845e3a-cfb4-400b-beda-44e4abff0da5">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
-					<text><![CDATA[Telefone Fixo:]]></text>
+					<text><![CDATA[Celular Institucional 1:]]></text>
 				</staticText>
 				<textField isBlankWhenNull="true">
-					<reportElement key="" style="Texto Dinâmico" x="105" y="255" width="100" height="15" uuid="ecc95e8e-ced6-4f83-951f-4983d761d7c5">
+					<reportElement key="" style="Texto Dinâmico" x="165" y="255" width="110" height="15" uuid="ecc95e8e-ced6-4f83-951f-4983d761d7c5">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
-					<textFieldExpression><![CDATA[$P{PAR_FIXO}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{PAR_CELULAR1}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement key="" style="Texto Estático" positionType="FixRelativeToBottom" x="225" y="255" width="150" height="15" uuid="34f5f496-1951-4d5f-b611-f8d7170e7edb">
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<reportElement key="" style="Texto Estático" positionType="FixRelativeToBottom" x="280" y="255" width="160" height="15" uuid="34f5f496-1951-4d5f-b611-f8d7170e7edb">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					</reportElement>
-					<text><![CDATA[Celular Institucional:]]></text>
+					<text><![CDATA[Celular Institucional 2:]]></text>
 				</staticText>
 				<textField isBlankWhenNull="true">
-					<reportElement key="" style="Texto Dinâmico" x="380" y="255" width="110" height="15" uuid="18942069-d374-436c-941d-d8724c60e23c">
+					<reportElement key="" style="Texto Dinâmico" x="445" y="255" width="110" height="15" uuid="18942069-d374-436c-941d-d8724c60e23c">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
-					<textFieldExpression><![CDATA[$P{PAR_CELULAR}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{PAR_CELULAR2}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement key="" style="Texto Estático" positionType="FixRelativeToBottom" x="0" y="275" width="50" height="15" uuid="40928997-217b-4659-9a79-06ec5f9cf71a">

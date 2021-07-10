@@ -47,10 +47,10 @@
 	</field>
 	<field name="UF" class="compec.ufam.sicon.model.UF"/>
 	<field name="email" class="java.lang.String"/>
-	<field name="telefone" class="java.lang.String">
+	<field name="celular1" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="celular" class="java.lang.String">
+	<field name="celular2" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="coordenador" class="compec.ufam.sicon.model.Colaborador"/>
@@ -301,40 +301,40 @@
 				<textFieldExpression><![CDATA[$F{UF}.getDescricao()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="" style="Labels" positionType="FixRelativeToBottom" x="0" y="265" width="100" height="15" uuid="c32d3da6-0cc2-4bd8-90b3-6fa462145bc5">
+				<reportElement key="" style="Labels" positionType="FixRelativeToBottom" x="0" y="265" width="160" height="15" uuid="c32d3da6-0cc2-4bd8-90b3-6fa462145bc5">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<text><![CDATA[Telefone Fixo:]]></text>
+				<text><![CDATA[Celular Institucional 1:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement key="" style="Text Fields" x="105" y="265" width="100" height="15" uuid="dfe20b17-266b-456c-a0d3-7aa5f7d2a6db">
+				<reportElement key="" style="Text Fields" x="165" y="265" width="110" height="15" uuid="dfe20b17-266b-456c-a0d3-7aa5f7d2a6db">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{celular1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="" style="Labels" positionType="FixRelativeToBottom" x="225" y="265" width="150" height="15" uuid="0f609308-f423-489a-8ccd-fc68bc52b7d0">
+				<reportElement key="" style="Labels" positionType="FixRelativeToBottom" x="280" y="265" width="160" height="15" uuid="0f609308-f423-489a-8ccd-fc68bc52b7d0">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<text><![CDATA[Celular Institucional:]]></text>
+				<text><![CDATA[Celular Institucional 2:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement key="" style="Text Fields" x="380" y="265" width="110" height="15" uuid="76db830f-baf5-4408-ac6c-9a25bd9deb9e">
+				<reportElement key="" style="Text Fields" x="445" y="265" width="110" height="15" uuid="76db830f-baf5-4408-ac6c-9a25bd9deb9e">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{celular2}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement key="" style="Labels" positionType="FixRelativeToBottom" x="0" y="285" width="50" height="15" uuid="c7700511-81d5-4964-8e83-b66d4210277f">
