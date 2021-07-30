@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FichaColaborador" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f6e4db4-9f8f-4ffe-9759-6e1fd142f492">
 	<property name="template.type" value="columnar"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
@@ -61,7 +61,7 @@
 					<box>
 						<pen lineWidth="1.0" lineStyle="Solid"/>
 					</box>
-					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="0" width="479" height="24" forecolor="#000000" uuid="5e76cb22-32d3-4838-8141-516d8f994b65"/>
 						<textElement>
 							<font isBold="true"/>
@@ -74,7 +74,7 @@
 					<box>
 						<pen lineWidth="1.0" lineStyle="Solid"/>
 					</box>
-					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="0" width="479" height="24" forecolor="#000000" uuid="7bd229b7-83b9-4f6e-b828-215b6743b85d"/>
 						<textElement>
 							<font isBold="true"/>
@@ -87,7 +87,7 @@
 					<box>
 						<pen lineWidth="1.0" lineStyle="Solid"/>
 					</box>
-					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="1" width="479" height="24" forecolor="#000000" uuid="9bb63645-ee03-45b0-800d-2849007faf8a"/>
 						<textElement>
 							<font isBold="true"/>
@@ -100,7 +100,7 @@
 					<box>
 						<pen lineWidth="1.0" lineStyle="Solid"/>
 					</box>
-					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="1" width="479" height="24" forecolor="#000000" uuid="dd8b7659-be8d-4b52-bfb4-ecf05bc6ada9"/>
 						<textElement>
 							<font isBold="true"/>
@@ -241,7 +241,9 @@
 					<text><![CDATA[Agência:]]></text>
 				</staticText>
 				<textField>
-					<reportElement key="" style="Dynamic Texts" x="270" y="314" width="104" height="16" uuid="e9dfba06-b507-49f8-98b0-3e27d7a929d5"/>
+					<reportElement key="" style="Dynamic Texts" x="270" y="315" width="104" height="16" uuid="e9dfba06-b507-49f8-98b0-3e27d7a929d5">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
 					<textFieldExpression><![CDATA[$P{PAR_AGENCIA}]]></textFieldExpression>
 				</textField>
 				<staticText>
@@ -340,7 +342,7 @@
 					<box>
 						<pen lineWidth="1.0" lineStyle="Solid"/>
 					</box>
-					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="0" y="1" width="405" height="24" forecolor="#000000" uuid="25f707ae-9ac7-48d3-b45f-b14ee85fae9a"/>
 						<textElement verticalAlignment="Middle">
 							<font size="15" isBold="true"/>
@@ -383,7 +385,7 @@
 	</columnHeader>
 	<detail>
 		<band height="65" splitType="Stretch">
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement key="" style="Dynamic Texts" x="0" y="35" width="555" height="15" uuid="6b894291-54d5-4b73-ab56-d58e9088e69b">
 					<printWhenExpression><![CDATA[!$P{PAR_OBS}.isEmpty()]]></printWhenExpression>
 				</reportElement>
@@ -397,7 +399,7 @@
 				<box>
 					<pen lineWidth="1.0" lineStyle="Solid"/>
 				</box>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="1" width="479" height="24" forecolor="#000000" uuid="6020b278-cd69-4930-861b-2b3908bb9db0"/>
 					<textElement>
 						<font isBold="true"/>
