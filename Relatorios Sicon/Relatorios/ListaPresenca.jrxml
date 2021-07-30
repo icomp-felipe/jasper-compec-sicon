@@ -69,30 +69,56 @@
 	<style name="Rodapé" fontName="DejaVu" fontSize="10"/>
 	<subDataset name="ListaPresencaDataset" uuid="c5f437a3-021a-4cca-905e-a15b65013dd6">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 		<scriptlet name="JASPER_DRIVER" class="compec.ufam.sicon.interfaces.JasperDriver">
 			<scriptletDescription><![CDATA[]]></scriptletDescription>
 		</scriptlet>
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select c.nome as NOME, c.cpf as ID, f.nome as FUNCAO, case i.tipoinscricao when 1 then 'NET' else 'INT' end as TIPO, b.banco_apelido as BANCO, c.agencia as AGENCIA, c.contacorrente as CONTA
-from colaborador c, funcao f, inscricao i, banco b
-where c.idColaborador = i.idColaborador
-  and f.idFuncao = i.idFuncao
-  and f.idFuncao not in (36,41)
-  and i.idconcurso = $P{TABLE_CONCURSO}
-  and c.colab_banco_id = b.banco_id_pk
+			<![CDATA[select c.nome as colab_nome, c.cpf as colab_cpf, f.nome as funcao_nome, case i.tipoinscricao when 1 then 'NET' else 'INT' end as inscr_tipo, b.banco_apelido as colab_banco, c.agencia as colab_agencia, c.contacorrente as colab_conta
+from colaborador c
+    join inscricao i on c.idColaborador = i.idColaborador
+    join funcao f on i.idFuncao = f.idFuncao
+    join banco b on c.colab_banco_id = b.banco_id_pk
+where i.idconcurso = $P{TABLE_CONCURSO}
   and i.idinstituicaoopcao1 = $P{TABLE_INSTITUICAO}
-order by FUNCAO, TIPO, NOME]]>
+order by funcao_nome, inscr_tipo, colab_nome]]>
 		</queryString>
-		<field name="NOME" class="java.lang.String"/>
-		<field name="ID" class="java.lang.Long"/>
-		<field name="FUNCAO" class="java.lang.String"/>
-		<field name="TIPO" class="java.lang.String"/>
-		<field name="BANCO" class="java.lang.String"/>
-		<field name="AGENCIA" class="java.lang.String"/>
-		<field name="CONTA" class="java.lang.String"/>
+		<field name="colab_nome" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_nome"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+		</field>
+		<field name="colab_cpf" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.name" value="colab_cpf"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_cpf"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+		</field>
+		<field name="funcao_nome" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="funcao_nome"/>
+			<property name="com.jaspersoft.studio.field.label" value="funcao_nome"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="funcao"/>
+		</field>
+		<field name="inscr_tipo" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="inscr_tipo"/>
+			<property name="com.jaspersoft.studio.field.label" value="inscr_tipo"/>
+		</field>
+		<field name="colab_banco" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="colab_banco"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_banco"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="banco"/>
+		</field>
+		<field name="colab_agencia" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="colab_agencia"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_agencia"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+		</field>
+		<field name="colab_conta" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="colab_conta"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_conta"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+		</field>
 	</subDataset>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_CONCURSO" class="java.lang.Integer"/>
@@ -229,7 +255,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="210" height="26" uuid="8e148ba4-4b70-4daf-adf5-fb84ed02015a"/>
 								<box topPadding="5" leftPadding="5" bottomPadding="5" rightPadding="5"/>
-								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{NOME})]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{colab_nome})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -276,7 +302,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 									<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 								</reportElement>
 								<jr:barbecue type="EAN13" drawText="true" checksumRequired="false">
-									<jr:codeExpression><![CDATA[String.format("%012d",$F{ID})]]></jr:codeExpression>
+									<jr:codeExpression><![CDATA[String.format("%012d",$F{colab_cpf})]]></jr:codeExpression>
 								</jr:barbecue>
 							</componentElement>
 						</jr:detailCell>
@@ -293,7 +319,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="90" height="26" uuid="96a55aad-24f0-4f95-a721-723c1bfb84f4"/>
 								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$F{FUNCAO}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{funcao_nome}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -309,7 +335,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							<textField>
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="30" height="26" uuid="0f01db48-b918-418d-82f6-1743806985e7"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{TIPO}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{inscr_tipo}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -325,7 +351,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="80" height="26" uuid="2f39eada-881f-4d58-8602-c21693eb6196"/>
 								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$F{BANCO}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{colab_banco}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -341,7 +367,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="50" height="26" uuid="6689ed7c-5113-4da6-89ac-325a1068386c"/>
 								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$F{AGENCIA}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{colab_agencia}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -357,7 +383,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="80" height="26" uuid="f818e9d7-80b5-44cc-bf30-f1fc25b8522d"/>
 								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$F{CONTA}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{colab_conta}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

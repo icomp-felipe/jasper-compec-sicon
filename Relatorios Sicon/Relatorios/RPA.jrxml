@@ -62,7 +62,6 @@ where   insc.idconcurso = $P{PAR_CONC_ID}
     and insc.idColaborador = colab.idColaborador
     and insc.idFuncao = func.idFuncao
     and insc.idFuncao = conf.idFuncao
-    and insc.idFuncao not in (36)
     and conf.mapa_concurso_id = $P{PAR_CONC_ID}
     and conf.idinstituicao = $P{PAR_INST_ID}
     and colab.colab_categoria_id not in (1,4)
