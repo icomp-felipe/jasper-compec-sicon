@@ -105,7 +105,7 @@ order by valor_liquido desc, funcao_nome, colab_nome]]>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_CONC_COD" class="java.lang.Integer"/>
 	<parameter name="PAR_INST_COD" class="java.lang.Integer"/>
-	<parameter name="OBS" class="java.lang.String"/>
+	<parameter name="PAR_OBS" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select c.descricao as conc_nome, date_format(c.conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, i.inst_nome as inst_nome, m.muni_nome as muni_nome, u.uf_sigla as uf_sigla, f.financ_lc as financ_lc
 from concurso c
@@ -155,7 +155,7 @@ where c.idconcurso = $P{PAR_CONC_COD}]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="220" splitType="Stretch">
+		<band height="240" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
 				<reportElement style="Título" x="0" y="100" width="802" height="20" uuid="f6a0812e-9b3e-46a0-8692-449714f4699d">
@@ -224,14 +224,14 @@ where c.idconcurso = $P{PAR_CONC_COD}]]>
 				</graphicElement>
 			</line>
 			<textField evaluationTime="Report">
-				<reportElement style="Texto Dinâmico" positionType="Float" x="150" y="195" width="65" height="15" uuid="27f1a5a8-c6ae-4c29-94ad-0b9e089b1f7f">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="150" y="215" width="65" height="15" uuid="27f1a5a8-c6ae-4c29-94ad-0b9e089b1f7f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[String.format("%.2f", $V{valorBruto})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Ttulos (Estáticos)" positionType="Float" x="30" y="195" width="115" height="15" uuid="fab9312f-6831-4fa7-b968-a37013ed6532">
+				<reportElement style="Ttulos (Estáticos)" positionType="Float" x="30" y="215" width="115" height="15" uuid="fab9312f-6831-4fa7-b968-a37013ed6532">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -242,7 +242,7 @@ where c.idconcurso = $P{PAR_CONC_COD}]]>
 				<text><![CDATA[Valor Bruto (R$):]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Ttulos (Estáticos)" positionType="Float" x="220" y="195" width="115" height="15" uuid="ffbf8852-2c13-4463-8298-3aad2652483c">
+				<reportElement style="Ttulos (Estáticos)" positionType="Float" x="220" y="215" width="115" height="15" uuid="ffbf8852-2c13-4463-8298-3aad2652483c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -254,7 +254,7 @@ where c.idconcurso = $P{PAR_CONC_COD}]]>
 				<text><![CDATA[INSS Total (R$):]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
-				<reportElement style="Texto Dinâmico" positionType="Float" x="340" y="195" width="65" height="15" uuid="4513ecba-360c-4550-bc0d-fc5fb8f3f61c">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="340" y="215" width="65" height="15" uuid="4513ecba-360c-4550-bc0d-fc5fb8f3f61c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -262,7 +262,7 @@ where c.idconcurso = $P{PAR_CONC_COD}]]>
 				<textFieldExpression><![CDATA[String.format("%.2f", $V{inssTotal})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Ttulos (Estáticos)" positionType="Float" x="410" y="195" width="115" height="15" uuid="8bbb0b7f-c519-4aa9-9cd2-0cc881ba71ea">
+				<reportElement style="Ttulos (Estáticos)" positionType="Float" x="410" y="215" width="115" height="15" uuid="8bbb0b7f-c519-4aa9-9cd2-0cc881ba71ea">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -274,7 +274,7 @@ where c.idconcurso = $P{PAR_CONC_COD}]]>
 				<text><![CDATA[ISS Total (R$):]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
-				<reportElement style="Texto Dinâmico" positionType="Float" x="530" y="195" width="65" height="15" uuid="1a67d879-7a66-4f65-bb1f-d2c181f05a90">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="530" y="215" width="65" height="15" uuid="1a67d879-7a66-4f65-bb1f-d2c181f05a90">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -282,7 +282,7 @@ where c.idconcurso = $P{PAR_CONC_COD}]]>
 				<textFieldExpression><![CDATA[String.format("%.2f",$V{issTotal})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Ttulos (Estáticos)" positionType="Float" x="600" y="195" width="90" height="15" uuid="8dcdc2c1-1e9f-49f5-9a64-09463a4f8ed4">
+				<reportElement style="Ttulos (Estáticos)" positionType="Float" x="600" y="215" width="90" height="15" uuid="8dcdc2c1-1e9f-49f5-9a64-09463a4f8ed4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -292,18 +292,6 @@ where c.idconcurso = $P{PAR_CONC_COD}]]>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Alíquota (%):]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Texto Dinâmico" positionType="Float" x="695" y="195" width="70" height="15" uuid="7d8352b4-8c4f-4ce7-b420-55766f49d6d4">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Left">
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[5,000]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Ttulos (Estáticos)" x="0" y="130" width="80" height="15" uuid="9bb1a75c-2169-4621-aab5-b0042f7001b1">
@@ -342,17 +330,17 @@ where c.idconcurso = $P{PAR_CONC_COD}]]>
 				<text><![CDATA[LC nº:]]></text>
 			</staticText>
 			<textField textAdjust="StretchHeight">
-				<reportElement style="Texto Dinâmico" x="1" y="170" width="800" height="15" uuid="91aad31e-3ca5-4e1a-9ea0-20f4fab4fe4b">
+				<reportElement style="Texto Dinâmico" x="1" y="190" width="800" height="15" uuid="91aad31e-3ca5-4e1a-9ea0-20f4fab4fe4b">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Justified" markup="none"/>
-				<textFieldExpression><![CDATA[$P{OBS}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{PAR_OBS}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement positionType="Float" x="0" y="189" width="800" height="1" uuid="81f975c4-a3d8-440d-b8aa-9f2858cc8c60">
+				<reportElement positionType="Float" x="0" y="209" width="800" height="1" uuid="81f975c4-a3d8-440d-b8aa-9f2858cc8c60">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -362,6 +350,24 @@ where c.idconcurso = $P{PAR_CONC_COD}]]>
 					<pen lineStyle="Dashed"/>
 				</graphicElement>
 			</line>
+			<staticText>
+				<reportElement style="Ttulos (Estáticos)" x="0" y="170" width="95" height="15" uuid="15922f86-9089-4349-abcc-bfc5a1ecbbd9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Observações:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Texto Dinâmico" positionType="Float" x="695" y="215" width="70" height="15" uuid="b4c3a95c-6476-410e-950d-83bfe489862c">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[String.format("%.3f", 5F)]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<detail>
