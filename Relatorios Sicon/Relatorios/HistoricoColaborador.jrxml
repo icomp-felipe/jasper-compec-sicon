@@ -49,24 +49,39 @@
 	<style name="Rodapé" fontName="DejaVu" fontSize="10"/>
 	<subDataset name="HistoricoDataset" uuid="91e9c51f-71c7-4fd7-94cf-f60d33f1028d">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 		<parameter name="TABLE_ID_COLABORADOR" class="java.lang.Integer">
 			<parameterDescription><![CDATA[]]></parameterDescription>
 		</parameter>
 		<queryString>
-			<![CDATA[select con.descricao as NOME_CONCURSO, inst.inst_nome as NOME_INSTITUICAO, fun.descricao as FUNCAO, date_format(insc.dt_hr,'%d/%m/%Y - %H:%i:%s') as DATA_INSCRICAO
-from colaborador col, instituicao inst, concurso con, funcao fun, inscricao insc
-where insc.idColaborador = col.idColaborador
-  and insc.idinstituicaoopcao1 = inst.inst_id_pk
-  and insc.idconcurso = con.idconcurso
-  and insc.idFuncao = fun.idFuncao
-  and insc.idColaborador = $P!{TABLE_ID_COLABORADOR}
+			<![CDATA[select c.descricao as conc_nome, inst.inst_nome, f.descricao as funcao_nome, date_format(insc.dt_hr,'%d/%m/%Y - %H:%i:%s') as inscr_data
+from inscricao insc
+join concurso c on insc.idconcurso = c.idconcurso
+join instituicao inst on insc.idinstituicaoopcao1 = inst.inst_id_pk
+join funcao f on insc.idFuncao = f.idFuncao
+where insc.idColaborador =  $P!{TABLE_ID_COLABORADOR}
 order by insc.idconcurso desc]]>
 		</queryString>
-		<field name="NOME_CONCURSO" class="java.lang.String"/>
-		<field name="NOME_INSTITUICAO" class="java.lang.String"/>
-		<field name="FUNCAO" class="java.lang.String"/>
-		<field name="DATA_INSCRICAO" class="java.lang.String"/>
+		<field name="conc_nome" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+			<property name="com.jaspersoft.studio.field.label" value="conc_nome"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
+		</field>
+		<field name="inst_nome" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="inst_nome"/>
+			<property name="com.jaspersoft.studio.field.label" value="inst_nome"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="instituicao"/>
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="funcao_nome" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+			<property name="com.jaspersoft.studio.field.label" value="funcao_nome"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="funcao"/>
+		</field>
+		<field name="inscr_data" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="inscr_data"/>
+			<property name="com.jaspersoft.studio.field.label" value="inscr_data"/>
+		</field>
 	</subDataset>
 	<scriptlet name="JASPER_DRIVER" class="compec.ufam.sicon.interfaces.JasperDriver">
 		<scriptletDescription><![CDATA[]]></scriptletDescription>
@@ -74,11 +89,14 @@ order by insc.idconcurso desc]]>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_ID_COLABORADOR" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select nome as NOME_COLABORADOR
-from colaborador
-where idColaborador = $P{PAR_ID_COLABORADOR}]]>
+		<![CDATA[select colab_nome from colaborador where colab_id_pk = $P{PAR_ID_COLABORADOR}]]>
 	</queryString>
-	<field name="NOME_COLABORADOR" class="java.lang.String"/>
+	<field name="colab_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -134,7 +152,7 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 						<jr:detailCell style="Table_TD" height="20">
 							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="270" height="20" uuid="c96bd75f-273f-495b-a9df-85eedccb5f54"/>
-								<textFieldExpression><![CDATA[$F{NOME_CONCURSO}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{conc_nome}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -149,7 +167,7 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 						<jr:detailCell style="Table_TD" height="20">
 							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="240" height="20" uuid="ab9a3be6-fd4d-4aba-9956-b350ee459088"/>
-								<textFieldExpression><![CDATA[$F{NOME_INSTITUICAO}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{inst_nome}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -166,7 +184,7 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="140" height="20" uuid="6aba6f0a-a861-4282-a175-982bf0272c2a"/>
 								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$F{FUNCAO}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{funcao_nome}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -181,7 +199,7 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 						<jr:detailCell style="Table_TD" height="20">
 							<textField>
 								<reportElement style="Fields (Tabela)" isPrintRepeatedValues="false" x="0" y="0" width="120" height="20" uuid="983796d4-37c3-4544-9b99-33b4de77ed59"/>
-								<textFieldExpression><![CDATA[$F{DATA_INSCRICAO}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{inscr_data}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -199,7 +217,7 @@ where idColaborador = $P{PAR_ID_COLABORADOR}]]>
 				<textElement>
 					<font fontName="DejaVu" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{NOME_COLABORADOR})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{colab_nome})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="25" width="50" height="16" uuid="126eb969-5544-4349-aed5-b63d47125296"/>

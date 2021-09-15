@@ -19,7 +19,7 @@
 	<style name="Rodapé" fontName="DejaVu" fontSize="6"/>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_NOME" class="java.lang.String"/>
-	<parameter name="PAR_SEXO" class="java.lang.String"/>
+	<parameter name="PAR_SEXO" class="java.lang.Character"/>
 	<parameter name="PAR_CPF" class="java.lang.String"/>
 	<parameter name="PAR_NASCIMENTO" class="java.lang.String"/>
 	<parameter name="PAR_ESCOLARIDADE" class="java.lang.String"/>
@@ -32,19 +32,19 @@
 	<parameter name="PAR_MUNICIPIO" class="java.lang.String"/>
 	<parameter name="PAR_CEP" class="java.lang.String"/>
 	<parameter name="PAR_COMPLEMENTO" class="java.lang.String"/>
-	<parameter name="PAR_RESIDENCIAL" class="java.lang.String"/>
+	<parameter name="PAR_FIXO" class="java.lang.String"/>
 	<parameter name="PAR_CEL_01" class="java.lang.String"/>
 	<parameter name="PAR_CEL_02" class="java.lang.String"/>
 	<parameter name="PAR_EMAIL" class="java.lang.String"/>
 	<parameter name="PAR_BANCO" class="java.lang.String"/>
 	<parameter name="PAR_AGENCIA" class="java.lang.String"/>
 	<parameter name="PAR_CC" class="java.lang.String"/>
+	<parameter name="PAR_DV" class="java.lang.Character"/>
 	<parameter name="PAR_STATUS" class="java.lang.String"/>
-	<parameter name="PAR_VINCULO" class="java.lang.String"/>
+	<parameter name="PAR_CATEGORIA" class="java.lang.String"/>
 	<parameter name="PAR_MATRICULA" class="java.lang.String"/>
 	<parameter name="PAR_LOTACAO" class="java.lang.String"/>
 	<parameter name="PAR_ID" class="java.lang.Integer"/>
-	<parameter name="PAR_CPF_LONG" class="java.lang.Long"/>
 	<parameter name="PAR_OBS" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
@@ -202,7 +202,7 @@
 				</staticText>
 				<textField isBlankWhenNull="true">
 					<reportElement key="" style="Dynamic Texts" x="55" y="235" width="105" height="15" uuid="ecc95e8e-ced6-4f83-951f-4983d761d7c5"/>
-					<textFieldExpression><![CDATA[$P{PAR_RESIDENCIAL}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{PAR_FIXO}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="205" y="235" width="50" height="15" uuid="b691494a-8a8c-4cb7-8055-912892bc04bd"/>
@@ -233,25 +233,37 @@
 					<text><![CDATA[Banco:]]></text>
 				</staticText>
 				<textField>
-					<reportElement key="" style="Dynamic Texts" x="55" y="315" width="126" height="15" uuid="8f2e3309-ba5f-490e-a0b2-f33ba16c3d80"/>
+					<reportElement key="" style="Dynamic Texts" x="55" y="315" width="155" height="15" uuid="8f2e3309-ba5f-490e-a0b2-f33ba16c3d80">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
 					<textFieldExpression><![CDATA[$P{PAR_BANCO}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="205" y="315" width="60" height="15" uuid="4ca36586-26bb-4fd1-bd7d-bf79233e1eb3"/>
+					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="215" y="315" width="60" height="15" uuid="4ca36586-26bb-4fd1-bd7d-bf79233e1eb3">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
 					<text><![CDATA[Agência:]]></text>
 				</staticText>
 				<textField>
-					<reportElement key="" style="Dynamic Texts" x="270" y="315" width="104" height="16" uuid="e9dfba06-b507-49f8-98b0-3e27d7a929d5">
+					<reportElement key="" style="Dynamic Texts" x="280" y="315" width="31" height="15" uuid="e9dfba06-b507-49f8-98b0-3e27d7a929d5">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
 					<textFieldExpression><![CDATA[$P{PAR_AGENCIA}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="395" y="315" width="50" height="15" uuid="153a2026-68da-42ba-a303-215085b22a81"/>
+					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="311" y="315" width="50" height="15" uuid="153a2026-68da-42ba-a303-215085b22a81">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
 					<text><![CDATA[Conta:]]></text>
 				</staticText>
 				<textField>
-					<reportElement key="" style="Dynamic Texts" x="450" y="315" width="105" height="15" uuid="61bf2e4e-6f1a-4fe9-8c1e-721af1eca40a"/>
+					<reportElement key="" style="Dynamic Texts" x="366" y="315" width="150" height="15" uuid="61bf2e4e-6f1a-4fe9-8c1e-721af1eca40a">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
 					<textFieldExpression><![CDATA[$P{PAR_CC}]]></textFieldExpression>
 				</textField>
 				<staticText>
@@ -265,11 +277,11 @@
 				<staticText>
 					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="180" y="375" width="125" height="15" uuid="1170e6a5-78d0-4459-94cb-0f03e82687b2"/>
 					<textElement textAlignment="Right"/>
-					<text><![CDATA[Tipo de Vínculo:]]></text>
+					<text><![CDATA[Categoria:]]></text>
 				</staticText>
 				<textField>
 					<reportElement key="" style="Dynamic Texts" isPrintRepeatedValues="false" x="310" y="375" width="245" height="15" uuid="835fcdbe-164a-4c8f-8a18-71a171849de1"/>
-					<textFieldExpression><![CDATA[$P{PAR_VINCULO}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{PAR_CATEGORIA}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="0" y="415" width="75" height="15" uuid="db94a90b-7c2a-4959-860c-753253412a9a"/>
@@ -277,7 +289,7 @@
 				</staticText>
 				<textField>
 					<reportElement key="" style="Dynamic Texts" x="80" y="415" width="80" height="15" uuid="a08c6bfc-c1ce-42d4-82d6-f4c569bf12b7"/>
-					<textFieldExpression><![CDATA[$P{PAR_ID}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{PAR_ID} == 0 ? "" : $P{PAR_ID}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="180" y="415" width="125" height="15" uuid="6f0ce6fa-e67c-47cc-86de-1048eb28f6bd"/>
@@ -291,7 +303,7 @@
 						<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					</reportElement>
 					<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="EAN13" drawText="true" checksumRequired="false">
-						<jr:codeExpression><![CDATA[String.format("%012d",$P{PAR_CPF_LONG})]]></jr:codeExpression>
+						<jr:codeExpression><![CDATA[String.format("%012d", ($P{PAR_CPF} == null) || ($P{PAR_CPF}.isBlank()) ? 0 : LONG_VALUE($P{PAR_CPF}.replaceAll("\\D+","").trim() ))]]></jr:codeExpression>
 					</jr:barbecue>
 				</componentElement>
 				<staticText>
@@ -357,6 +369,20 @@
 				<textField>
 					<reportElement style="Dynamic Texts" x="60" y="175" width="495" height="15" uuid="d74ae9f7-be85-463d-bb7b-23bca18eeea8"/>
 					<textFieldExpression><![CDATA[$P{PAR_COMPLEMENTO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="516" y="315" width="25" height="15" uuid="12989c37-8a1b-40fa-afcd-17be0c82974a">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<text><![CDATA[DV:]]></text>
+				</staticText>
+				<textField>
+					<reportElement key="" style="Dynamic Texts" x="546" y="315" width="14" height="15" uuid="bccbfab9-4aea-4a18-9981-855e6ea6c042">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$P{PAR_DV}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>

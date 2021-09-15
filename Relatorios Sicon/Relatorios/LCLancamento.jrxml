@@ -56,9 +56,9 @@
 		<parameter name="TABLE_FUNCAO" class="java.lang.String"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select c.nome as colab_nome, f.nome as funcao_nome, c.cpf as colab_cpf, b.banco_apelido as banco_nome, b.banco_codigo as banco_codigo, c.agencia as colab_agencia, c.contacorrente as colab_conta, ROUND(cc.remuneracaodia - ROUND(cc.remuneracaodia * 0.11,2) - ROUND(cc.remuneracaodia * 0.05,2),2) as valor_liquido
+			<![CDATA[select c.colab_nome, f.nome as funcao_nome, c.colab_cpf, b.banco_apelido as banco_nome, b.banco_codigo as banco_codigo, c.colab_agencia, c.colab_conta, ROUND(cc.remuneracaodia - ROUND(cc.remuneracaodia * 0.11,2) - ROUND(cc.remuneracaodia * 0.05,2),2) as valor_liquido
 from colaborador c
-    join inscricao i on c.idColaborador = i.idColaborador
+    join inscricao i on c.colab_id_pk = i.idColaborador
     join banco b on c.colab_banco_id = b.banco_id_pk
     join funcao f on i.idFuncao = f.idFuncao
     join config_concurso cc on i.idFuncao = cc.idFuncao and i.idinstituicaoopcao1 = cc.idinstituicao and i.idconcurso = cc.mapa_concurso_id
