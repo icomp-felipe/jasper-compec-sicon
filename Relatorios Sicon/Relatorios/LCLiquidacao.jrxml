@@ -55,7 +55,7 @@ from colaborador c
 where i.idconcurso = $P{TABLE_CONCURSO}
   and i.idinstituicaoopcao1 = $P{TABLE_INSTITUICAO}
   and c.colab_categoria_id not in (1,4)
-order by valor_liquido desc, funcao_nome, colab_nome]]>
+order by valor_liquido desc, colab_nome]]>
 		</queryString>
 		<field name="colab_nome" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
@@ -504,7 +504,7 @@ where c.idconcurso = $P{PAR_CONC_COD}]]>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[Observações:]]></text>
 			</staticText>
-			<textField textAdjust="StretchHeight">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement style="Texto Dinâmico" x="6" y="31" width="800" height="15" uuid="2a245b33-9eef-469e-8979-eaa3adb4adab">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>

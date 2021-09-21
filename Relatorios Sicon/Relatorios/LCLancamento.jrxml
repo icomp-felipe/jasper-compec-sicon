@@ -56,26 +56,20 @@
 		<parameter name="TABLE_FUNCAO" class="java.lang.String"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select c.colab_nome, f.nome as funcao_nome, c.colab_cpf, b.banco_apelido as banco_nome, b.banco_codigo as banco_codigo, c.colab_agencia, c.colab_conta, ROUND(cc.remuneracaodia - ROUND(cc.remuneracaodia * 0.11,2) - ROUND(cc.remuneracaodia * 0.05,2),2) as valor_liquido
+			<![CDATA[select c.colab_nome, c.colab_cpf, b.banco_apelido as banco_nome, b.banco_codigo as banco_codigo, c.colab_agencia, c.colab_conta, c.colab_conta_dv, ROUND(cc.remuneracaodia - ROUND(cc.remuneracaodia * 0.11,2) - ROUND(cc.remuneracaodia * 0.05,2),2) as valor_liquido
 from colaborador c
     join inscricao i on c.colab_id_pk = i.idColaborador
     join banco b on c.colab_banco_id = b.banco_id_pk
-    join funcao f on i.idFuncao = f.idFuncao
     join config_concurso cc on i.idFuncao = cc.idFuncao and i.idinstituicaoopcao1 = cc.idinstituicao and i.idconcurso = cc.mapa_concurso_id
 where i.idconcurso = $P{TABLE_CONCURSO}
   and i.idinstituicaoopcao1 = $P{TABLE_INSTITUICAO}
   and c.colab_categoria_id not in (1,4)
-order by valor_liquido desc, funcao_nome, colab_nome]]>
+order by valor_liquido desc, colab_nome]]>
 		</queryString>
 		<field name="colab_nome" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
 			<property name="com.jaspersoft.studio.field.label" value="colab_nome"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
-		</field>
-		<field name="funcao_nome" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="funcao_nome"/>
-			<property name="com.jaspersoft.studio.field.label" value="funcao_nome"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="funcao"/>
 		</field>
 		<field name="colab_cpf" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="colab_cpf"/>
@@ -103,6 +97,12 @@ order by valor_liquido desc, funcao_nome, colab_nome]]>
 			<property name="com.jaspersoft.studio.field.name" value="colab_conta"/>
 			<property name="com.jaspersoft.studio.field.label" value="colab_conta"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+		</field>
+		<field name="colab_conta_dv" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="colab_conta_dv"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_conta_dv"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="valor_liquido" class="java.lang.Double">
 			<property name="com.jaspersoft.studio.field.name" value="valor_liquido"/>
@@ -392,7 +392,7 @@ where c.idconcurso = $P{PAR_CONC_COD}]]>
 						<jr:detailCell style="Table 1_TD" height="25">
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" stretchType="ElementGroupHeight" x="0" y="0" width="120" height="25" uuid="1b6aff72-b578-4fe4-ac6a-65f5809ca0c7"/>
-								<textFieldExpression><![CDATA[$F{colab_conta}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[String.format("%s-%s", $F{colab_conta}, $F{colab_conta_dv})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
