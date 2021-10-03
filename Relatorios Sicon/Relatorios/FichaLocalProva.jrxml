@@ -47,9 +47,7 @@
 	</field>
 	<field name="UF" class="compec.ufam.sicon.model.UF"/>
 	<field name="email" class="java.lang.String"/>
-	<field name="celular1" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="celular1" class="java.lang.String"/>
 	<field name="celular2" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -64,7 +62,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="400" splitType="Stretch">
+		<band height="396" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<frame>
 				<reportElement style="Caixas" mode="Opaque" x="0" y="100" width="555" height="20" uuid="9e26f120-749d-409c-8f3b-8c06aa511309">
@@ -404,7 +402,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{coordenador}.getFoneFixo(true,true)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{coordenador}.getFoneFixo(true)]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement key="" style="Labels" positionType="FixRelativeToBottom" x="175" y="375" width="60" height="15" uuid="57f9c692-3d5a-4960-9f56-b181754a1f8d">
@@ -422,7 +420,7 @@
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{coordenador}.getCelular_1(true,true)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{coordenador}.getCelular1(true)]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement key="" style="Labels" positionType="FixRelativeToBottom" x="355" y="375" width="60" height="15" uuid="e32ceaa7-77f3-45f3-9f95-d8f6e010f44c">
@@ -440,7 +438,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{coordenador}.getCelular_2(true,true)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{coordenador}.getCelular2(true)]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
