@@ -34,14 +34,17 @@
 	<subDataset name="ListaServidorUpdateDataset" uuid="c5f437a3-021a-4cca-905e-a15b65013dd6">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<scriptlet name="JASPER_DRIVER" class="compec.ufam.sicon.interfaces.JasperDriver">
+			<scriptletDescription><![CDATA[]]></scriptletDescription>
+		</scriptlet>
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
-		<field name="jasperNome" class="java.lang.String"/>
+		<field name="descricao" class="java.lang.String"/>
 		<field name="jasperCPF" class="java.lang.String"/>
-		<field name="jasperSexo" class="java.lang.String"/>
+		<field name="sexo" class="java.lang.Character"/>
 		<field name="matricula" class="java.lang.String"/>
-		<field name="jasperVinculo" class="java.lang.String"/>
+		<field name="categoria" class="compec.ufam.sicon.model.Categoria"/>
 		<field name="lotacao" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
@@ -126,7 +129,7 @@
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="250" height="18" uuid="310f4d5b-40b3-4521-ba73-67947db50ae3"/>
 								<box leftPadding="5"/>
 								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{jasperNome}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{descricao})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -147,7 +150,7 @@
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="30" height="18" uuid="70c9feca-a240-44b2-af5d-0f10b2576f0c"/>
 								<box leftPadding="0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{jasperSexo}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -206,10 +209,10 @@
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="18">
-							<textField>
+							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="70" height="18" uuid="1cf473cf-ae79-4884-9deb-28145f61a60d"/>
 								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$F{jasperVinculo}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{categoria}.getJasperNome()]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
