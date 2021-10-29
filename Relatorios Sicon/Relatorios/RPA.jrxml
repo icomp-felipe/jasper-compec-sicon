@@ -2,7 +2,8 @@
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPA" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="331c611e-9a05-4f6f-9858-8c0ae81a1a5b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (WEB)"/>
+	<property name="com.jaspersoft.studio.report.description" value="Recibo de Pagamento a Autônomo (RPA). Criado por Felipe André. Última atualização em 28/10/2021."/>
 	<style name="TABLE_CONTEUDO" mode="Opaque" backcolor="#FFFFFF" hTextAlign="Center" vTextAlign="Middle" fontName="DejaVu">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -55,16 +56,14 @@
 	<parameter name="PAR_CONC_DATA" class="java.util.Date"/>
 	<parameter name="PAR_INST_NOME" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[select colab.nome as COLAB_NOME, colab.pispasep as COLAB_PIS, colab.cpf as COLAB_CPF, colab.doc_identidade as COLAB_RG, colab.orgao_identidade as COLAB_ORGAO, func.descricao as FUNCAO_NOME, conf.remuneracaodia AS VALOR_BRUTO, ROUND(conf.remuneracaodia * 0.11,2) as DESC_INSS, ROUND(conf.remuneracaodia * 0.05,2) as DESC_ISS, ROUND(conf.remuneracaodia - ROUND(conf.remuneracaodia * 0.11,2) - ROUND(conf.remuneracaodia * 0.05,2),2) as VALOR_LIQUIDO
-from inscricao insc, colaborador colab, funcao func, config_concurso conf
-where   insc.idconcurso = $P{PAR_CONC_ID}
-	and insc.idinstituicaoopcao1 = $P{PAR_INST_ID}
-    and insc.idColaborador = colab.idColaborador
-    and insc.idFuncao = func.idFuncao
-    and insc.idFuncao = conf.idFuncao
-    and conf.mapa_concurso_id = $P{PAR_CONC_ID}
-    and conf.idinstituicao = $P{PAR_INST_ID}
-    and colab.colab_categoria_id not in (1,4)
+		<![CDATA[select colab_nome as COLAB_NOME, colab_pis as COLAB_PIS, colab_cpf as COLAB_CPF, colab_rg as COLAB_RG, colab_rg as COLAB_ORGAO, func.descricao as FUNCAO_NOME, cc.remuneracaodia AS VALOR_BRUTO, ROUND(cc.remuneracaodia * 0.11,2) as DESC_INSS, ROUND(cc.remuneracaodia * 0.05,2) as DESC_ISS, ROUND(cc.remuneracaodia - ROUND(cc.remuneracaodia * 0.11,2) - ROUND(cc.remuneracaodia * 0.05,2),2) as VALOR_LIQUIDO
+from inscricao insc
+join colaborador colab on insc.idColaborador = colab.colab_id_pk
+join funcao func on insc.idFuncao = func.idFuncao
+join config_concurso cc on insc.idFuncao = cc.idFuncao and insc.idconcurso = cc.mapa_concurso_id and insc.idinstituicaoopcao1 = cc.idinstituicao
+where insc.idconcurso = $P{PAR_CONC_ID}
+  and insc.idinstituicaoopcao1 = $P{PAR_INST_ID}
+  and colab.colab_categoria_id not in (1,4)
 order by COLAB_NOME]]>
 	</queryString>
 	<field name="COLAB_NOME" class="java.lang.String">
