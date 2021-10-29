@@ -76,14 +76,14 @@
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select c.colab_nome, c.colab_cpf, f.nome as funcao_nome, case i.tipoinscricao when 1 then 'NET' else 'INT' end as inscr_tipo, b.banco_apelido as colab_banco, c.colab_agencia, c.colab_conta, c.colab_conta_dv
+			<![CDATA[select c.colab_nome, c.colab_cpf, f.nome as funcao_nome, colab_categoria_id, b.banco_apelido as colab_banco, c.colab_agencia, c.colab_conta, c.colab_conta_dv
 from colaborador c
     join inscricao i on c.colab_id_pk = i.idColaborador
     join funcao f on i.idFuncao = f.idFuncao
-    join banco b on c.colab_banco_id = b.banco_id_pk
+   left  join banco b on c.colab_banco_id = b.banco_id_pk
 where i.idconcurso = $P{TABLE_CONCURSO}
   and i.idinstituicaoopcao1 = $P{TABLE_INSTITUICAO}
-order by funcao_nome, inscr_tipo, colab_nome]]>
+order by funcao_nome, colab_nome]]>
 		</queryString>
 		<field name="colab_nome" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
@@ -100,9 +100,11 @@ order by funcao_nome, inscr_tipo, colab_nome]]>
 			<property name="com.jaspersoft.studio.field.label" value="funcao_nome"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="funcao"/>
 		</field>
-		<field name="inscr_tipo" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="inscr_tipo"/>
-			<property name="com.jaspersoft.studio.field.label" value="inscr_tipo"/>
+		<field name="colab_categoria_id" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="colab_categoria_id"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_categoria_id"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="colab_banco" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="colab_banco"/>
@@ -249,17 +251,17 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="210" uuid="f326c2ea-91f0-4d3d-84b5-65234aca0736">
+					<jr:column width="200" uuid="f326c2ea-91f0-4d3d-84b5-65234aca0736">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnHeader style="Table 3_CH" height="20" rowSpan="1">
 							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="210" height="20" uuid="babe1417-c9ba-4d45-a40f-7f1158c08c3f"/>
+								<reportElement style="Títulos (Tabela)" x="0" y="0" width="200" height="20" uuid="babe1417-c9ba-4d45-a40f-7f1158c08c3f"/>
 								<text><![CDATA[Nome]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="26">
 							<textField textAdjust="StretchHeight">
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="210" height="26" uuid="8e148ba4-4b70-4daf-adf5-fb84ed02015a"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="200" height="26" uuid="8e148ba4-4b70-4daf-adf5-fb84ed02015a"/>
 								<box topPadding="5" leftPadding="5" bottomPadding="5" rightPadding="5"/>
 								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{colab_nome})]]></textFieldExpression>
 							</textField>
@@ -329,19 +331,19 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="30" uuid="e1f78b1c-5915-41b6-9b4b-c0e68de77cb1">
+					<jr:column width="40" uuid="e1f78b1c-5915-41b6-9b4b-c0e68de77cb1">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
 						<jr:columnHeader style="Table 3_CH" height="20" rowSpan="1">
 							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="30" height="20" uuid="d355de45-b260-4491-91d2-3581cf724ac2"/>
-								<text><![CDATA[Tipo]]></text>
+								<reportElement style="Títulos (Tabela)" x="0" y="0" width="40" height="20" uuid="d355de45-b260-4491-91d2-3581cf724ac2"/>
+								<text><![CDATA[Recibo]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="26">
 							<textField>
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="30" height="26" uuid="0f01db48-b918-418d-82f6-1743806985e7"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="40" height="26" uuid="0f01db48-b918-418d-82f6-1743806985e7"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{inscr_tipo}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[($F{colab_categoria_id} == 1) || ($F{colab_categoria_id}  == 4) ? null : "*"]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -389,7 +391,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="80" height="26" uuid="f818e9d7-80b5-44cc-bf30-f1fc25b8522d"/>
 								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[String.format("%s-%s", $F{colab_conta}, $F{colab_conta_dv})]]></textFieldExpression>
+								<textFieldExpression><![CDATA[String.format("%s-%s", $F{colab_conta} == null ? "" : $F{colab_conta}, $F{colab_conta_dv} == null ? "" : $F{colab_conta_dv})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
