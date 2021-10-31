@@ -112,7 +112,7 @@ order by $P!{TABLE_GROUP}]]>
 	<parameter name="PAR_GROUP" class="java.lang.String"/>
 	<parameter name="PAR_FUNCAO" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select c.descricao as conc_nome, c.conc_data_realizacao as conc_data_realizacao, f.atividade as funcao_plural
+		<![CDATA[select c.descricao as conc_nome, DATE_FORMAT(c.conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, f.atividade as funcao_plural
 from concurso c, funcao f
 where c.idconcurso = $P{PAR_CONCURSO}
 and f.idFuncao   = $P{PAR_FUNCAO}]]>
@@ -122,7 +122,7 @@ and f.idFuncao   = $P{PAR_FUNCAO}]]>
 		<property name="com.jaspersoft.studio.field.label" value="conc_nome"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
 	</field>
-	<field name="conc_data_realizacao" class="java.sql.Date">
+	<field name="conc_data_realizacao" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="conc_data_realizacao"/>
 		<property name="com.jaspersoft.studio.field.label" value="conc_data_realizacao"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
