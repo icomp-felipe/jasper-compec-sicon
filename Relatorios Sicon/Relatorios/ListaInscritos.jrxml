@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaInscritos" pageWidth="842" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="009f7ba2-334c-4bd3-a6a1-b9fcc23d991f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (WEB)"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<property name="com.jaspersoft.studio.report.description" value="Relatório de colaboradores inscritos em uma instituição. Criado em 20/07/2021."/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
@@ -123,36 +123,36 @@ order by funcao_nome, inscr_tipo, colab_nome]]>
 	<parameter name="PAR_CONCURSO" class="java.lang.Integer"/>
 	<parameter name="PAR_INSTITUICAO" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select c.descricao as SQL_CONCURSO, c.conc_data_realizacao as SQL_DATA, i.inst_nome as SQL_INSTITUICAO, m.muni_nome as SQL_MUNICIPIO, u.uf_sigla as SQL_UF
-from concurso c, instituicao i, municipio m, uf u
-where c.idconcurso = $P{PAR_CONCURSO}
-  and i.inst_id_pk = $P{PAR_INSTITUICAO}
-  and i.inst_municipio_id = m.muni_id_pk
-  and i.inst_uf_id = u.uf_id_pk]]>
+		<![CDATA[select c.conc_nome, date_format(c.conc_data_realizacao, '%d/%m/%Y') as conc_data_realizacao, i.inst_nome, m.muni_nome, u.uf_sigla
+from concurso c, instituicao i
+join municipio m on i.inst_municipio_id = m.muni_id_pk
+join uf u on i.inst_uf_id = u.uf_id_pk
+where c.conc_id_pk = $P{PAR_CONCURSO}
+  and i.inst_id_pk = $P{PAR_INSTITUICAO}]]>
 	</queryString>
-	<field name="SQL_CONCURSO" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
-		<property name="com.jaspersoft.studio.field.label" value="SQL_CONCURSO"/>
+	<field name="conc_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="conc_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="conc_nome"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
 	</field>
-	<field name="SQL_DATA" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.name" value="data_realizacao"/>
-		<property name="com.jaspersoft.studio.field.label" value="SQL_DATA"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="etapa"/>
+	<field name="conc_data_realizacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="conc_data_realizacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="conc_data_realizacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
 	</field>
-	<field name="SQL_INSTITUICAO" class="java.lang.String">
+	<field name="inst_nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="inst_nome"/>
-		<property name="com.jaspersoft.studio.field.label" value="SQL_INSTITUICAO"/>
+		<property name="com.jaspersoft.studio.field.label" value="inst_nome"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="instituicao"/>
 	</field>
-	<field name="SQL_MUNICIPIO" class="java.lang.String">
+	<field name="muni_nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="muni_nome"/>
-		<property name="com.jaspersoft.studio.field.label" value="SQL_MUNICIPIO"/>
+		<property name="com.jaspersoft.studio.field.label" value="muni_nome"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="municipio"/>
 	</field>
-	<field name="SQL_UF" class="java.lang.String">
+	<field name="uf_sigla" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="uf_sigla"/>
-		<property name="com.jaspersoft.studio.field.label" value="SQL_UF"/>
+		<property name="com.jaspersoft.studio.field.label" value="uf_sigla"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="uf"/>
 	</field>
 	<background>
@@ -171,7 +171,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 				<reportElement style="Identificações" x="0" y="140" width="560" height="15" uuid="20eaebf5-0231-48c3-bcec-5c16145c1b27">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{SQL_CONCURSO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{conc_nome}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="Título" x="0" y="105" width="800" height="20" uuid="921da31f-3668-4f79-a0e0-b3e2cbc66a9c">
@@ -185,7 +185,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 				<reportElement style="Identificações" x="0" y="155" width="560" height="15" uuid="c242f3f1-c4f1-4c31-a9dc-cd6d32056bad">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{SQL_INSTITUICAO} + " (" + $F{SQL_MUNICIPIO} + " - " + $F{SQL_UF} + ")"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{inst_nome} + " (" + $F{muni_nome} + " - " + $F{uf_sigla} + ")"]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy à&apos;s&apos; HH:mm:ss">
 				<reportElement style="Identificações" x="580" y="155" width="221" height="15" uuid="4cb54b2a-ca54-4276-9064-b12d5515016a">
@@ -203,7 +203,7 @@ where c.idconcurso = $P{PAR_CONCURSO}
 				<textElement textAlignment="Left" markup="html">
 					<font size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b>Data de Realização: </b>" + new SimpleDateFormat("dd/MM/yyyy",new Locale("pt","BR")).format($F{SQL_DATA})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Data de Realização: </b>" + $F{conc_data_realizacao}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

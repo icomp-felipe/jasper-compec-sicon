@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FichaColaborador" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f6e4db4-9f8f-4ffe-9759-6e1fd142f492">
 	<property name="template.type" value="columnar"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<style name="Título" forecolor="#000000" fontName="DejaVu" fontSize="20" isBold="true" isUnderline="false"/>
 	<style name="SubTitle" forecolor="#666666" hTextAlign="Left" vTextAlign="Middle" fontName="DejaVu" fontSize="15" isBold="true">
 		<paragraph leftIndent="5"/>
@@ -22,7 +23,6 @@
 	<parameter name="PAR_SEXO" class="java.lang.Character"/>
 	<parameter name="PAR_CPF" class="java.lang.String"/>
 	<parameter name="PAR_NASCIMENTO" class="java.lang.String"/>
-	<parameter name="PAR_ESCOLARIDADE" class="java.lang.String"/>
 	<parameter name="PAR_PIS" class="java.lang.String"/>
 	<parameter name="PAR_RG" class="java.lang.String"/>
 	<parameter name="PAR_ORGAO" class="java.lang.String"/>
@@ -113,7 +113,9 @@
 					<text><![CDATA[Nome:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="185" y="55" width="60" height="15" uuid="e884a808-858d-4e44-bfd2-89b61f19294e"/>
+					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="350" y="55" width="60" height="15" uuid="e884a808-858d-4e44-bfd2-89b61f19294e">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
 					<text><![CDATA[Dt Nasc:]]></text>
 				</staticText>
 				<staticText>
@@ -121,23 +123,19 @@
 					<text><![CDATA[CPF:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="350" y="35" width="50" height="15" uuid="0324c200-f70a-4e10-8122-3027496f9f34">
+					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="350" y="35" width="60" height="15" uuid="0324c200-f70a-4e10-8122-3027496f9f34">
 						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					</reportElement>
 					<text><![CDATA[Sexo:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="350" y="55" width="50" height="15" uuid="ee01b170-866e-4b6b-807b-7fd778acacef">
-						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-					</reportElement>
-					<text><![CDATA[Título:]]></text>
 				</staticText>
 				<textField>
 					<reportElement key="" style="Dynamic Texts" x="55" y="55" width="100" height="15" uuid="f03ae3ee-fde1-4196-8a1b-b3797527b057"/>
 					<textFieldExpression><![CDATA[$P{PAR_CPF}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement key="" style="Dynamic Texts" x="250" y="55" width="90" height="15" uuid="5f6e364c-4b1c-416e-9572-c107d074f3df"/>
+					<reportElement key="" style="Dynamic Texts" x="415" y="55" width="90" height="15" uuid="5f6e364c-4b1c-416e-9572-c107d074f3df">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
 					<textFieldExpression><![CDATA[$P{PAR_NASCIMENTO}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -145,12 +143,8 @@
 					<textFieldExpression><![CDATA[$P{PAR_NOME}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
-					<reportElement key="" style="Dynamic Texts" x="405" y="35" width="150" height="15" uuid="716763b2-323b-47b0-8f12-42df9142847a"/>
+					<reportElement key="" style="Dynamic Texts" x="415" y="35" width="140" height="15" uuid="716763b2-323b-47b0-8f12-42df9142847a"/>
 					<textFieldExpression><![CDATA[$P{PAR_SEXO}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement key="" style="Dynamic Texts" x="405" y="55" width="150" height="15" uuid="1bd1493a-4da8-4d28-9f46-10da3ccd5dd5"/>
-					<textFieldExpression><![CDATA[$P{PAR_ESCOLARIDADE}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="0" y="135" width="55" height="15" uuid="d73f7b12-b7c0-49a9-9ae7-c93ed9b4e727"/>
@@ -324,29 +318,37 @@
 					<textFieldExpression><![CDATA[$P{PAR_LOTACAO}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="185" y="75" width="60" height="15" uuid="f339ba7f-433e-4774-8ae6-c7ec5c22acec"/>
+					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="0" y="75" width="50" height="15" uuid="f339ba7f-433e-4774-8ae6-c7ec5c22acec">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
 					<text><![CDATA[N° RG:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="0" y="75" width="50" height="15" uuid="d69b7e1c-cbb4-4caf-8af7-0f4d6f9d6f20">
+					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="185" y="55" width="50" height="15" uuid="d69b7e1c-cbb4-4caf-8af7-0f4d6f9d6f20">
 						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					</reportElement>
 					<text><![CDATA[PIS:]]></text>
 				</staticText>
 				<textField>
-					<reportElement key="" style="Dynamic Texts" x="55" y="75" width="100" height="15" uuid="31d2fe5e-fabf-4d71-b26c-d8e4f951f497"/>
+					<reportElement key="" style="Dynamic Texts" x="240" y="55" width="100" height="15" uuid="31d2fe5e-fabf-4d71-b26c-d8e4f951f497"/>
 					<textFieldExpression><![CDATA[$P{PAR_PIS}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="350" y="75" width="50" height="15" uuid="b065142a-0135-4ebb-b1cf-4fb66d002ffa"/>
+					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="350" y="75" width="60" height="15" uuid="b065142a-0135-4ebb-b1cf-4fb66d002ffa">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
 					<text><![CDATA[Órgão:]]></text>
 				</staticText>
 				<textField>
-					<reportElement key="" style="Dynamic Texts" x="405" y="75" width="150" height="15" uuid="931cd06c-b533-4cfa-8b75-3af5b4a7c078"/>
+					<reportElement key="" style="Dynamic Texts" x="415" y="75" width="139" height="15" uuid="931cd06c-b533-4cfa-8b75-3af5b4a7c078">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
 					<textFieldExpression><![CDATA[$P{PAR_ORGAO}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement key="" style="Dynamic Texts" x="250" y="75" width="90" height="15" uuid="1ce86e24-893b-4b1a-8a99-37d3f28260e3"/>
+					<reportElement key="" style="Dynamic Texts" x="55" y="75" width="285" height="15" uuid="1ce86e24-893b-4b1a-8a99-37d3f28260e3">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
 					<textFieldExpression><![CDATA[$P{PAR_RG}]]></textFieldExpression>
 				</textField>
 				<frame>

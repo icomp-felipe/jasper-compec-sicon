@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HistoricoColaborador" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0417783b-14c1-4388-9568-080baeeded93">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -48,9 +48,9 @@
 			<parameterDescription><![CDATA[]]></parameterDescription>
 		</parameter>
 		<queryString>
-			<![CDATA[select c.descricao as conc_nome, date_format(c.conc_data_realizacao,'%d/%m/%Y') as conc_realizacao, inst.inst_nome, f.nome as funcao_nome
+			<![CDATA[select c.conc_nome, date_format(c.conc_data_realizacao,'%d/%m/%Y') as conc_realizacao, inst.inst_nome, f.nome as funcao_nome
 from inscricao insc
-join concurso c on insc.idconcurso = c.idconcurso
+join concurso c on insc.idconcurso = c.conc_id_pk
 join instituicao inst on insc.idinstituicaoopcao1 = inst.inst_id_pk
 join funcao f on insc.idFuncao = f.idFuncao
 where insc.idColaborador =  $P{TABLE_ID_COLABORADOR}
