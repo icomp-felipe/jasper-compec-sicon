@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaColaboradorFuncaoMaps" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0417783b-14c1-4388-9568-080baeeded93">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -11,7 +11,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (WEB)"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<property name="com.jaspersoft.studio.report.description">
 		<![CDATA[Relatório "Lista de Colaborador por Função (Mapas)". Atualizado em: 02/10/2021 por Felipe André.]]>
 	</property>
@@ -112,10 +112,10 @@ order by $P!{TABLE_GROUP}]]>
 	<parameter name="PAR_GROUP" class="java.lang.String"/>
 	<parameter name="PAR_FUNCAO" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select c.descricao as conc_nome, DATE_FORMAT(c.conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, f.atividade as funcao_plural
-from concurso c, funcao f
-where c.idconcurso = $P{PAR_CONCURSO}
-and f.idFuncao   = $P{PAR_FUNCAO}]]>
+		<![CDATA[select conc_nome, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, atividade as funcao_plural
+from concurso, funcao
+where conc_id_pk = $P{PAR_CONCURSO}
+and idFuncao = $P{PAR_FUNCAO}]]>
 	</queryString>
 	<field name="conc_nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
