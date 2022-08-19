@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.19.0.final using JasperReports Library version 6.19.0-646c68931cebf1a58bc65c4359d1f0ca223c5e94  -->
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPA" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="331c611e-9a05-4f6f-9858-8c0ae81a1a5b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (WEB)"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon"/>
 	<property name="com.jaspersoft.studio.report.description" value="Recibo de Pagamento a Autônomo (RPA). Criado por Felipe André. Última atualização em 28/10/2021."/>
 	<style name="TABLE_CONTEUDO" mode="Opaque" backcolor="#FFFFFF" hTextAlign="Center" vTextAlign="Middle" fontName="DejaVu">
 		<box>
@@ -55,6 +55,7 @@
 	<parameter name="PAR_CONC_NOME" class="java.lang.String"/>
 	<parameter name="PAR_CONC_DATA" class="java.util.Date"/>
 	<parameter name="PAR_INST_NOME" class="java.lang.String"/>
+	<parameter name="PAR_ASSINATURA" class="java.awt.image.BufferedImage"/>
 	<queryString language="SQL">
 		<![CDATA[select colab_nome as COLAB_NOME, colab_pis as COLAB_PIS, colab_cpf as COLAB_CPF, colab_rg as COLAB_RG, colab_rg_orgao as COLAB_ORGAO, func.descricao as FUNCAO_NOME, cc.remuneracaodia AS VALOR_BRUTO, ROUND(cc.remuneracaodia * 0.11,2) as DESC_INSS, ROUND(cc.remuneracaodia * 0.05,2) as DESC_ISS, ROUND(cc.remuneracaodia - ROUND(cc.remuneracaodia * 0.11,2) - ROUND(cc.remuneracaodia * 0.05,2),2) as VALOR_LIQUIDO
 from inscricao insc
@@ -659,20 +660,21 @@ order by COLAB_NOME]]>
 			<line>
 				<reportElement x="1" y="678" width="560" height="1" uuid="df6d262d-9bc9-41cc-82ce-e6d37a154735"/>
 			</line>
-			<textField>
-				<reportElement x="459" y="365" width="100" height="16" uuid="19f2a291-11c7-4a3b-8bd2-e9a3e70f3e93"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="459" y="765" width="100" height="16" uuid="26aa1d09-1a38-467f-a3f9-03f92a625389"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
+			<image>
+				<reportElement x="403" y="324" width="160" height="20" uuid="0527e0c7-3814-4fdd-99fb-f06679cfc313">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{PAR_ASSINATURA}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="403" y="724" width="160" height="20" uuid="db8e1e43-11ae-4123-8466-c9c7268d18b1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{PAR_ASSINATURA}]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 </jasperReport>

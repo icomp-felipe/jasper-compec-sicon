@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPA" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="331c611e-9a05-4f6f-9858-8c0ae81a1a5b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -58,6 +58,7 @@
 	<parameter name="PAR_CONC_DATA" class="java.util.Date"/>
 	<parameter name="PAR_INST_NOME" class="java.lang.String"/>
 	<parameter name="PAR_COLAB_IDS" class="java.lang.String"/>
+	<parameter name="PAR_ASSINATURA" class="java.awt.image.BufferedImage"/>
 	<queryString language="SQL">
 		<![CDATA[select colab_nome as COLAB_NOME, colab_pis as COLAB_PIS, colab_cpf as COLAB_CPF, colab_rg as COLAB_RG, colab_rg_orgao as COLAB_ORGAO, func.descricao as FUNCAO_NOME, cc.remuneracaodia AS VALOR_BRUTO, ROUND(cc.remuneracaodia * 0.11,2) as DESC_INSS, ROUND(cc.remuneracaodia * 0.05,2) as DESC_ISS, ROUND(cc.remuneracaodia - ROUND(cc.remuneracaodia * 0.11,2) - ROUND(cc.remuneracaodia * 0.05,2),2) as VALOR_LIQUIDO
 from inscricao insc
@@ -663,6 +664,21 @@ order by COLAB_NOME]]>
 			<line>
 				<reportElement x="1" y="678" width="560" height="1" uuid="df6d262d-9bc9-41cc-82ce-e6d37a154735"/>
 			</line>
+			<image>
+				<reportElement x="403" y="324" width="160" height="20" uuid="f6c59faf-1357-406d-8913-240cf3b06cfa">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{PAR_ASSINATURA}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="403" y="724" width="160" height="20" uuid="f24b1303-2335-4f73-b4dc-0c5bfde84605">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{PAR_ASSINATURA}]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 </jasperReport>
