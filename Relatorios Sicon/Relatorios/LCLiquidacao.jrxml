@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LC - Liquidação" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="00f41a4a-8156-4bc1-a848-71fb48e494f1">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -105,18 +105,18 @@ order by valor_liquido desc, colab_nome]]>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_CONC_COD" class="java.lang.Integer"/>
 	<parameter name="PAR_INST_COD" class="java.lang.Integer"/>
-	<parameter name="PAR_OBS" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select c.conc_nome, date_format(c.conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, i.inst_nome as inst_nome, m.muni_nome as muni_nome, u.uf_sigla as uf_sigla, f.financ_lc as financ_lc
+		<![CDATA[select c.conc_nome, date_format(c.conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, i.inst_nome as inst_nome, m.muni_nome as muni_nome, u.uf_sigla as uf_sigla, f.financ_lc as financ_lc, s.siafi_string_geral, s.siafi_string_inss, s.siafi_string_iss
 from concurso c
-join instituicao i on i.inst_id_pk =  $P{PAR_INST_COD}
+join instituicao i on i.inst_id_pk = $P{PAR_INST_COD}
 join municipio m on i.inst_municipio_id = m.muni_id_pk
 join uf u on i.inst_uf_id = u.uf_id_pk
+left join siafi s on c.conc_id_pk = s.siafi_id_concurso
 left join financeiro f on c.conc_id_pk = f.financ_conc_id and i.inst_id_pk = f.financ_inst_id
 where c.conc_id_pk = $P{PAR_CONC_COD}]]>
 	</queryString>
 	<field name="conc_nome" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.name" value="conc_nome"/>
 		<property name="com.jaspersoft.studio.field.label" value="conc_nome"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
 	</field>
@@ -148,10 +148,28 @@ where c.conc_id_pk = $P{PAR_CONC_COD}]]>
 		<property name="com.jaspersoft.studio.field.tree.path" value="financeiro"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="siafi_string_geral" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="siafi_string_geral"/>
+		<property name="com.jaspersoft.studio.field.label" value="siafi_string_geral"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="siafi"/>
+	</field>
+	<field name="siafi_string_inss" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="siafi_string_inss"/>
+		<property name="com.jaspersoft.studio.field.label" value="siafi_string_inss"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="siafi"/>
+	</field>
+	<field name="siafi_string_iss" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="siafi_string_iss"/>
+		<property name="com.jaspersoft.studio.field.label" value="siafi_string_iss"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="siafi"/>
+	</field>
 	<variable name="valorBruto" class="java.lang.Double"/>
 	<variable name="inssTotal" class="java.lang.Double"/>
 	<variable name="issTotal" class="java.lang.Double"/>
 	<variable name="valorLiquido" class="java.lang.Double"/>
+	<variable name="VAR_OBS" class="java.lang.String">
+		<variableExpression><![CDATA[String.format("==> Geral\n%s\n\n==> INSS\n%s\n\n==> ISS\n%s", $F{siafi_string_geral} == null ? "" : $F{siafi_string_geral}, $F{siafi_string_inss} == null ? "" : $F{siafi_string_inss}, $F{siafi_string_iss} == null ? "" : $F{siafi_string_iss}).trim()]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -512,7 +530,7 @@ where c.conc_id_pk = $P{PAR_CONC_COD}]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Justified" markup="none"/>
-				<textFieldExpression><![CDATA[$P{PAR_OBS}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{VAR_OBS}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement positionType="Float" x="0" y="50" width="800" height="1" uuid="547cb813-c285-4ca5-a847-dcee4b5293f9">
