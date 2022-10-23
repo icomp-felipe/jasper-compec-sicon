@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPA" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="331c611e-9a05-4f6f-9858-8c0ae81a1a5b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -56,6 +56,7 @@
 	<parameter name="PAR_INST_UF" class="java.lang.String"/>
 	<parameter name="PAR_CONC_NOME" class="java.lang.String"/>
 	<parameter name="PAR_CONC_DATA" class="java.util.Date"/>
+	<parameter name="PAR_RPA_DATA" class="java.util.Date"/>
 	<parameter name="PAR_INST_NOME" class="java.lang.String"/>
 	<parameter name="PAR_COLAB_IDS" class="java.lang.String"/>
 	<parameter name="PAR_ASSINATURA" class="java.awt.image.BufferedImage"/>
@@ -139,7 +140,7 @@ order by COLAB_NOME]]>
 		<variableExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatCPF($F{COLAB_CPF})]]></variableExpression>
 	</variable>
 	<variable name="VAR_LOCAL_DATA" class="java.lang.String">
-		<variableExpression><![CDATA[$P{PAR_INST_MUNICIPIO} + " - " + $P{PAR_INST_UF} + ", " + new SimpleDateFormat("dd 'de' MMMM 'de' yyyy",new Locale("pt","BR")).format($P{PAR_CONC_DATA})]]></variableExpression>
+		<variableExpression><![CDATA[$P{PAR_INST_MUNICIPIO} + " - " + $P{PAR_INST_UF} + ", " + new SimpleDateFormat("dd 'de' MMMM 'de' yyyy",new Locale("pt","BR")).format($P{PAR_RPA_DATA})]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
