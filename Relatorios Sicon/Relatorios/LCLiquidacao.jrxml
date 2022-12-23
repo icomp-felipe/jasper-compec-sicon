@@ -305,7 +305,7 @@ where c.conc_id_pk = $P{PAR_CONC_COD}]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[String.format("%.2f", $V{valorBruto} * 0.16F)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.format("%.2f", $V{valorBruto} * 0.84F)]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="165" width="800" height="1" uuid="f2b2f9f7-162d-4ca3-ad96-f88eabf8dd4b">
