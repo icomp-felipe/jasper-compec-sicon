@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HistoricoColaborador" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0417783b-14c1-4388-9568-080baeeded93">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -43,12 +43,12 @@
 	</style>
 	<subDataset name="HistoricoDataset" uuid="91e9c51f-71c7-4fd7-94cf-f60d33f1028d">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (WEB)"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 		<parameter name="TABLE_ID_COLABORADOR" class="java.lang.Integer">
 			<parameterDescription><![CDATA[]]></parameterDescription>
 		</parameter>
 		<queryString>
-			<![CDATA[select c.conc_nome, date_format(c.conc_data_realizacao,'%d/%m/%Y') as conc_realizacao, inst.inst_nome, f.nome as funcao_nome
+			<![CDATA[select c.conc_nome, date_format(c.conc_data_realizacao,'%d/%m/%Y') as conc_realizacao, inst.inst_nome, f.nome as funcao_nome, date_format(insc.dt_hr,'%d/%m/%Y %H:%i:%s') as inscr_datetime, insc.tipoinscricao as inscr_tipo
 from inscricao insc
 join concurso c on insc.idconcurso = c.conc_id_pk
 join instituicao inst on insc.idinstituicaoopcao1 = inst.inst_id_pk
@@ -57,9 +57,14 @@ where insc.idColaborador =  $P{TABLE_ID_COLABORADOR}
 order by insc.idconcurso desc]]>
 		</queryString>
 		<field name="conc_nome" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+			<property name="com.jaspersoft.studio.field.name" value="conc_nome"/>
 			<property name="com.jaspersoft.studio.field.label" value="conc_nome"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
+		</field>
+		<field name="conc_realizacao" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="conc_realizacao"/>
+			<property name="com.jaspersoft.studio.field.label" value="conc_realizacao"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="conc_realizacao"/>
 		</field>
 		<field name="inst_nome" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="inst_nome"/>
@@ -68,14 +73,18 @@ order by insc.idconcurso desc]]>
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="funcao_nome" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+			<property name="com.jaspersoft.studio.field.name" value="nome"/>
 			<property name="com.jaspersoft.studio.field.label" value="funcao_nome"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="funcao"/>
 		</field>
-		<field name="conc_realizacao" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="conc_realizacao"/>
-			<property name="com.jaspersoft.studio.field.label" value="conc_realizacao"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="conc_realizacao"/>
+		<field name="inscr_datetime" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="inscr_datetime"/>
+			<property name="com.jaspersoft.studio.field.label" value="inscr_datetime"/>
+		</field>
+		<field name="inscr_tipo" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="tipoinscricao"/>
+			<property name="com.jaspersoft.studio.field.label" value="inscr_tipo"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="inscricao"/>
 		</field>
 	</subDataset>
 	<scriptlet name="JASPER_DRIVER" class="compec.ufam.sicon.interfaces.JasperDriver">
@@ -150,35 +159,35 @@ order by insc.idconcurso desc]]>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="30" uuid="6a6c9247-464f-479c-889c-532614c20cde">
+					<jr:column width="20" uuid="6a6c9247-464f-479c-889c-532614c20cde">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="30" height="20" uuid="bac845c7-aff8-4457-9d1e-120482fd1a9d"/>
+								<reportElement style="Títulos (Tabela)" x="0" y="0" width="20" height="20" uuid="bac845c7-aff8-4457-9d1e-120482fd1a9d"/>
 								<text><![CDATA[#]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
 							<textField>
-								<reportElement style="Fields (Tabela)" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" uuid="1f05d10b-09df-40bd-bbcf-4ab5f5d0cf95"/>
+								<reportElement style="Fields (Tabela)" stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="20" uuid="1f05d10b-09df-40bd-bbcf-4ab5f5d0cf95"/>
 								<box leftPadding="0"/>
 								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="330" uuid="1e5e7e67-f568-4225-b3e2-37aab45e0fcf">
+					<jr:column width="230" uuid="1e5e7e67-f568-4225-b3e2-37aab45e0fcf">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<box topPadding="0"/>
 							<staticText>
-								<reportElement key="" style="Títulos (Tabela)" positionType="Float" x="0" y="0" width="330" height="20" uuid="51c6d040-43c7-4e8a-bec1-b2893fbe9027"/>
+								<reportElement key="" style="Títulos (Tabela)" positionType="Float" x="0" y="0" width="230" height="20" uuid="51c6d040-43c7-4e8a-bec1-b2893fbe9027"/>
 								<text><![CDATA[Concurso]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
 							<textField textAdjust="StretchHeight">
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="330" height="20" uuid="c96bd75f-273f-495b-a9df-85eedccb5f54"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="230" height="20" uuid="c96bd75f-273f-495b-a9df-85eedccb5f54"/>
 								<textFieldExpression><![CDATA[$F{conc_nome}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -200,23 +209,8 @@ order by insc.idconcurso desc]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="290" uuid="162bf3ed-7f69-46e0-bb0a-7f43a2452d13">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
-						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
-							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="290" height="20" uuid="38c6a9bb-c1df-4f6e-8815-edc0975e9101"/>
-								<text><![CDATA[Instituição]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="20">
-							<textField textAdjust="StretchHeight">
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="290" height="20" uuid="ab9a3be6-fd4d-4aba-9956-b350ee459088"/>
-								<textFieldExpression><![CDATA[$F{inst_nome}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
 					<jr:column width="80" uuid="b4716000-f49a-432a-9daa-d8b9e8dee2f5">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
 								<reportElement style="Títulos (Tabela)" x="0" y="0" width="80" height="20" uuid="696d3618-a5e4-4c83-8967-6c540988f45a"/>
@@ -230,6 +224,57 @@ order by insc.idconcurso desc]]>
 								<box leftPadding="0"/>
 								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{funcao_nome}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="220" uuid="162bf3ed-7f69-46e0-bb0a-7f43a2452d13">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement style="Títulos (Tabela)" x="0" y="0" width="220" height="20" uuid="38c6a9bb-c1df-4f6e-8815-edc0975e9101"/>
+								<text><![CDATA[Instituição]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField textAdjust="StretchHeight">
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="220" height="20" uuid="ab9a3be6-fd4d-4aba-9956-b350ee459088"/>
+								<textFieldExpression><![CDATA[$F{inst_nome}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="120" uuid="32fe1346-8cd7-4c63-ad91-c8625aad80fb">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement style="Títulos (Tabela)" x="0" y="0" width="120" height="20" uuid="bc278da0-2f67-48c4-ab94-e8e4fdd86b21"/>
+								<box padding="0"/>
+								<text><![CDATA[Inscrição]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField textAdjust="StretchHeight">
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="120" height="20" uuid="cf01bf8e-6efe-4b5f-aaeb-b25d460567c2"/>
+								<box leftPadding="0"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{inscr_datetime}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="60" uuid="f55b5f4f-3154-4423-85c2-9fcd17d0b288">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement style="Títulos (Tabela)" x="0" y="0" width="60" height="20" uuid="fa04adbb-0dac-4457-8ffc-55f68fe82698"/>
+								<box padding="0"/>
+								<text><![CDATA[Vaga]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField textAdjust="StretchHeight">
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="60" height="20" uuid="0c5c231e-3da7-4288-abb7-5cc0a6eaf5bd"/>
+								<box leftPadding="0"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{inscr_tipo} == 1 ? "Pública" : "Indicação"]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
