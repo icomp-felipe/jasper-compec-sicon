@@ -20,7 +20,7 @@
 	<parameter name="PAR_CONC_COD" class="java.lang.Integer"/>
 	<parameter name="PAR_INST_COD" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select conc_nome, inst_nome, muni_nome, uf_sigla, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, financ_lc, financ_sei, financ_ne, sum(round(cc.remuneracaodia,2)) as valor_bruto, date_format(financ_data_apuracao,'%d/%m/%Y') as financ_data_apuracao, date_format(financ_data_ateste,'%d/%m/%Y') as financ_data_ateste, date_format(financ_data_vencimento,'%d/%m/%Y') as financ_data_vencimento, siafi_string_geral, siafi_string_inss, siafi_string_iss
+		<![CDATA[select conc_nome, inst_nome, muni_nome, uf_sigla, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, financ_lc, financ_sei, financ_ne, sum(round(cc.remuneracaodia,2)) as valor_bruto, sum(round(cc.remuneracaodia,2)) * 0.11 as desc_inss, sum(round(cc.remuneracaodia,2)) * 0.05 as desc_iss, round(sum(cc.remuneracaodia) - round(sum(cc.remuneracaodia) * 0.11,2) - round(sum(cc.remuneracaodia) * 0.05,2),2) as valor_liquido, date_format(financ_data_apuracao,'%d/%m/%Y') as financ_data_apuracao, date_format(financ_data_ateste,'%d/%m/%Y') as financ_data_ateste, date_format(financ_data_vencimento,'%d/%m/%Y') as financ_data_vencimento, siafi_string_geral, siafi_string_inss, siafi_string_iss
 from financeiro
      join inscricao i on financ_conc_id = i.idconcurso and financ_inst_id = i.idinstituicaoopcao1
      join colaborador c on idColaborador = c.colab_id_pk
@@ -77,6 +77,18 @@ where financ_conc_id = $P{PAR_CONC_COD}
 	<field name="valor_bruto" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.name" value="valor_bruto"/>
 		<property name="com.jaspersoft.studio.field.label" value="valor_bruto"/>
+	</field>
+	<field name="desc_inss" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="desc_inss"/>
+		<property name="com.jaspersoft.studio.field.label" value="desc_inss"/>
+	</field>
+	<field name="desc_iss" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="desc_iss"/>
+		<property name="com.jaspersoft.studio.field.label" value="desc_iss"/>
+	</field>
+	<field name="valor_liquido" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="valor_liquido"/>
+		<property name="com.jaspersoft.studio.field.label" value="valor_liquido"/>
 	</field>
 	<field name="financ_data_apuracao" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="financ_data_apuracao"/>
@@ -149,7 +161,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 		</band>
 	</title>
 	<detail>
-		<band height="720" splitType="Immediate">
+		<band height="740" splitType="Immediate">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<frame>
 				<reportElement style="Barras" positionType="Float" x="0" y="0" width="555" height="20" uuid="c9470d3b-7f73-4ad3-bf03-4c9b00436b2f">
@@ -416,7 +428,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[String.format("%.2f", $F{valor_bruto} * 0.11F)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.format("%.2f", $F{desc_inss})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="Texto Estático" positionType="Float" x="0" y="275" width="555" height="15" forecolor="#FFCC00" uuid="97635c3f-b2c5-4d94-b683-dafb7acdb88e">
@@ -562,24 +574,24 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<textFieldExpression><![CDATA[$F{financ_data_vencimento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Texto Estático" positionType="Float" x="325" y="415" width="90" height="15" uuid="1e5b1295-e050-4955-af82-92f50dfe96b7">
+				<reportElement style="Texto Estático" positionType="Float" x="0" y="435" width="333" height="15" uuid="1e5b1295-e050-4955-af82-92f50dfe96b7">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<text><![CDATA[Valores (R$):]]></text>
+				<text><![CDATA[Valor = Base de Cálculo = Valor da Receita (R$):]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="Texto Dinâmico" positionType="Float" x="420" y="415" width="70" height="15" uuid="4c956a3f-49cb-4bc4-9d04-d8ffe7c03842">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="338" y="435" width="70" height="15" uuid="4c956a3f-49cb-4bc4-9d04-d8ffe7c03842">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[String.format("%.2f", $F{valor_bruto} * 0.05F)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.format("%.2f", $F{desc_iss})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Texto Estático" positionType="Float" x="0" y="440" width="555" height="15" forecolor="#FFCC00" uuid="5c90e375-bab5-4729-8a44-c3e9d868d572">
+				<reportElement style="Texto Estático" positionType="Float" x="0" y="460" width="555" height="15" forecolor="#FFCC00" uuid="5c90e375-bab5-4729-8a44-c3e9d868d572">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -588,13 +600,13 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<text><![CDATA[Pré-Doc]]></text>
 			</staticText>
 			<line>
-				<reportElement positionType="Float" x="0" y="455" width="555" height="1" forecolor="#FFCC00" uuid="8077697c-5f16-43b8-80ce-1e16f9219e5b">
+				<reportElement positionType="Float" x="0" y="475" width="555" height="1" forecolor="#FFCC00" uuid="8077697c-5f16-43b8-80ce-1e16f9219e5b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement style="Texto Estático" positionType="Float" x="0" y="460" width="150" height="15" uuid="1c347052-de9f-4a05-88ed-84cb7143566b">
+				<reportElement style="Texto Estático" positionType="Float" x="0" y="480" width="150" height="15" uuid="1c347052-de9f-4a05-88ed-84cb7143566b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -603,7 +615,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<text><![CDATA[Período de Apuração:]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="Texto Dinâmico" positionType="Float" x="155" y="460" width="70" height="15" uuid="104746be-d249-4742-9077-ce409088b937">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="155" y="480" width="70" height="15" uuid="104746be-d249-4742-9077-ce409088b937">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -612,7 +624,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<textFieldExpression><![CDATA[$F{financ_data_apuracao}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Texto Estático" positionType="Float" x="230" y="460" width="70" height="15" uuid="d3f63712-5837-4357-8eb2-5a3598a7e6ae">
+				<reportElement style="Texto Estático" positionType="Float" x="230" y="480" width="70" height="15" uuid="d3f63712-5837-4357-8eb2-5a3598a7e6ae">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -620,7 +632,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<text><![CDATA[Processo:]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="Texto Dinâmico" positionType="Float" x="305" y="460" width="100" height="15" uuid="379cda6d-23aa-4c4d-8e7c-b412e1b8e04d">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="305" y="480" width="100" height="15" uuid="379cda6d-23aa-4c4d-8e7c-b412e1b8e04d">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -629,7 +641,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<textFieldExpression><![CDATA[String.format("%s/%s-%s", $F{financ_sei}.substring(5, 11), $F{financ_sei}.substring(11, 15), $F{financ_sei}.substring(15))]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Texto Estático" positionType="Float" x="410" y="460" width="80" height="15" uuid="1ac260cb-f3a6-40a5-add9-5e3d2f3be695">
+				<reportElement style="Texto Estático" positionType="Float" x="410" y="480" width="80" height="15" uuid="1ac260cb-f3a6-40a5-add9-5e3d2f3be695">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -637,7 +649,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<text><![CDATA[Vinculação:]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="Texto Dinâmico" positionType="Float" x="495" y="460" width="60" height="15" uuid="1ecbe66a-c26a-4b26-a482-d1de15516441">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="495" y="480" width="60" height="15" uuid="1ecbe66a-c26a-4b26-a482-d1de15516441">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -646,7 +658,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<textFieldExpression><![CDATA["400"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Texto Estático" positionType="Float" x="0" y="485" width="555" height="15" uuid="928eddd7-d1c8-4b46-8c9d-2f8a72307765">
+				<reportElement style="Texto Estático" positionType="Float" x="0" y="505" width="555" height="15" uuid="928eddd7-d1c8-4b46-8c9d-2f8a72307765">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -655,13 +667,13 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<text><![CDATA[Observação]]></text>
 			</staticText>
 			<line>
-				<reportElement positionType="Float" x="0" y="500" width="555" height="1" uuid="da0cc39a-994c-427d-9a55-be3283cdae2a">
+				<reportElement positionType="Float" x="0" y="520" width="555" height="1" uuid="da0cc39a-994c-427d-9a55-be3283cdae2a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 			</line>
 			<frame>
-				<reportElement style="Barras" positionType="Float" x="0" y="530" width="555" height="20" uuid="d7aa4730-3924-48e3-b2e6-08dc0c09e201">
+				<reportElement style="Barras" positionType="Float" x="0" y="550" width="555" height="20" uuid="d7aa4730-3924-48e3-b2e6-08dc0c09e201">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -675,7 +687,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				</textField>
 			</frame>
 			<staticText>
-				<reportElement style="Texto Estático" positionType="Float" x="0" y="560" width="145" height="15" uuid="3f534d85-b016-4ef3-8226-a7a61e2265d7">
+				<reportElement style="Texto Estático" positionType="Float" x="0" y="580" width="145" height="15" uuid="3f534d85-b016-4ef3-8226-a7a61e2265d7">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -683,7 +695,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<text><![CDATA[Data de Pagamento:]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="Texto Dinâmico" positionType="Float" x="150" y="560" width="70" height="15" uuid="7a735c63-1021-44ea-a2d4-f366bc0cdf93">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="150" y="580" width="70" height="15" uuid="7a735c63-1021-44ea-a2d4-f366bc0cdf93">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -691,7 +703,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<textFieldExpression><![CDATA[$F{financ_data_vencimento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Texto Estático" positionType="Float" x="225" y="560" width="100" height="15" uuid="15df0cb9-a2b8-4f3d-823c-aa29869fc2b5">
+				<reportElement style="Texto Estático" positionType="Float" x="225" y="580" width="100" height="15" uuid="15df0cb9-a2b8-4f3d-823c-aa29869fc2b5">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -699,15 +711,15 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<text><![CDATA[Valor (R$):]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="Texto Dinâmico" positionType="Float" x="330" y="560" width="150" height="15" uuid="d8dfdcb7-09f0-48ea-87e8-66f65788c815">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="330" y="580" width="150" height="15" uuid="d8dfdcb7-09f0-48ea-87e8-66f65788c815">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[String.format("%.2f", $F{valor_bruto} * 0.84F)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.format("%.2f", $F{valor_liquido})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Texto Estático" positionType="Float" x="0" y="585" width="555" height="15" forecolor="#FFCC00" uuid="710573f5-306f-4cdd-9957-3d533ab334dd">
+				<reportElement style="Texto Estático" positionType="Float" x="0" y="605" width="555" height="15" forecolor="#FFCC00" uuid="710573f5-306f-4cdd-9957-3d533ab334dd">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -716,13 +728,13 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<text><![CDATA[Pré-Doc]]></text>
 			</staticText>
 			<line>
-				<reportElement positionType="Float" x="0" y="600" width="555" height="1" forecolor="#FFCC00" uuid="e6dd5aa4-f046-49bd-a3e2-4721ef0e3122">
+				<reportElement positionType="Float" x="0" y="620" width="555" height="1" forecolor="#FFCC00" uuid="e6dd5aa4-f046-49bd-a3e2-4721ef0e3122">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement style="Texto Estático" positionType="Float" x="0" y="605" width="70" height="15" uuid="68bffb42-55b1-43fb-9672-3aa365683544">
+				<reportElement style="Texto Estático" positionType="Float" x="0" y="625" width="70" height="15" uuid="68bffb42-55b1-43fb-9672-3aa365683544">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -731,15 +743,15 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<text><![CDATA[Processo:]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="Texto Dinâmico" positionType="Float" x="75" y="605" width="145" height="15" uuid="ceab64a8-ee73-4558-9450-d930e4fe1ad8">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="75" y="625" width="145" height="15" uuid="ceab64a8-ee73-4558-9450-d930e4fe1ad8">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[String.format("%s/%s-%s", $F{financ_sei}.substring(5, 11), $F{financ_sei}.substring(11, 15), $F{financ_sei}.substring(15))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.format("%s.%s/%s-%s", $F{financ_sei}.substring(0, 5), $F{financ_sei}.substring(5, 11), $F{financ_sei}.substring(11, 15), $F{financ_sei}.substring(15))]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement style="Texto Dinâmico" positionType="Float" x="0" y="505" width="555" height="15" uuid="a2f143dc-0ceb-429f-bc16-b823bc6ba6a5">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="0" y="525" width="555" height="15" uuid="a2f143dc-0ceb-429f-bc16-b823bc6ba6a5">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -749,7 +761,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<textFieldExpression><![CDATA[$F{siafi_string_iss}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Texto Estático" positionType="Float" x="225" y="605" width="100" height="15" uuid="42d28b91-5add-4b24-bb76-5b2cf782a881">
+				<reportElement style="Texto Estático" positionType="Float" x="225" y="625" width="100" height="15" uuid="42d28b91-5add-4b24-bb76-5b2cf782a881">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -758,7 +770,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<text><![CDATA[N° da Lista:]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="Texto Dinâmico" positionType="Float" x="330" y="605" width="150" height="15" uuid="b1140688-9afe-4008-b12f-e117a9a8620e">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="330" y="625" width="150" height="15" uuid="b1140688-9afe-4008-b12f-e117a9a8620e">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -766,7 +778,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<textFieldExpression><![CDATA[String.format("2023LC%06d", $F{financ_lc})]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement style="Barras" positionType="Float" x="0" y="675" width="555" height="20" uuid="a2112548-1adc-4904-82a7-48f00710995d">
+				<reportElement style="Barras" positionType="Float" x="0" y="695" width="555" height="20" uuid="a2112548-1adc-4904-82a7-48f00710995d">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -780,7 +792,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				</textField>
 			</frame>
 			<staticText>
-				<reportElement style="Texto Estático" positionType="Float" x="0" y="705" width="175" height="15" uuid="4b9f2533-09c9-494e-bff0-61635d2fbf04">
+				<reportElement style="Texto Estático" positionType="Float" x="0" y="725" width="175" height="15" uuid="4b9f2533-09c9-494e-bff0-61635d2fbf04">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -789,7 +801,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<text><![CDATA[Mês e Ano de Referência:]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="Texto Dinâmico" positionType="Float" x="180" y="705" width="70" height="15" uuid="90ae0356-2ffe-477a-8a73-127288b5117d">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="180" y="725" width="70" height="15" uuid="90ae0356-2ffe-477a-8a73-127288b5117d">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -816,7 +828,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<textFieldExpression><![CDATA["5,000"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Texto Estático" positionType="Float" x="0" y="630" width="555" height="15" uuid="520eea55-d1b2-4782-8fcf-b2b5e8dbe897">
+				<reportElement style="Texto Estático" positionType="Float" x="0" y="650" width="555" height="15" uuid="520eea55-d1b2-4782-8fcf-b2b5e8dbe897">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -825,13 +837,13 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				<text><![CDATA[Observação]]></text>
 			</staticText>
 			<line>
-				<reportElement positionType="Float" x="0" y="645" width="555" height="1" uuid="f2521fec-1f0d-4bab-9fe3-9aa1794283ff">
+				<reportElement positionType="Float" x="0" y="665" width="555" height="1" uuid="f2521fec-1f0d-4bab-9fe3-9aa1794283ff">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 			</line>
 			<textField textAdjust="StretchHeight">
-				<reportElement style="Texto Dinâmico" positionType="Float" x="0" y="650" width="555" height="15" uuid="45789e0e-0e40-4c58-9427-6558cd4041ef">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="0" y="670" width="555" height="15" uuid="45789e0e-0e40-4c58-9427-6558cd4041ef">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
