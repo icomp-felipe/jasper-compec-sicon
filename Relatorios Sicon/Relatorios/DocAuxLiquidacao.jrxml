@@ -20,7 +20,7 @@
 	<parameter name="PAR_CONC_COD" class="java.lang.Integer"/>
 	<parameter name="PAR_INST_COD" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select conc_nome, inst_nome, muni_nome, uf_sigla, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, financ_lc, financ_sei, financ_ne, sum(round(cc.remuneracaodia,2)) as valor_bruto, sum(round(cc.remuneracaodia,2)) * 0.11 as desc_inss, sum(round(cc.remuneracaodia,2)) * 0.05 as desc_iss, round(sum(cc.remuneracaodia) - round(sum(cc.remuneracaodia) * 0.11,2) - round(sum(cc.remuneracaodia) * 0.05,2),2) as valor_liquido, date_format(financ_data_apuracao,'%d/%m/%Y') as financ_data_apuracao, date_format(financ_data_ateste,'%d/%m/%Y') as financ_data_ateste, date_format(financ_data_vencimento,'%d/%m/%Y') as financ_data_vencimento, siafi_string_geral, siafi_string_inss, siafi_string_iss
+		<![CDATA[select conc_nome, inst_nome, muni_nome, uf_sigla, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, financ_lc, financ_sei, financ_ne, sum(round(cc.remuneracaodia,2)) as valor_bruto, sum(round(cc.remuneracaodia * 0.11,2)) as desc_inss, sum(round(cc.remuneracaodia * 0.05,2)) as desc_iss, sum(round(cc.remuneracaodia,2)) - sum(round(cc.remuneracaodia * 0.11,2)) - sum(round(cc.remuneracaodia * 0.05,2)) as valor_liquido, date_format(financ_data_apuracao,'%d/%m/%Y') as financ_data_apuracao, date_format(financ_data_ateste,'%d/%m/%Y') as financ_data_ateste, date_format(financ_data_vencimento,'%d/%m/%Y') as financ_data_vencimento, siafi_string_geral, siafi_string_inss, siafi_string_iss
 from financeiro
      join inscricao i on financ_conc_id = i.idconcurso and financ_inst_id = i.idinstituicaoopcao1
      join colaborador c on idColaborador = c.colab_id_pk
