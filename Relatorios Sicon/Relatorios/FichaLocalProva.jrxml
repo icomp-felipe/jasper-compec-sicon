@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FichaLocalProva" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f6e4db4-9f8f-4ffe-9759-6e1fd142f492">
 	<property name="template.type" value="columnar"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
@@ -79,32 +79,14 @@
 				</textField>
 			</frame>
 			<textField>
-				<reportElement style="Text Fields" x="65" y="130" width="330" height="15" uuid="16759bb3-c001-408a-a64e-f1c481bacd42">
+				<reportElement style="Text Fields" x="0" y="130" width="555" height="15" uuid="16759bb3-c001-408a-a64e-f1c481bacd42">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$P{PAR_CONCURSO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{PAR_CONCURSO} + " [" + $P{PAR_DATA_CONCURSO} + "]"]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement style="Labels" x="0" y="130" width="60" height="15" uuid="8692de3a-6342-428a-96e5-a7ba1b5a0880">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<text><![CDATA[Nome:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Labels" x="400" y="130" width="80" height="15" uuid="de22244f-0463-4b12-9610-88fb16260e2e">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<text><![CDATA[Realização:]]></text>
-			</staticText>
 			<frame>
 				<reportElement style="Caixas" mode="Opaque" x="0" y="150" width="555" height="20" uuid="463daa15-c417-4e61-aeef-08b110e26970">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -182,15 +164,6 @@
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement style="Text Fields" x="485" y="130" width="70" height="15" uuid="e72c8705-a3aa-47a5-ba9b-524258c648d2">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-				</reportElement>
-				<textFieldExpression><![CDATA[$P{PAR_DATA_CONCURSO}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement key="" style="Labels" positionType="FixRelativeToBottom" x="0" y="200" width="60" height="15" uuid="53b9cf2a-3d64-4e1b-86b0-1001a6ec9b6f">
