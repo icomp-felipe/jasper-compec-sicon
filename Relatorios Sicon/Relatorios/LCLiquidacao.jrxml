@@ -305,7 +305,7 @@ where c.conc_id_pk = $P{PAR_CONC_COD}]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[String.format("%.2f", $V{valorBruto} * 0.16F)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.format("%.2f", $V{valorBruto} * 0.84F)]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="165" width="800" height="1" uuid="f2b2f9f7-162d-4ca3-ad96-f88eabf8dd4b">
@@ -385,7 +385,7 @@ where c.conc_id_pk = $P{PAR_CONC_COD}]]>
 						<jr:detailCell style="Table 1_TD" height="25">
 							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" stretchType="RelativeToBandHeight" x="0" y="0" width="120" height="25" uuid="281c6283-09c5-4856-9f59-523dedb4dbb0"/>
-								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatCPF($F{colab_cpf})]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{colab_cpf}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
