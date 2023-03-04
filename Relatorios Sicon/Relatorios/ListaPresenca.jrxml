@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaPresenca" pageWidth="842" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="009f7ba2-334c-4bd3-a6a1-b9fcc23d991f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (WEB)"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -76,28 +76,30 @@
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select c.colab_nome, c.colab_cpf, f.nome as funcao_nome, colab_categoria_id, b.banco_apelido as colab_banco, c.colab_agencia, c.colab_conta, c.colab_conta_dv
-from colaborador c
-    join inscricao i on c.colab_id_pk = i.idColaborador
-    join funcao f on i.idFuncao = f.idFuncao
-   left  join banco b on c.colab_banco_id = b.banco_id_pk
-where i.idconcurso = $P{TABLE_CONCURSO}
-  and i.idinstituicaoopcao1 = $P{TABLE_INSTITUICAO}
-order by funcao_nome, colab_nome]]>
+			<![CDATA[select colab_nome, colab_cpf, func_nome, colab_categoria_id, banco_apelido, colab_agencia, colab_conta, colab_conta_dv
+from colaborador
+    join inscricao i on colaborador.colab_id_pk = i.insc_colab_id
+    join mapa m on i.insc_mapa_id = m.mapa_id_pk
+    join funcao_concurso fc on m.mapa_fconc_id = fc.fconc_id_pk
+    join funcao f on fc.fconc_func_id = f.func_id_pk
+    left join banco b on colab_banco_id = b.banco_id_pk
+where fconc_conc_id = $P{TABLE_CONCURSO}
+  and mapa_inst_id = $P{TABLE_INSTITUICAO}
+order by func_nome, colab_nome]]>
 		</queryString>
 		<field name="colab_nome" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
 			<property name="com.jaspersoft.studio.field.label" value="colab_nome"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 		</field>
-		<field name="colab_cpf" class="java.lang.Long">
+		<field name="colab_cpf" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="colab_cpf"/>
 			<property name="com.jaspersoft.studio.field.label" value="colab_cpf"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 		</field>
-		<field name="funcao_nome" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="funcao_nome"/>
-			<property name="com.jaspersoft.studio.field.label" value="funcao_nome"/>
+		<field name="func_nome" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="func_nome"/>
+			<property name="com.jaspersoft.studio.field.label" value="func_nome"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="funcao"/>
 		</field>
 		<field name="colab_categoria_id" class="java.lang.Integer">
@@ -106,9 +108,9 @@ order by funcao_nome, colab_nome]]>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="colab_banco" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="colab_banco"/>
-			<property name="com.jaspersoft.studio.field.label" value="colab_banco"/>
+		<field name="banco_apelido" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="banco_apelido"/>
+			<property name="com.jaspersoft.studio.field.label" value="banco_apelido"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="banco"/>
 		</field>
 		<field name="colab_agencia" class="java.lang.String">
@@ -309,7 +311,7 @@ where c.conc_id_pk = $P{PAR_CONCURSO}
 									<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 								</reportElement>
 								<jr:barbecue type="EAN13" drawText="true" checksumRequired="false">
-									<jr:codeExpression><![CDATA[String.format("%012d",$F{colab_cpf})]]></jr:codeExpression>
+									<jr:codeExpression><![CDATA["0" + $F{colab_cpf}]]></jr:codeExpression>
 								</jr:barbecue>
 							</componentElement>
 						</jr:detailCell>
@@ -326,7 +328,7 @@ where c.conc_id_pk = $P{PAR_CONCURSO}
 							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="90" height="26" uuid="96a55aad-24f0-4f95-a721-723c1bfb84f4"/>
 								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$F{funcao_nome}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{func_nome}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -358,7 +360,7 @@ where c.conc_id_pk = $P{PAR_CONCURSO}
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="80" height="26" uuid="2f39eada-881f-4d58-8602-c21693eb6196"/>
 								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$F{colab_banco}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{banco_apelido}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
