@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LC - Lançamento" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="00f41a4a-8156-4bc1-a848-71fb48e494f1">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -56,14 +56,15 @@
 		<parameter name="TABLE_FUNCAO" class="java.lang.String"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select c.colab_nome, c.colab_cpf, b.banco_apelido as banco_nome, b.banco_codigo as banco_codigo, c.colab_agencia, c.colab_conta, c.colab_conta_dv, ROUND(cc.remuneracaodia - ROUND(cc.remuneracaodia * 0.11,2) - ROUND(cc.remuneracaodia * 0.05,2),2) as valor_liquido
-from colaborador c
-    join inscricao i on c.colab_id_pk = i.idColaborador
-    join banco b on c.colab_banco_id = b.banco_id_pk
-    join config_concurso cc on i.idFuncao = cc.idFuncao and i.idinstituicaoopcao1 = cc.idinstituicao and i.idconcurso = cc.mapa_concurso_id
-where i.idconcurso = $P{TABLE_CONCURSO}
-  and i.idinstituicaoopcao1 = $P{TABLE_INSTITUICAO}
-  and c.colab_categoria_id not in (1,4)
+			<![CDATA[select colab_nome, colab_cpf, banco_apelido, banco_codigo, colab_agencia, colab_conta, colab_conta_dv, round(fconc_valor_bruto - fconc_desc_inss - fconc_desc_iss, 2) as valor_liquido
+from colaborador
+    join inscricao on colab_id_pk = insc_colab_id
+    join banco on colab_banco_id = banco_id_pk
+    join mapa on insc_mapa_id = mapa_id_pk
+    join funcao_concurso on mapa_fconc_id = fconc_id_pk
+where fconc_conc_id = $P{TABLE_CONCURSO}
+  and mapa_inst_id = $P{TABLE_INSTITUICAO}
+  and colab_categoria_id not in (1,4)
 order by valor_liquido desc, colab_nome]]>
 		</queryString>
 		<field name="colab_nome" class="java.lang.String">
@@ -76,11 +77,10 @@ order by valor_liquido desc, colab_nome]]>
 			<property name="com.jaspersoft.studio.field.label" value="colab_cpf"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 		</field>
-		<field name="banco_nome" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="banco_nome"/>
-			<property name="com.jaspersoft.studio.field.label" value="banco_nome"/>
+		<field name="banco_apelido" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="banco_apelido"/>
+			<property name="com.jaspersoft.studio.field.label" value="banco_apelido"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="banco"/>
-			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="banco_codigo" class="java.lang.Integer">
 			<property name="com.jaspersoft.studio.field.name" value="banco_codigo"/>
@@ -116,16 +116,16 @@ order by valor_liquido desc, colab_nome]]>
 	<parameter name="PAR_CONC_COD" class="java.lang.Integer"/>
 	<parameter name="PAR_INST_COD" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select c.conc_nome, date_format(c.conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, i.inst_nome as inst_nome, m.muni_nome as muni_nome, u.uf_sigla as uf_sigla, f.financ_lc as financ_lc
-from concurso c
-join instituicao i on i.inst_id_pk =  $P{PAR_INST_COD}
-join municipio m on i.inst_municipio_id = m.muni_id_pk
-join uf u on i.inst_uf_id = u.uf_id_pk
-left join financeiro f on c.conc_id_pk = f.financ_conc_id and i.inst_id_pk = f.financ_inst_id
-where c.conc_id_pk = $P{PAR_CONC_COD}]]>
+		<![CDATA[select conc_nome, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, inst_nome, muni_nome, uf_sigla, financ_lc
+from concurso
+    join instituicao on inst_id_pk = $P{PAR_INST_COD}
+    join municipio on inst_municipio_id = muni_id_pk
+    join uf on inst_uf_id = uf_id_pk
+    left join financeiro on conc_id_pk = financ_conc_id and inst_id_pk = financ_inst_id
+where conc_id_pk = $P{PAR_CONC_COD}]]>
 	</queryString>
 	<field name="conc_nome" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.name" value="conc_nome"/>
 		<property name="com.jaspersoft.studio.field.label" value="conc_nome"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
 	</field>
@@ -354,7 +354,7 @@ where c.conc_id_pk = $P{PAR_CONC_COD}]]>
 						<jr:detailCell style="Table 1_TD" height="25">
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="120" height="25" uuid="ecae0000-7129-469e-8262-5bfb4981ed7e"/>
-								<textFieldExpression><![CDATA[String.format("%s (%03d)", $F{banco_nome}, $F{banco_codigo})]]></textFieldExpression>
+								<textFieldExpression><![CDATA[String.format("%s (%03d)", $F{banco_apelido}, $F{banco_codigo})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

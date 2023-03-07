@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DocLiquidacao" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e0fb1156-34d5-49f7-83f5-e1dcacc07a3a">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="448"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="538"/>
 	<style name="Título" forecolor="#000000" fontName="DejaVu" fontSize="16" isBold="false"/>
 	<style name="Rodapé" fontName="DejaVu" fontSize="6" isBold="false"/>
 	<style name="Identificações" hTextAlign="Left" fontName="DejaVu" fontSize="11" isBold="true"/>
@@ -20,19 +22,22 @@
 	<parameter name="PAR_CONC_COD" class="java.lang.Integer"/>
 	<parameter name="PAR_INST_COD" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select conc_nome, inst_nome, muni_nome, uf_sigla, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, financ_lc, financ_sei, financ_ne, sum(round(cc.remuneracaodia,2)) as valor_bruto, sum(round(cc.remuneracaodia * 0.11,2)) as desc_inss, sum(round(cc.remuneracaodia * 0.05,2)) as desc_iss, sum(round(cc.remuneracaodia,2)) - sum(round(cc.remuneracaodia * 0.11,2)) - sum(round(cc.remuneracaodia * 0.05,2)) as valor_liquido, date_format(financ_data_apuracao,'%d/%m/%Y') as financ_data_apuracao, date_format(financ_data_ateste,'%d/%m/%Y') as financ_data_ateste, date_format(financ_data_vencimento,'%d/%m/%Y') as financ_data_vencimento, siafi_string_geral, siafi_string_inss, siafi_string_iss
-from financeiro
-     join inscricao i on financ_conc_id = i.idconcurso and financ_inst_id = i.idinstituicaoopcao1
-     join colaborador c on idColaborador = c.colab_id_pk
-     join config_concurso cc on i.idFuncao = cc.idFuncao and i.idinstituicaoopcao1 = cc.idinstituicao and i.idconcurso = cc.mapa_concurso_id
+		<![CDATA[select conc_nome, inst_nome, muni_nome, uf_sigla, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, financ_lc, financ_sei, financ_ne, round(sum(fconc_valor_bruto),2) as valor_bruto, round(sum(fconc_desc_inss),2) as desc_inss, round(sum(fconc_desc_iss),2) as desc_iss, round(sum(fconc_valor_bruto) - sum(fconc_desc_inss) - sum(fconc_desc_iss),2) as valor_liquido, date_format(financ_data_apuracao,'%d/%m/%Y') as financ_data_apuracao, date_format(financ_data_ateste,'%d/%m/%Y') as financ_data_ateste, date_format(financ_data_vencimento,'%d/%m/%Y') as financ_data_vencimento, siafi_string_geral, siafi_string_inss, siafi_string_iss
+from inscricao
+     join mapa on insc_mapa_id = mapa_id_pk
+     join funcao_concurso on mapa_fconc_id = fconc_id_pk
+     join financeiro on financ_conc_id = fconc_conc_id and financ_inst_id = mapa_inst_id
+     join colaborador on insc_colab_id = colab_id_pk
      join concurso on financ_conc_id = conc_id_pk
      join instituicao on financ_inst_id = inst_id_pk
-     join municipio m on inst_municipio_id = m.muni_id_pk
-     join uf u on inst_uf_id = u.uf_id_pk
+     join municipio on inst_municipio_id = muni_id_pk
+     join uf on inst_uf_id = uf_id_pk
 left join siafi on financ_conc_id = siafi_id_concurso
 where financ_conc_id = $P{PAR_CONC_COD}
   and financ_inst_id = $P{PAR_INST_COD}
-  and colab_categoria_id not in (1,4);]]>
+  and colab_categoria_id not in (1,4);
+  
+  ]]>
 	</queryString>
 	<field name="conc_nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="conc_nome"/>

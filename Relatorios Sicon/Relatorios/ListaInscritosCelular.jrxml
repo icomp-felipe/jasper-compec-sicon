@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaInscritosCelular" pageWidth="842" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="009f7ba2-334c-4bd3-a6a1-b9fcc23d991f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -77,13 +77,15 @@
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select c.colab_nome, c.colab_cpf, c.colab_celular_1, c.colab_rg, f.nome as funcao_nome, case i.tipoinscricao when 1 then 'Pública' else 'Indicação' end as inscr_tipo
-from colaborador c
-join inscricao i on c.colab_id_pk = i.idColaborador
-join funcao f on i.idFuncao = f.idFuncao
-where i.idconcurso = $P{TABLE_CONCURSO}
-  and i.idinstituicaoopcao1 = $P{TABLE_INSTITUICAO}
-order by funcao_nome, inscr_tipo, colab_nome]]>
+			<![CDATA[select colab_nome, colab_cpf, colab_celular_1, colab_rg, func_nome, mapa_vaga_publica
+from colaborador
+    join inscricao on colab_id_pk = insc_colab_id
+    join mapa on insc_mapa_id = mapa_id_pk
+    join funcao_concurso on mapa_fconc_id = fconc_id_pk
+    join funcao on func_id_pk = fconc_func_id
+where fconc_conc_id = $P{TABLE_CONCURSO}
+  and mapa_inst_id = $P{TABLE_INSTITUICAO}
+order by func_nome, mapa_vaga_publica desc, colab_nome]]>
 		</queryString>
 		<field name="colab_nome" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
@@ -108,26 +110,27 @@ order by funcao_nome, inscr_tipo, colab_nome]]>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="funcao_nome" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="nome"/>
-			<property name="com.jaspersoft.studio.field.label" value="funcao_nome"/>
+		<field name="func_nome" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="func_nome"/>
+			<property name="com.jaspersoft.studio.field.label" value="func_nome"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="funcao"/>
 		</field>
-		<field name="inscr_tipo" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="inscr_tipo"/>
-			<property name="com.jaspersoft.studio.field.label" value="inscr_tipo"/>
+		<field name="mapa_vaga_publica" class="java.lang.Boolean">
+			<property name="com.jaspersoft.studio.field.name" value="mapa_vaga_publica"/>
+			<property name="com.jaspersoft.studio.field.label" value="mapa_vaga_publica"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="mapa"/>
 		</field>
 	</subDataset>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_CONCURSO" class="java.lang.Integer"/>
 	<parameter name="PAR_INSTITUICAO" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select c.conc_nome, date_format(c.conc_data_realizacao, '%d/%m/%Y') as conc_data_realizacao, i.inst_nome, m.muni_nome, u.uf_sigla
-from concurso c, instituicao i
-join municipio m on i.inst_municipio_id = m.muni_id_pk
-join uf u on i.inst_uf_id = u.uf_id_pk
-where c.conc_id_pk = $P{PAR_CONCURSO}
-  and i.inst_id_pk = $P{PAR_INSTITUICAO}]]>
+		<![CDATA[select conc_nome, date_format(conc_data_realizacao, '%d/%m/%Y') as conc_data_realizacao, inst_nome, muni_nome, uf_sigla
+from concurso,  instituicao
+join municipio on inst_municipio_id = muni_id_pk
+join uf on inst_uf_id = uf_id_pk
+where conc_id_pk = $P{PAR_CONCURSO}
+  and inst_id_pk = $P{PAR_INSTITUICAO}]]>
 	</queryString>
 	<field name="conc_nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="conc_nome"/>
@@ -326,7 +329,7 @@ where c.conc_id_pk = $P{PAR_CONCURSO}
 							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="110" height="25" uuid="96a55aad-24f0-4f95-a721-723c1bfb84f4"/>
 								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$F{funcao_nome}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{func_nome}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -343,7 +346,7 @@ where c.conc_id_pk = $P{PAR_CONCURSO}
 							<textField>
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="90" height="25" uuid="0f01db48-b918-418d-82f6-1743806985e7"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{inscr_tipo}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{mapa_vaga_publica} ? "Pública" : "Indicação"]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

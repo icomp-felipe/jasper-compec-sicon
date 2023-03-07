@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPA" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="331c611e-9a05-4f6f-9858-8c0ae81a1a5b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -50,25 +50,48 @@
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_CONC_ID" class="java.lang.Integer"/>
 	<parameter name="PAR_INST_ID" class="java.lang.Integer"/>
-	<parameter name="PAR_INST_MUNICIPIO" class="java.lang.String"/>
-	<parameter name="PAR_INST_UF" class="java.lang.String"/>
-	<parameter name="PAR_CONC_NOME" class="java.lang.String"/>
-	<parameter name="PAR_CONC_DATA" class="java.util.Date"/>
 	<parameter name="PAR_RPA_DATA" class="java.util.Date"/>
-	<parameter name="PAR_INST_NOME" class="java.lang.String"/>
 	<parameter name="PAR_ASSINATURA" class="java.awt.image.BufferedImage"/>
 	<queryString language="SQL">
-		<![CDATA[select colab_nome, colab_pis, colab_cpf, colab_rg, colab_rg_orgao, func_nome, fconc_valor_bruto, fconc_desc_inss, fconc_desc_iss, round(fconc_valor_bruto - fconc_desc_inss - fconc_desc_iss,2) as valor_liquido
+		<![CDATA[select inst_nome, muni_nome, conc_nome, date_format(conc_data_realizacao, '%d/%m/%Y') as conc_data_realizacao, uf_sigla, colab_nome, colab_pis, colab_cpf, colab_rg, colab_rg_orgao, func_nome, fconc_valor_bruto, fconc_desc_inss, fconc_desc_iss, round(fconc_valor_bruto - fconc_desc_inss - fconc_desc_iss,2) as valor_liquido
 from inscricao
     join colaborador on colab_id_pk = insc_colab_id
     join mapa on insc_mapa_id = mapa_id_pk
     join funcao_concurso on mapa_fconc_id = fconc_id_pk
     join funcao on func_id_pk = fconc_func_id
+    join instituicao on inst_id_pk = mapa_inst_id
+    join municipio on muni_id_pk = instituicao.inst_municipio_id
+    join uf on inst_uf_id = uf_id_pk
+    join concurso on conc_id_pk = fconc_conc_id
 where fconc_conc_id = $P{PAR_CONC_ID}
   and mapa_inst_id =  $P{PAR_INST_ID}
   and colab_categoria_id not in (1,4)
 order by colab_nome]]>
 	</queryString>
+	<field name="inst_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="inst_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="inst_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="instituicao"/>
+	</field>
+	<field name="muni_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="muni_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="muni_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="municipio"/>
+	</field>
+	<field name="conc_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="conc_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="conc_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
+	</field>
+	<field name="conc_data_realizacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="conc_data_realizacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="conc_data_realizacao"/>
+	</field>
+	<field name="uf_sigla" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="uf_sigla"/>
+		<property name="com.jaspersoft.studio.field.label" value="uf_sigla"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="uf"/>
+	</field>
 	<field name="colab_nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
 		<property name="com.jaspersoft.studio.field.label" value="colab_nome"/>
@@ -122,7 +145,7 @@ order by colab_nome]]>
 		<variableExpression><![CDATA[$F{fconc_desc_inss} + $F{fconc_desc_iss}]]></variableExpression>
 	</variable>
 	<variable name="VAR_MAIN_TEXT" class="java.lang.String">
-		<variableExpression><![CDATA["&#09;Recebi da <b>Fundação Universidade do Amazonas</b>, CNPJ <b>04.378.626/0001-97</b>, a importância líquida de <b>" + NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($F{valor_liquido}) + " (" + $P{JASPER_DRIVER_SCRIPTLET}.getExtenso($F{valor_liquido}) + ")</b>, pela prestação de serviços como <b>" + $F{func_nome} + "</b> no <b>" + $P{PAR_CONC_NOME} + "</b>, realizado pela Comissão Permanente de Concursos – COMPEC/UFAM no dia <b>" + new SimpleDateFormat("dd/MM/yyyy",new Locale("pt","BR")).format($P{PAR_CONC_DATA}) + "</b> no(a) <b>" + $P{PAR_INST_NOME} + "</b>. Será efetuado o recolhimento dos impostos discriminados abaixo."]]></variableExpression>
+		<variableExpression><![CDATA["&#09;Recebi da <b>Fundação Universidade do Amazonas</b>, CNPJ <b>04.378.626/0001-97</b>, a importância líquida de <b>" + NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($F{valor_liquido}) + " (" + $P{JASPER_DRIVER_SCRIPTLET}.getExtenso($F{valor_liquido}) + ")</b>, pela prestação de serviços como <b>" + $F{func_nome} + "</b> no <b>" + $F{conc_nome} + "</b>, realizado pela Comissão Permanente de Concursos – COMPEC/UFAM no dia <b>" + $F{conc_data_realizacao} + "</b> no(a) <b>" + $F{inst_nome} + "</b>. Será efetuado o recolhimento dos impostos discriminados abaixo."]]></variableExpression>
 	</variable>
 	<variable name="VAR_VALOR_BRUTO" class="java.lang.String">
 		<variableExpression><![CDATA[NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($F{fconc_valor_bruto})]]></variableExpression>
@@ -149,7 +172,7 @@ order by colab_nome]]>
 		<variableExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatCPF($F{colab_cpf})]]></variableExpression>
 	</variable>
 	<variable name="VAR_LOCAL_DATA" class="java.lang.String">
-		<variableExpression><![CDATA[$P{PAR_INST_MUNICIPIO} + " - " + $P{PAR_INST_UF} + ", " + new SimpleDateFormat("dd 'de' MMMM 'de' yyyy",new Locale("pt","BR")).format($P{PAR_RPA_DATA})]]></variableExpression>
+		<variableExpression><![CDATA[$F{muni_nome} + " - " + $F{uf_sigla} + ", " + new SimpleDateFormat("dd 'de' MMMM 'de' yyyy",new Locale("pt","BR")).format($P{PAR_RPA_DATA})]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
