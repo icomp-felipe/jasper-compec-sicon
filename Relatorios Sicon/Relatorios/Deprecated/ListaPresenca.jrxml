@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaPresenca" pageWidth="842" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="009f7ba2-334c-4bd3-a6a1-b9fcc23d991f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (WEB)"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -69,7 +69,7 @@
 	<style name="Rodapé" fontName="DejaVu" fontSize="10"/>
 	<subDataset name="ListaPresencaDataset" uuid="c5f437a3-021a-4cca-905e-a15b65013dd6">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (WEB)"/>
 		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="311"/>
 		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="683"/>
 		<scriptlet name="JASPER_DRIVER" class="compec.ufam.sicon.interfaces.JasperDriver">
@@ -78,16 +78,15 @@
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select colab_nome, date_format(colab_nascimento, '%d/%m/%y') as colab_nascimento, colab_cpf, func_apelido, colab_categoria_id, banco_apelido, colab_agencia, colab_conta, colab_conta_dv
+			<![CDATA[select colab_nome, date_format(colab_nascimento, '%d/%m/%y') as colab_nascimento, colab_cpf, f.nome as func_apelido, colab_categoria_id, banco_apelido, colab_agencia, colab_conta, colab_conta_dv
 from colaborador
-    join inscricao i on colaborador.colab_id_pk = i.insc_colab_id
-    join mapa m on i.insc_mapa_id = m.mapa_id_pk
-    join funcao_concurso fc on m.mapa_fconc_id = fc.fconc_id_pk
-    join funcao f on fc.fconc_func_id = f.func_id_pk
+    join inscricao i on colaborador.colab_id_pk = i.idColaborador
+    join instituicao on inst_id_pk = i.idinstituicaoopcao1
+    join funcao f on f.idFuncao = i.idFuncao
     left join banco b on colab_banco_id = b.banco_id_pk
-where fconc_conc_id = $P{TABLE_CONCURSO}
-  and mapa_inst_id = $P{TABLE_INSTITUICAO}
-order by func_nome, colab_nome]]>
+where i.idconcurso = $P{TABLE_CONCURSO}
+  and inst_id_pk = $P{TABLE_INSTITUICAO}
+order by f.nome, colab_nome]]>
 		</queryString>
 		<field name="colab_nome" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
@@ -104,7 +103,7 @@ order by func_nome, colab_nome]]>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 		</field>
 		<field name="func_apelido" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="func_apelido"/>
+			<property name="com.jaspersoft.studio.field.name" value="nome"/>
 			<property name="com.jaspersoft.studio.field.label" value="func_apelido"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="funcao"/>
 		</field>
