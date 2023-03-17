@@ -62,9 +62,11 @@ from colaborador
     join banco on colab_banco_id = banco_id_pk
     join mapa on insc_mapa_id = mapa_id_pk
     join funcao_concurso on mapa_fconc_id = fconc_id_pk
+    join categoria on categ_id_pk = colab_categoria_id
 where fconc_conc_id = $P{TABLE_CONCURSO}
   and mapa_inst_id = $P{TABLE_INSTITUICAO}
-  and colab_categoria_id not in (1,4)
+  and categ_tributavel = true
+  and insc_ativa = true
 order by valor_liquido desc, colab_nome]]>
 		</queryString>
 		<field name="colab_nome" class="java.lang.String">

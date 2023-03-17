@@ -87,6 +87,7 @@ from colaborador
     left join banco b on colab_banco_id = b.banco_id_pk
 where fconc_conc_id = $P{TABLE_CONCURSO}
   and mapa_inst_id = $P{TABLE_INSTITUICAO}
+  and insc_ativa = true
 order by func_nome, colab_nome]]>
 		</queryString>
 		<field name="colab_nome" class="java.lang.String">

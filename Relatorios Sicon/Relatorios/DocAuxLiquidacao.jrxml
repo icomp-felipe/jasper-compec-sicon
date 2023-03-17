@@ -24,20 +24,20 @@
 	<queryString>
 		<![CDATA[select conc_nome, inst_nome, muni_nome, uf_sigla, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, financ_lc, financ_sei, financ_ne, round(sum(fconc_valor_bruto),2) as valor_bruto, round(sum(fconc_desc_inss),2) as desc_inss, round(sum(fconc_desc_iss),2) as desc_iss, round(sum(fconc_valor_bruto) - sum(fconc_desc_inss) - sum(fconc_desc_iss),2) as valor_liquido, date_format(financ_data_apuracao,'%d/%m/%Y') as financ_data_apuracao, date_format(financ_data_ateste,'%d/%m/%Y') as financ_data_ateste, date_format(financ_data_vencimento,'%d/%m/%Y') as financ_data_vencimento, siafi_string_geral, siafi_string_inss, siafi_string_iss
 from inscricao
-     join mapa on insc_mapa_id = mapa_id_pk
-     join funcao_concurso on mapa_fconc_id = fconc_id_pk
-     join financeiro on financ_conc_id = fconc_conc_id and financ_inst_id = mapa_inst_id
-     join colaborador on insc_colab_id = colab_id_pk
-     join concurso on financ_conc_id = conc_id_pk
-     join instituicao on financ_inst_id = inst_id_pk
-     join municipio on inst_municipio_id = muni_id_pk
-     join uf on inst_uf_id = uf_id_pk
+       join mapa on insc_mapa_id = mapa_id_pk
+       join funcao_concurso on mapa_fconc_id = fconc_id_pk
+       join financeiro on financ_conc_id = fconc_conc_id and financ_inst_id = mapa_inst_id
+       join colaborador on insc_colab_id = colab_id_pk
+       join concurso on financ_conc_id = conc_id_pk
+       join categoria on categ_id_pk = colab_categoria_id
+       join instituicao on financ_inst_id = inst_id_pk
+       join municipio on inst_municipio_id = muni_id_pk
+       join uf on inst_uf_id = uf_id_pk
 left join siafi on financ_conc_id = siafi_id_concurso
 where financ_conc_id = $P{PAR_CONC_COD}
   and financ_inst_id = $P{PAR_INST_COD}
-  and colab_categoria_id not in (1,4);
-  
-  ]]>
+  and categ_tributavel = true
+  and insc_ativa = true]]>
 	</queryString>
 	<field name="conc_nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="conc_nome"/>

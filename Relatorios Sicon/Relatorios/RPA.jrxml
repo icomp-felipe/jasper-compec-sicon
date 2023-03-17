@@ -63,9 +63,11 @@ from inscricao
     join municipio on muni_id_pk = instituicao.inst_municipio_id
     join uf on inst_uf_id = uf_id_pk
     join concurso on conc_id_pk = fconc_conc_id
+    join categoria on categ_id_pk = colab_categoria_id
 where fconc_conc_id = $P{PAR_CONC_ID}
   and mapa_inst_id =  $P{PAR_INST_ID}
-  and colab_categoria_id not in (1,4)
+  and categ_tributavel = true
+  and insc_ativa = true
 order by colab_nome]]>
 	</queryString>
 	<field name="inst_nome" class="java.lang.String">

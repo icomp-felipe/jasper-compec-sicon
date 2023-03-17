@@ -85,6 +85,7 @@ from colaborador
     join funcao on func_id_pk = fconc_func_id
 where fconc_conc_id = $P{TABLE_CONCURSO}
   and mapa_inst_id = $P{TABLE_INSTITUICAO}
+  and insc_ativa = true
 order by func_nome, mapa_vaga_publica desc, colab_nome]]>
 		</queryString>
 		<field name="colab_nome" class="java.lang.String">
