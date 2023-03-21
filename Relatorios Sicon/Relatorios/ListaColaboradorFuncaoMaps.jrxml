@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaColaboradorFuncaoMaps" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0417783b-14c1-4388-9568-080baeeded93">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -54,15 +54,17 @@
 		<parameter name="TABLE_GROUP" class="java.lang.String"/>
 		<parameter name="TABLE_FUNCAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select c.colab_nome, i.inst_codigo, i.inst_nome, i.inst_bairro, i.inst_municipio_id, m.muni_nome, i.inst_maps
-from inscricao inscr
-join colaborador c on inscr.idColaborador = c.colab_id_pk
-join instituicao i on inscr.idinstituicaoopcao1 = i.inst_id_pk
-join municipio m on i.inst_municipio_id = m.muni_id_pk
-where inscr.idconcurso = $P{TABLE_CONCURSO}
-  and inscr.idFuncao = $P{TABLE_FUNCAO}
-  and i.inst_id_pk <> 4
-order by $P!{TABLE_GROUP}]]>
+			<![CDATA[select colab_nome, inst_codigo, inst_nome, inst_bairro, inst_municipio_id, muni_nome, inst_maps
+from inscricao
+    join mapa on insc_mapa_id = mapa_inst_id
+    join colaborador on insc_colab_id = colab_id_pk
+    join instituicao on mapa_inst_id = inst_id_pk
+    join municipio on inst_municipio_id = muni_id_pk
+    join funcao_concurso on mapa_fconc_id = fconc_id_pk
+where fconc_conc_id = $P{TABLE_CONCURSO}
+  and fconc_func_id = $P{TABLE_FUNCAO}
+  and insc_ativa
+ order by $P!{TABLE_GROUP}]]>
 		</queryString>
 		<field name="colab_nome" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
@@ -112,13 +114,13 @@ order by $P!{TABLE_GROUP}]]>
 	<parameter name="PAR_GROUP" class="java.lang.String"/>
 	<parameter name="PAR_FUNCAO" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select conc_nome, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, atividade as funcao_plural
+		<![CDATA[select conc_nome, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, func_plural
 from concurso, funcao
 where conc_id_pk = $P{PAR_CONCURSO}
-and idFuncao = $P{PAR_FUNCAO}]]>
+  and func_id_pk = $P{PAR_FUNCAO}]]>
 	</queryString>
 	<field name="conc_nome" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.name" value="conc_nome"/>
 		<property name="com.jaspersoft.studio.field.label" value="conc_nome"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
 	</field>
@@ -128,9 +130,9 @@ and idFuncao = $P{PAR_FUNCAO}]]>
 		<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="funcao_plural" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="atividade"/>
-		<property name="com.jaspersoft.studio.field.label" value="funcao_plural"/>
+	<field name="func_plural" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="func_plural"/>
+		<property name="com.jaspersoft.studio.field.label" value="func_plural"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="funcao"/>
 	</field>
 	<background>
@@ -152,7 +154,7 @@ and idFuncao = $P{PAR_FUNCAO}]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[String.format("Lista de %s (com Mapas)", $F{funcao_plural})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.format("Lista de %s (com Mapas)", $F{func_plural})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="Ttulos (Estáticos)" x="0" y="130" width="66" height="15" uuid="ea946572-0cb0-4ad5-a9be-8fe890384315">
