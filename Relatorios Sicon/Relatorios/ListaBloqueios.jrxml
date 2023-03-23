@@ -4,6 +4,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="Identificações" hTextAlign="Left" fontName="DejaVu" fontSize="11" isBold="true"/>
+	<style name="Rodapé" fontName="DejaVu" fontSize="6" isBold="false"/>
 	<style name="Texto Dinâmico" hTextAlign="Left" pattern="" isBlankWhenNull="true" fontName="DejaVu" fontSize="12"/>
 	<style name="Texto Estático" hTextAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
 	<style name="Título" forecolor="#000000" fontName="DejaVu" fontSize="16" isBold="false"/>
@@ -12,7 +13,7 @@
 	<parameter name="PAR_COLAB_ID" class="java.lang.Integer"/>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<queryString>
-		<![CDATA[select block_insc_id, conc_nome, date_format(conc_data_realizacao, '%d/%m/%Y') as conc_data_realizacao, inst_nome, muni_nome, uf_sigla, func_apelido, date_format(block_data_validade, '%d/%m/%Y') as block_data_validade, date_format(block_create_datetime, '%d/%m/%Y %H:%i:%s') as block_create_datetime
+		<![CDATA[select conc_nome, date_format(conc_data_realizacao, '%d/%m/%Y') as conc_data_realizacao, inst_nome, muni_nome, uf_sigla, func_apelido, date_format(block_data_validade, '%d/%m/%Y') as block_data_validade, date_format(block_create_datetime, '%d/%m/%Y %H:%i:%s') as block_create_datetime
 from bloqueio
     join inscricao on block_insc_id = insc_id_pk
     join colaborador on insc_colab_id = colab_id_pk
@@ -26,11 +27,6 @@ from bloqueio
 where colab_id_pk =  $P{PAR_COLAB_ID} 
   and block_ativo]]>
 	</queryString>
-	<field name="block_insc_id" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="block_insc_id"/>
-		<property name="com.jaspersoft.studio.field.label" value="block_insc_id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="bloqueio"/>
-	</field>
 	<field name="conc_nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="conc_nome"/>
 		<property name="com.jaspersoft.studio.field.label" value="conc_nome"/>
@@ -211,9 +207,71 @@ where colab_id_pk =  $P{PAR_COLAB_ID}
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="13" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement style="Rodapé" mode="Transparent" x="470" y="0" width="70" height="13" forecolor="#000000" uuid="77c5cb48-6ab1-4c8f-85b7-a68764fad14f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER} + " de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Rodapé" x="543" y="0" width="10" height="13" forecolor="#000000" uuid="20d9c017-d964-44cc-8059-ed5db0310917">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
+	<lastPageFooter>
+		<band height="13">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Rodapé" x="0" y="0" width="425" height="13" forecolor="#000000" uuid="8c97bf60-2d02-4736-b668-37ccce4f0915">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Documento extraído em:</b> " + new SimpleDateFormat("dd 'de' MMMM 'de' yyyy",new Locale("pt","BR")).format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Rodapé" mode="Transparent" x="470" y="0" width="70" height="13" forecolor="#000000" uuid="3d376cee-267c-4899-95ca-03dd7d3ead1c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER} + " de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Rodapé" x="543" y="0" width="10" height="13" forecolor="#000000" uuid="1135cb8d-e24d-4930-b86d-e6b257b9d8bb">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="20">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$F{conc_nome} == null]]></printWhenExpression>
+			<staticText>
+				<reportElement style="Texto Estático" x="0" y="5" width="555" height="15" uuid="dd997d81-e6cf-4b4c-bb0f-f906550efe25">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Colaborador sem bloqueios registrados.]]></text>
+			</staticText>
+		</band>
 	</summary>
 </jasperReport>
