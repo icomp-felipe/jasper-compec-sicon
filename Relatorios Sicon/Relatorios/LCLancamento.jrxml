@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LC - Lançamento" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="00f41a4a-8156-4bc1-a848-71fb48e494f1">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -56,7 +56,7 @@
 		<parameter name="TABLE_FUNCAO" class="java.lang.String"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select colab_nome, colab_cpf, banco_apelido, banco_codigo, colab_agencia, colab_conta, colab_conta_dv, round(fconc_valor_bruto - fconc_desc_inss - fconc_desc_iss, 2) as valor_liquido
+			<![CDATA[select colab_nome, colab_cpf, banco_apelido, banco_codigo, colab_agencia, colab_conta, colab_conta_dv, fconc_valor_bruto, fconc_desc_inss, fconc_desc_iss, round(fconc_desc_inss + fconc_desc_iss, 2) as desc_total, round(fconc_valor_bruto - fconc_desc_inss - fconc_desc_iss, 2) as valor_liquido
 from colaborador
     join inscricao on colab_id_pk = insc_colab_id
     join banco on colab_banco_id = banco_id_pk
@@ -65,8 +65,8 @@ from colaborador
     join categoria on categ_id_pk = colab_categoria_id
 where fconc_conc_id = $P{TABLE_CONCURSO}
   and mapa_inst_id = $P{TABLE_INSTITUICAO}
-  and categ_tributavel = true
-  and insc_ativa = true
+  and categ_tributavel
+  and insc_ativa
 order by valor_liquido desc, colab_nome]]>
 		</queryString>
 		<field name="colab_nome" class="java.lang.String">
@@ -106,10 +106,38 @@ order by valor_liquido desc, colab_nome]]>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
+		<field name="fconc_valor_bruto" class="java.lang.Double">
+			<property name="com.jaspersoft.studio.field.name" value="fconc_valor_bruto"/>
+			<property name="com.jaspersoft.studio.field.label" value="fconc_valor_bruto"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="funcao_concurso"/>
+		</field>
+		<field name="fconc_desc_inss" class="java.lang.Double">
+			<property name="com.jaspersoft.studio.field.name" value="fconc_desc_inss"/>
+			<property name="com.jaspersoft.studio.field.label" value="fconc_desc_inss"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="funcao_concurso"/>
+		</field>
+		<field name="fconc_desc_iss" class="java.lang.Double">
+			<property name="com.jaspersoft.studio.field.name" value="fconc_desc_iss"/>
+			<property name="com.jaspersoft.studio.field.label" value="fconc_desc_iss"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="funcao_concurso"/>
+		</field>
+		<field name="desc_total" class="java.lang.Double">
+			<property name="com.jaspersoft.studio.field.name" value="desc_total"/>
+			<property name="com.jaspersoft.studio.field.label" value="desc_total"/>
+		</field>
 		<field name="valor_liquido" class="java.lang.Double">
 			<property name="com.jaspersoft.studio.field.name" value="valor_liquido"/>
 			<property name="com.jaspersoft.studio.field.label" value="valor_liquido"/>
 		</field>
+		<variable name="TOTAL_BRUTO" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{fconc_valor_bruto}]]></variableExpression>
+		</variable>
+		<variable name="TOTAL_INSS" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{fconc_desc_inss}]]></variableExpression>
+		</variable>
+		<variable name="TOTAL_ISS" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{fconc_desc_iss}]]></variableExpression>
+		</variable>
 		<variable name="TOTAL_LIQUIDO" class="java.lang.Double" calculation="Sum">
 			<variableExpression><![CDATA[$F{valor_liquido}]]></variableExpression>
 		</variable>
@@ -159,11 +187,15 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 		<property name="com.jaspersoft.studio.field.tree.path" value="financeiro"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<variable name="valorBruto" class="java.lang.Double"/>
+	<variable name="inssTotal" class="java.lang.Double"/>
+	<variable name="issTotal" class="java.lang.Double"/>
+	<variable name="valorLiquido" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="175" splitType="Stretch">
+		<band height="195" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
 				<reportElement style="Título" x="0" y="100" width="802" height="20" uuid="f6a0812e-9b3e-46a0-8692-449714f4699d">
@@ -267,13 +299,91 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 				</reportElement>
 				<text><![CDATA[LC nº:]]></text>
 			</staticText>
+			<staticText>
+				<reportElement style="Ttulos (Estáticos)" positionType="Float" x="30" y="170" width="115" height="15" uuid="5c7fdcc9-7d7f-4e02-816e-eb055e32e773">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Bruto (R$):]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="150" y="170" width="65" height="15" uuid="56d5d12b-efe9-49fc-b5be-a2592228e8d1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[String.format("%.2f", $V{valorBruto})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Ttulos (Estáticos)" positionType="Float" x="220" y="170" width="115" height="15" uuid="3e022b8f-f761-4c31-8f3a-587b57cc69fe">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSS Total (R$):]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="340" y="170" width="65" height="15" uuid="1b6824ff-cf36-428d-8f41-6199396512a3">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[String.format("%.2f", $V{inssTotal})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Ttulos (Estáticos)" positionType="Float" x="410" y="170" width="115" height="15" uuid="c33f6165-0c33-412a-b57e-b980f4c5d6d6">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ISS Total (R$):]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="530" y="170" width="65" height="15" uuid="c1c00cc9-e243-4ba9-bf27-38792a87408c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[String.format("%.2f",$V{issTotal})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Ttulos (Estáticos)" positionType="Float" x="600" y="170" width="90" height="15" uuid="0e9a903f-4a94-4a3e-b135-cae0731c8a49">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Líquido (R$):]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement style="Texto Dinâmico" positionType="Float" x="695" y="170" width="70" height="15" uuid="231bf47b-1d2e-4cd9-a098-c00b8785aca9">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[String.format("%.2f", $V{valorLiquido})]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<detail>
-		<band height="70" splitType="Stretch">
+		<band height="50" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<componentElement>
-				<reportElement x="0" y="0" width="802" height="70" uuid="77560675-a7f4-4f5a-aad0-73e08b95fa33">
+				<reportElement x="0" y="0" width="802" height="50" uuid="77560675-a7f4-4f5a-aad0-73e08b95fa33">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -286,10 +396,13 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 							<datasetParameterExpression><![CDATA[$P{PAR_INST_COD}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						<returnValue fromVariable="TOTAL_BRUTO" toVariable="valorBruto"/>
+						<returnValue fromVariable="TOTAL_INSS" toVariable="inssTotal"/>
+						<returnValue fromVariable="TOTAL_ISS" toVariable="issTotal"/>
+						<returnValue fromVariable="TOTAL_LIQUIDO" toVariable="valorLiquido"/>
 					</datasetRun>
 					<jr:column width="30" uuid="87cbec9c-0f88-471e-a14f-15ca265e1ac4">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
-						<jr:tableFooter style="Table 1_TH" height="20" rowSpan="1"/>
 						<jr:columnHeader style="Table 1_CH" height="25" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<staticText>
@@ -309,9 +422,6 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 					</jr:column>
 					<jr:column width="260" uuid="b660ba42-a9a2-4578-b63a-603ed8813629">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
-						<jr:tableFooter style="Table 1_TH" height="20" rowSpan="1">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						</jr:tableFooter>
 						<jr:columnHeader style="Table 1_CH" height="25" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<staticText>
@@ -330,7 +440,6 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 					</jr:column>
 					<jr:column width="110" uuid="4580b4bd-da44-4db9-ae41-75b144087258">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
-						<jr:tableFooter style="Table 1_TH" height="20" rowSpan="1"/>
 						<jr:columnHeader style="Table 1_CH" height="25" rowSpan="1">
 							<staticText>
 								<reportElement style="Títulos (Tabela)" x="0" y="0" width="110" height="25" uuid="984e988c-2b9b-424a-a2cd-e100a1798c6f"/>
@@ -346,7 +455,6 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 					</jr:column>
 					<jr:column width="120" uuid="a8606edc-132e-48fb-82e2-6c6b7f5a4286">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
-						<jr:tableFooter style="Table 1_TH" height="20" rowSpan="1"/>
 						<jr:columnHeader style="Table 1_CH" height="25" rowSpan="1">
 							<staticText>
 								<reportElement style="Títulos (Tabela)" x="0" y="0" width="120" height="25" uuid="6d9adc6d-fb34-4e59-a80b-fe977ca27dba"/>
@@ -362,7 +470,6 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 					</jr:column>
 					<jr:column width="70" uuid="b69642ae-5f1f-456a-8ac5-1ff7d08bccec">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
-						<jr:tableFooter style="Table 1_TH" height="20" rowSpan="1"/>
 						<jr:columnHeader style="Table 1_CH" height="25" rowSpan="1">
 							<staticText>
 								<reportElement style="Títulos (Tabela)" x="0" y="0" width="70" height="25" uuid="469d16b9-6b76-47a4-bc51-85c7510245f7"/>
@@ -378,13 +485,6 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 					</jr:column>
 					<jr:column width="120" uuid="2cc6ce3c-1900-46e1-95b8-08779d6ae2f8">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
-						<jr:tableFooter style="Table 1_TH" height="20" rowSpan="1">
-							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="120" height="20" uuid="ee7d225a-7bad-47e5-91cc-071b9825cf38"/>
-								<textElement textAlignment="Right" verticalAlignment="Justified"/>
-								<text><![CDATA[Total:]]></text>
-							</staticText>
-						</jr:tableFooter>
 						<jr:columnHeader style="Table 1_CH" height="25" rowSpan="1">
 							<staticText>
 								<reportElement style="Títulos (Tabela)" x="0" y="0" width="120" height="25" uuid="28ef8a0d-7ef3-4aab-a551-f7439880cf41"/>
@@ -400,12 +500,6 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 					</jr:column>
 					<jr:column width="90" uuid="d7d40fda-f015-4b3a-b4c6-7a34a03b10a7">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
-						<jr:tableFooter style="Table 1_TH" height="20" rowSpan="1">
-							<textField>
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="90" height="20" uuid="0edc83f6-a9df-4f92-80bf-69cc4c9d8959"/>
-								<textFieldExpression><![CDATA[NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($V{TOTAL_LIQUIDO})]]></textFieldExpression>
-							</textField>
-						</jr:tableFooter>
 						<jr:columnHeader style="Table 1_CH" height="25" rowSpan="1">
 							<staticText>
 								<reportElement style="Títulos (Tabela)" x="0" y="0" width="90" height="25" uuid="8528da13-e00d-4816-8ef1-605e7d7a958e"/>
