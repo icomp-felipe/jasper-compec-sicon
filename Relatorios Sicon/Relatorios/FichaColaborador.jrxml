@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FichaColaborador" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f6e4db4-9f8f-4ffe-9759-6e1fd142f492">
 	<property name="template.type" value="columnar"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
@@ -40,7 +40,6 @@
 	<parameter name="PAR_AGENCIA" class="java.lang.String"/>
 	<parameter name="PAR_CC" class="java.lang.String"/>
 	<parameter name="PAR_DV" class="java.lang.Character"/>
-	<parameter name="PAR_STATUS" class="java.lang.Boolean"/>
 	<parameter name="PAR_CATEGORIA" class="java.lang.String"/>
 	<parameter name="PAR_MATRICULA" class="java.lang.String"/>
 	<parameter name="PAR_LOTACAO" class="java.lang.String"/>
@@ -261,14 +260,6 @@
 					<textFieldExpression><![CDATA[$P{PAR_CC}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="0" y="375" width="75" height="15" uuid="ba221a40-c11e-4f84-9ab8-0136c62c6998"/>
-					<text><![CDATA[Status:]]></text>
-				</staticText>
-				<textField>
-					<reportElement key="" style="Dynamic Texts" x="80" y="375" width="80" height="15" uuid="190a5431-d568-4b0f-a533-fc2b3fbf3b7a"/>
-					<textFieldExpression><![CDATA[$P{PAR_STATUS} ? "Ativado" : "Bloqueado"]]></textFieldExpression>
-				</textField>
-				<staticText>
 					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="180" y="375" width="125" height="15" uuid="1170e6a5-78d0-4459-94cb-0f03e82687b2"/>
 					<textElement textAlignment="Right"/>
 					<text><![CDATA[Categoria:]]></text>
@@ -278,34 +269,44 @@
 					<textFieldExpression><![CDATA[$P{PAR_CATEGORIA}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="0" y="415" width="75" height="15" uuid="db94a90b-7c2a-4959-860c-753253412a9a"/>
+					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="0" y="395" width="75" height="15" uuid="db94a90b-7c2a-4959-860c-753253412a9a">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
 					<text><![CDATA[ID:]]></text>
 				</staticText>
 				<textField>
-					<reportElement key="" style="Dynamic Texts" x="80" y="415" width="80" height="15" uuid="a08c6bfc-c1ce-42d4-82d6-f4c569bf12b7"/>
+					<reportElement key="" style="Dynamic Texts" x="80" y="395" width="80" height="15" uuid="a08c6bfc-c1ce-42d4-82d6-f4c569bf12b7">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
 					<textFieldExpression><![CDATA[$P{PAR_ID} == 0 ? "" : $P{PAR_ID}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="180" y="415" width="125" height="15" uuid="6f0ce6fa-e67c-47cc-86de-1048eb28f6bd"/>
+					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="140" y="415" width="125" height="15" uuid="6f0ce6fa-e67c-47cc-86de-1048eb28f6bd">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
 					<textElement textAlignment="Right"/>
 					<text><![CDATA[Código de Barras:]]></text>
 				</staticText>
 				<componentElement>
-					<reportElement isPrintRepeatedValues="false" x="310" y="415" width="100" height="25" uuid="847ffa16-0cf6-4d9b-b49b-a87c50c29af0">
+					<reportElement isPrintRepeatedValues="false" x="270" y="415" width="100" height="25" uuid="847ffa16-0cf6-4d9b-b49b-a87c50c29af0">
 						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-						<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					</reportElement>
 					<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="EAN13" drawText="true" checksumRequired="false">
 						<jr:codeExpression><![CDATA[String.format("%012d", ($P{PAR_CPF} == null) || ($P{PAR_CPF}.isBlank()) ? 0 : LONG_VALUE($P{PAR_CPF}.replaceAll("\\D+","").trim() ))]]></jr:codeExpression>
 					</jr:barbecue>
 				</componentElement>
 				<staticText>
-					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="0" y="395" width="75" height="15" uuid="e80b6791-d010-4e17-9d54-4cd2f4302467"/>
+					<reportElement key="" style="Static Texts" positionType="FixRelativeToBottom" x="0" y="375" width="75" height="15" uuid="e80b6791-d010-4e17-9d54-4cd2f4302467">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
 					<text><![CDATA[Matrícula:]]></text>
 				</staticText>
 				<textField>
-					<reportElement key="" style="Dynamic Texts" x="80" y="395" width="80" height="15" uuid="f701c650-6e64-4d5e-8488-14d2c8c7b2ca"/>
+					<reportElement key="" style="Dynamic Texts" x="80" y="375" width="80" height="15" uuid="f701c650-6e64-4d5e-8488-14d2c8c7b2ca">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
 					<textFieldExpression><![CDATA[$P{PAR_MATRICULA}]]></textFieldExpression>
 				</textField>
 				<staticText>
