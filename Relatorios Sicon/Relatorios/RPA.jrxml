@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<!-- Created with Jaspersoft Studio version 6.20.3.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPA" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="331c611e-9a05-4f6f-9858-8c0ae81a1a5b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -53,7 +53,7 @@
 	<parameter name="PAR_RPA_DATA" class="java.util.Date"/>
 	<parameter name="PAR_ASSINATURA" class="java.awt.image.BufferedImage"/>
 	<queryString language="SQL">
-		<![CDATA[select inst_nome, muni_nome, conc_nome, date_format(conc_data_realizacao, '%d/%m/%Y') as conc_data_realizacao, uf_sigla, colab_nome, colab_pis, colab_cpf, colab_rg, colab_rg_orgao, func_nome, fconc_valor_bruto, fconc_desc_inss, fconc_desc_iss, round(fconc_valor_bruto - fconc_desc_inss - fconc_desc_iss,2) as valor_liquido
+		<![CDATA[select inst_nome, muni_nome, conc_nome, date_format(conc_data_realizacao, '%d/%m/%Y') as conc_data_realizacao, uf_sigla, colab_nome, date_format(colab_nascimento, '%d/%m/%Y') as colab_nascimento, colab_cpf, colab_rg, colab_rg_orgao, func_nome, fconc_valor_bruto, fconc_desc_inss, fconc_desc_iss, round(fconc_valor_bruto - fconc_desc_inss - fconc_desc_iss,2) as valor_liquido
 from inscricao
     join colaborador on colab_id_pk = insc_colab_id
     join mapa on insc_mapa_id = mapa_id_pk
@@ -99,9 +99,9 @@ order by colab_nome]]>
 		<property name="com.jaspersoft.studio.field.label" value="colab_nome"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 	</field>
-	<field name="colab_pis" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="colab_pis"/>
-		<property name="com.jaspersoft.studio.field.label" value="colab_pis"/>
+	<field name="colab_nascimento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_nascimento"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_nascimento"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 	</field>
 	<field name="colab_cpf" class="java.lang.String">
@@ -166,9 +166,6 @@ order by colab_nome]]>
 	</variable>
 	<variable name="VAR_COLAB_NOME" class="java.lang.String">
 		<variableExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{colab_nome})]]></variableExpression>
-	</variable>
-	<variable name="VAR_COLAB_PIS" class="java.lang.String">
-		<variableExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatPIS($F{colab_pis})]]></variableExpression>
 	</variable>
 	<variable name="VAR_COLAB_CPF" class="java.lang.String">
 		<variableExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatCPF($F{colab_cpf})]]></variableExpression>
@@ -376,16 +373,16 @@ order by colab_nome]]>
 			</textField>
 			<staticText>
 				<reportElement style="COLAB_TITULOS" x="390" y="284" width="70" height="15" uuid="96dde600-d818-48ab-983a-438967812d3c"/>
-				<text><![CDATA[PIS/PASEP:]]></text>
+				<text><![CDATA[Nascim.:]]></text>
 			</staticText>
+			<textField>
+				<reportElement style="COLAB_CONTEUDO" x="464" y="284" width="90" height="15" uuid="740f3d48-82a0-4a7d-b6ea-8900ebf5e955"/>
+				<textFieldExpression><![CDATA[$F{colab_nascimento}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement style="COLAB_TITULOS" x="360" y="301" width="100" height="15" uuid="8752a519-c65d-4028-9036-add7c74258c6"/>
 				<text><![CDATA[Órgão Emissor:]]></text>
 			</staticText>
-			<textField>
-				<reportElement style="COLAB_CONTEUDO" x="464" y="284" width="90" height="15" uuid="740f3d48-82a0-4a7d-b6ea-8900ebf5e955"/>
-				<textFieldExpression><![CDATA[$V{VAR_COLAB_PIS}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement style="COLAB_CONTEUDO" x="464" y="301" width="90" height="15" uuid="d9f905f3-3cb2-455b-942e-2f03b6e3a12e"/>
 				<textFieldExpression><![CDATA[$F{colab_rg_orgao}]]></textFieldExpression>
@@ -639,16 +636,16 @@ order by colab_nome]]>
 			</textField>
 			<staticText>
 				<reportElement style="COLAB_TITULOS" x="391" y="684" width="70" height="15" uuid="af552432-231e-4b1c-be54-823acbfb0214"/>
-				<text><![CDATA[PIS/PASEP:]]></text>
+				<text><![CDATA[Nascim.:]]></text>
 			</staticText>
+			<textField>
+				<reportElement style="COLAB_CONTEUDO" x="465" y="684" width="90" height="15" uuid="f3b1b2d0-2cb5-4306-b0c2-96225702366c"/>
+				<textFieldExpression><![CDATA[$F{colab_nascimento}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement style="COLAB_TITULOS" x="361" y="701" width="100" height="15" uuid="54f84014-cf95-460c-b781-9d1419347aff"/>
 				<text><![CDATA[Órgão Emissor:]]></text>
 			</staticText>
-			<textField>
-				<reportElement style="COLAB_CONTEUDO" x="465" y="684" width="90" height="15" uuid="f3b1b2d0-2cb5-4306-b0c2-96225702366c"/>
-				<textFieldExpression><![CDATA[$V{VAR_COLAB_PIS}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement style="COLAB_CONTEUDO" x="465" y="701" width="90" height="15" uuid="21bc471f-6b1b-4f9a-b590-1ec7ad99b7ad"/>
 				<textFieldExpression><![CDATA[$F{colab_rg_orgao}]]></textFieldExpression>
