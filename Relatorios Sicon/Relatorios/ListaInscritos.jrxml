@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaInscritos" pageWidth="842" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="009f7ba2-334c-4bd3-a6a1-b9fcc23d991f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -77,7 +77,7 @@
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[select colab_nome, colab_cpf, colab_pis, colab_rg, func_nome, mapa_vaga_publica
+			<![CDATA[select colab_nome, colab_cpf, date_format(colab_nascimento, '%d/%m/%Y') as colab_nascimento, colab_rg, func_apelido, mapa_vaga_publica
 from colaborador
     join inscricao on colab_id_pk = insc_colab_id
     join mapa on insc_mapa_id = mapa_id_pk
@@ -100,10 +100,9 @@ order by func_nome, mapa_vaga_publica desc, colab_nome]]>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="colab_pis" class="java.lang.String">
+		<field name="colab_nascimento" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="colab_pis"/>
 			<property name="com.jaspersoft.studio.field.label" value="colab_pis"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="colab_rg" class="java.lang.String">
@@ -112,9 +111,9 @@ order by func_nome, mapa_vaga_publica desc, colab_nome]]>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="func_nome" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="func_nome"/>
-			<property name="com.jaspersoft.studio.field.label" value="func_nome"/>
+		<field name="func_apelido" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="func_apelido"/>
+			<property name="com.jaspersoft.studio.field.label" value="func_apelido"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="funcao"/>
 		</field>
 		<field name="mapa_vaga_publica" class="java.lang.Boolean">
@@ -247,17 +246,17 @@ where conc_id_pk = $P{PAR_CONCURSO}
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="250" uuid="f326c2ea-91f0-4d3d-84b5-65234aca0736">
+					<jr:column width="270" uuid="f326c2ea-91f0-4d3d-84b5-65234aca0736">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnHeader style="Table 3_CH" height="20" rowSpan="1">
 							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="250" height="20" uuid="babe1417-c9ba-4d45-a40f-7f1158c08c3f"/>
+								<reportElement style="Títulos (Tabela)" x="0" y="0" width="270" height="20" uuid="babe1417-c9ba-4d45-a40f-7f1158c08c3f"/>
 								<text><![CDATA[Nome]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="25">
 							<textField textAdjust="StretchHeight">
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="250" height="25" uuid="8e148ba4-4b70-4daf-adf5-fb84ed02015a">
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="270" height="25" uuid="8e148ba4-4b70-4daf-adf5-fb84ed02015a">
 									<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 								</reportElement>
 								<box topPadding="5" leftPadding="5" bottomPadding="5" rightPadding="5"/>
@@ -283,22 +282,22 @@ where conc_id_pk = $P{PAR_CONCURSO}
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="110" uuid="707c8e70-4e95-4281-8057-6c5782a1150d">
+					<jr:column width="90" uuid="707c8e70-4e95-4281-8057-6c5782a1150d">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:columnHeader style="Table 3_CH" height="20" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="110" height="20" uuid="9647e726-01d6-45a9-a1f9-7be1ebed325c">
+								<reportElement style="Títulos (Tabela)" x="0" y="0" width="90" height="20" uuid="9647e726-01d6-45a9-a1f9-7be1ebed325c">
 									<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 								</reportElement>
-								<text><![CDATA[PIS]]></text>
+								<text><![CDATA[Nascimento]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="25">
 							<textField>
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="110" height="25" uuid="efd850e4-328d-43c1-80ff-150a3bef861b"/>
+								<reportElement style="Fields (Tabela)" x="0" y="0" width="90" height="25" uuid="efd850e4-328d-43c1-80ff-150a3bef861b"/>
 								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatPIS($F{colab_pis})]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{colab_nascimento}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -331,7 +330,7 @@ where conc_id_pk = $P{PAR_CONCURSO}
 							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="110" height="25" uuid="96a55aad-24f0-4f95-a721-723c1bfb84f4"/>
 								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$F{func_nome}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{func_apelido}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
