@@ -39,6 +39,7 @@
 		<scriptlet name="JASPER_DRIVER" class="compec.ufam.sicon.interfaces.JasperDriver">
 			<scriptletDescription><![CDATA[]]></scriptletDescription>
 		</scriptlet>
+		<parameter name="PAR_CONC_ID" class="java.lang.INteger"/>
 		<queryString language="SQL">
 			<![CDATA[select colab_nome, colab_cpf, inst_nome, muni_nome, uf_sigla, inst_maps
 from inscricao
@@ -48,7 +49,7 @@ from inscricao
     join instituicao on mapa_inst_id = inst_id_pk
     join municipio on inst_municipio_id = muni_id_pk
     join uf on inst_uf_id = uf_id_pk
-where fconc_conc_id = 79
+where fconc_conc_id = $P!{PAR_CONC_ID}
   and fconc_func_id = 1
   and mapa_vaga_publica
   and insc_ativa
@@ -199,7 +200,10 @@ where conc_id_pk = $P{PAR_CONCURSO}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="AplicadorDataset" uuid="fb580c64-7e6a-4237-a0be-20feac4fe544">
+					<datasetRun subDataset="AplicadorDataset" uuid="4128dbd2-7fd7-4a89-9af1-e4ba2fb5eb6e">
+						<datasetParameter name="PAR_CONC_ID">
+							<datasetParameterExpression><![CDATA[$P{PAR_CONCURSO}]]></datasetParameterExpression>
+						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="30" uuid="214e5ef2-21b2-47c1-a084-854ef0aa3cf0">
