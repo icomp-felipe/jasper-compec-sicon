@@ -78,7 +78,7 @@
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<parameter name="TABLE_NASC_CONTATO" class="java.lang.Boolean"/>
 		<queryString>
-			<![CDATA[select colab_nome, colab_cpf, date_format(colab_nascimento, '%d/%m/%Y') as colab_nascimento, colab_celular_1, colab_rg, func_nome, mapa_vaga_publica
+			<![CDATA[select colab_nome, colab_cpf, date_format(colab_nascimento, '%d/%m/%Y') as colab_nascimento, colab_celular_1, colab_rg, func_apelido, mapa_vaga_publica
 from colaborador
     join inscricao on colab_id_pk = insc_colab_id
     join mapa on insc_mapa_id = mapa_id_pk
@@ -87,7 +87,7 @@ from colaborador
 where fconc_conc_id = $P{TABLE_CONCURSO}
   and mapa_inst_id = $P{TABLE_INSTITUICAO}
   and insc_ativa = true
-order by func_nome, mapa_vaga_publica desc, colab_nome]]>
+order by func_apelido, mapa_vaga_publica desc, colab_nome]]>
 		</queryString>
 		<field name="colab_nome" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
@@ -112,9 +112,9 @@ order by func_nome, mapa_vaga_publica desc, colab_nome]]>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="func_nome" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="func_nome"/>
-			<property name="com.jaspersoft.studio.field.label" value="func_nome"/>
+		<field name="func_apelido" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="func_apelido"/>
+			<property name="com.jaspersoft.studio.field.label" value="func_apelido"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="funcao"/>
 		</field>
 		<field name="mapa_vaga_publica" class="java.lang.Boolean">
@@ -340,7 +340,7 @@ where conc_id_pk = $P{PAR_CONCURSO}
 							<textField textAdjust="StretchHeight">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="110" height="25" uuid="96a55aad-24f0-4f95-a721-723c1bfb84f4"/>
 								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$F{func_nome}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{func_apelido}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
