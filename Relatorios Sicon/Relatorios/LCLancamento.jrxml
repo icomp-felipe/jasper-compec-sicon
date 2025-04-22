@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LC - Lançamento" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="00f41a4a-8156-4bc1-a848-71fb48e494f1">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<property name="com.jaspersoft.studio.report.description" value="LC de lançamento no SIAFI. Criada em 13/07/2021, por Felipe André."/>
-	<style name="Título" hTextAlign="Center" fontName="DejaVu" fontSize="15" isBold="true"/>
-	<style name="Ttulos (Estáticos)" hTextAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
+	<style name="Título" hAlign="Center" fontName="DejaVu" fontSize="15" isBold="true"/>
+	<style name="Ttulos (Estáticos)" hAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
 	<style name="Texto Dinâmico" fontName="DejaVu" fontSize="12"/>
-	<style name="Títulos (Tabela)" hTextAlign="Center" fontName="DejaVu" fontSize="13" isBold="true">
+	<style name="Títulos (Tabela)" hAlign="Center" fontName="DejaVu" fontSize="13" isBold="true">
 		<box topPadding="4"/>
 	</style>
-	<style name="Fields (Tabela)" hTextAlign="Center" vTextAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="12">
+	<style name="Fields (Tabela)" hAlign="Center" vAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="12">
 		<box topPadding="0" leftPadding="0"/>
 		<paragraph leftIndent="0"/>
 	</style>
@@ -412,7 +411,7 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="25">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<textField textAdjust="StretchHeight">
+							<textField isStretchWithOverflow="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="30" height="25" uuid="adf30c97-4ce9-4e32-887c-bfb6f0363192">
 									<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 								</reportElement>
@@ -431,7 +430,7 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="25">
 							<textField>
-								<reportElement style="Fields (Tabela)" stretchType="ElementGroupHeight" x="0" y="0" width="260" height="25" uuid="e2b7f216-ae5f-4df4-836c-1c6c1733c74c"/>
+								<reportElement style="Fields (Tabela)" stretchType="RelativeToTallestObject" x="0" y="0" width="260" height="25" uuid="e2b7f216-ae5f-4df4-836c-1c6c1733c74c"/>
 								<box leftPadding="5"/>
 								<textElement textAlignment="Left"/>
 								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{colab_nome})]]></textFieldExpression>
@@ -447,7 +446,7 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="25">
-							<textField textAdjust="StretchHeight">
+							<textField isStretchWithOverflow="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="110" height="25" uuid="281c6283-09c5-4856-9f59-523dedb4dbb0"/>
 								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatCPF($F{colab_cpf})]]></textFieldExpression>
 							</textField>
@@ -462,7 +461,7 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="25">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="120" height="25" uuid="ecae0000-7129-469e-8262-5bfb4981ed7e"/>
 								<textFieldExpression><![CDATA[String.format("%s (%03d)", $F{banco_apelido}, $F{banco_codigo})]]></textFieldExpression>
 							</textField>
@@ -477,7 +476,7 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="25">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="70" height="25" uuid="8892e286-4429-4c7d-87be-191defbd4d73"/>
 								<textFieldExpression><![CDATA[$F{colab_agencia}]]></textFieldExpression>
 							</textField>
@@ -492,8 +491,8 @@ where conc_id_pk = $P{PAR_CONC_COD}]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="25">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement style="Fields (Tabela)" stretchType="ElementGroupHeight" x="0" y="0" width="120" height="25" uuid="1b6aff72-b578-4fe4-ac6a-65f5809ca0c7"/>
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement style="Fields (Tabela)" stretchType="RelativeToTallestObject" x="0" y="0" width="120" height="25" uuid="1b6aff72-b578-4fe4-ac6a-65f5809ca0c7"/>
 								<textFieldExpression><![CDATA[String.format("%s-%s", $F{colab_conta}, $F{colab_conta_dv})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>

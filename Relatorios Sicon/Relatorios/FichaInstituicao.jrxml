@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FichaInstituicao" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f6e4db4-9f8f-4ffe-9759-6e1fd142f492">
 	<property name="template.type" value="columnar"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<style name="Título" forecolor="#000000" fontName="DejaVu" fontSize="20" isBold="false"/>
-	<style name="SubTítulo" mode="Transparent" forecolor="#000000" hTextAlign="Left" vTextAlign="Middle" fontName="DejaVu" fontSize="15" isBold="true">
+	<style name="SubTítulo" mode="Transparent" forecolor="#000000" hAlign="Left" vAlign="Middle" fontName="DejaVu" fontSize="15" isBold="true">
 		<paragraph leftIndent="5"/>
 	</style>
 	<style name="Barras" mode="Transparent">
@@ -12,8 +11,8 @@
 			<pen lineWidth="1.0"/>
 		</box>
 	</style>
-	<style name="Texto Estático" hTextAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
-	<style name="Texto Dinâmico" hTextAlign="Left" pattern="" isBlankWhenNull="true" fontName="DejaVu" fontSize="12"/>
+	<style name="Texto Estático" hAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
+	<style name="Texto Dinâmico" hAlign="Left" pattern="" isBlankWhenNull="true" fontName="DejaVu" fontSize="12"/>
 	<style name="Rodapé" fontName="DejaVu" fontSize="6" isBold="false"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
 	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
@@ -65,7 +64,7 @@
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
-					<textField textAdjust="StretchHeight">
+					<textField isStretchWithOverflow="true">
 						<reportElement style="SubTítulo" isPrintRepeatedValues="false" x="2" y="1" width="479" height="23" uuid="5e76cb22-32d3-4838-8141-516d8f994b65"/>
 						<textFieldExpression><![CDATA["Endereço"]]></textFieldExpression>
 					</textField>
@@ -79,7 +78,7 @@
 					<box>
 						<pen lineWidth="1.0" lineColor="#000000"/>
 					</box>
-					<textField textAdjust="StretchHeight">
+					<textField isStretchWithOverflow="true">
 						<reportElement style="SubTítulo" isPrintRepeatedValues="false" x="2" y="1" width="479" height="23" uuid="7bd229b7-83b9-4f6e-b828-215b6743b85d"/>
 						<textFieldExpression><![CDATA["Contatos"]]></textFieldExpression>
 					</textField>
@@ -90,7 +89,7 @@
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
-					<textField textAdjust="StretchHeight">
+					<textField isStretchWithOverflow="true">
 						<reportElement style="SubTítulo" isPrintRepeatedValues="false" x="2" y="1" width="479" height="23" uuid="9bb63645-ee03-45b0-800d-2849007faf8a"/>
 						<textFieldExpression><![CDATA["Coordenador Local"]]></textFieldExpression>
 					</textField>
@@ -409,7 +408,7 @@
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
-					<textField textAdjust="StretchHeight">
+					<textField isStretchWithOverflow="true">
 						<reportElement style="SubTítulo" isPrintRepeatedValues="false" x="2" y="1" width="479" height="23" uuid="988f8c0b-bfba-4835-acee-d791e3e1a813"/>
 						<textFieldExpression><![CDATA["Estrutura"]]></textFieldExpression>
 					</textField>

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaBloqueios" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="946bb968-4bac-404f-9758-356457f67904">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<style name="Identificações" hTextAlign="Left" fontName="DejaVu" fontSize="11" isBold="true"/>
+	<style name="Identificações" hAlign="Left" fontName="DejaVu" fontSize="11" isBold="true"/>
 	<style name="Rodapé" fontName="DejaVu" fontSize="6" isBold="false"/>
-	<style name="Texto Dinâmico" hTextAlign="Left" pattern="" isBlankWhenNull="true" fontName="DejaVu" fontSize="12"/>
-	<style name="Texto Estático" hTextAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
+	<style name="Texto Dinâmico" hAlign="Left" pattern="" isBlankWhenNull="true" fontName="DejaVu" fontSize="12"/>
+	<style name="Texto Estático" hAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
 	<style name="Título" forecolor="#000000" fontName="DejaVu" fontSize="16" isBold="false"/>
 	<parameter name="PAR_COLAB_NOME" class="java.lang.String"/>
 	<parameter name="PAR_COLAB_CPF" class="java.lang.String"/>

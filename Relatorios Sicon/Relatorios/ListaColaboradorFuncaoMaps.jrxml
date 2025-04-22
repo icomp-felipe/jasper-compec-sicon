@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaColaboradorFuncaoMaps" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0417783b-14c1-4388-9568-080baeeded93">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -12,16 +11,14 @@
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
-	<property name="com.jaspersoft.studio.report.description">
-		<![CDATA[Relatório "Lista de Colaborador por Função (Mapas)". Atualizado em: 02/10/2021 por Felipe André.]]>
-	</property>
-	<style name="Título" hTextAlign="Center" fontName="DejaVu" fontSize="14" isBold="true"/>
-	<style name="Ttulos (Estáticos)" hTextAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
+	<property name="com.jaspersoft.studio.report.description" value="Relatório &quot;Lista de Colaborador por Função (Mapas)&quot;. Atualizado em: 02/10/2021 por Felipe André."/>
+	<style name="Título" hAlign="Center" fontName="DejaVu" fontSize="14" isBold="true"/>
+	<style name="Ttulos (Estáticos)" hAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
 	<style name="Texto Dinâmico" fontName="DejaVu" fontSize="12"/>
-	<style name="Títulos (Tabela)" hTextAlign="Center" fontName="DejaVu" fontSize="10" isBold="true">
+	<style name="Títulos (Tabela)" hAlign="Center" fontName="DejaVu" fontSize="10" isBold="true">
 		<box topPadding="4"/>
 	</style>
-	<style name="Fields (Tabela)" hTextAlign="Left" vTextAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="10">
+	<style name="Fields (Tabela)" hAlign="Left" vAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="10">
 		<box topPadding="0" leftPadding="0"/>
 		<paragraph leftIndent="0"/>
 	</style>
@@ -142,7 +139,7 @@ where conc_id_pk = $P{PAR_CONCURSO}
 		<band height="150" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
-				<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="802" height="95" uuid="c222ebc1-fe9d-4ae1-a655-9578b75b4e60">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="802" height="95" uuid="c222ebc1-fe9d-4ae1-a655-9578b75b4e60">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -281,7 +278,7 @@ where conc_id_pk = $P{PAR_CONCURSO}
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="false">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="280" height="20" uuid="f3d8eacb-742d-41ba-8aae-e08f65077164"/>
 								<box topPadding="2" leftPadding="5" bottomPadding="2"/>
 								<textElement>
@@ -304,7 +301,7 @@ where conc_id_pk = $P{PAR_CONCURSO}
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="120" height="20" uuid="afd9a2e4-f5df-4951-a274-e0264f53f493"/>
 								<box topPadding="2" leftPadding="0" bottomPadding="2"/>
 								<textElement textAlignment="Center">
@@ -327,7 +324,7 @@ where conc_id_pk = $P{PAR_CONCURSO}
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true" hyperlinkType="Reference">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true" hyperlinkType="Reference">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="180" height="20" forecolor="#053D99" uuid="38228434-5379-4c26-9418-5fb4c173494b"/>
 								<box topPadding="2" leftPadding="5" bottomPadding="2"/>
 								<textElement>

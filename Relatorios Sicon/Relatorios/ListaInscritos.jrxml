@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaInscritos" pageWidth="842" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="009f7ba2-334c-4bd3-a6a1-b9fcc23d991f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -58,12 +57,12 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Título" hTextAlign="Center" fontName="DejaVu" fontSize="15" isBold="true"/>
-	<style name="Identificações" hTextAlign="Left" fontName="DejaVu" fontSize="11" isBold="true"/>
-	<style name="Títulos (Tabela)" hTextAlign="Center" fontName="DejaVu" fontSize="11" isBold="true">
+	<style name="Título" hAlign="Center" fontName="DejaVu" fontSize="15" isBold="true"/>
+	<style name="Identificações" hAlign="Left" fontName="DejaVu" fontSize="11" isBold="true"/>
+	<style name="Títulos (Tabela)" hAlign="Center" fontName="DejaVu" fontSize="11" isBold="true">
 		<box topPadding="4"/>
 	</style>
-	<style name="Fields (Tabela)" hTextAlign="Left" vTextAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="11">
+	<style name="Fields (Tabela)" hAlign="Left" vAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="11">
 		<box topPadding="0" leftPadding="0"/>
 		<paragraph leftIndent="0"/>
 	</style>
@@ -174,7 +173,7 @@ where conc_id_pk = $P{PAR_CONCURSO}
 		<band height="175" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
-				<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="800" height="95" uuid="0cde5cff-fda2-4685-9b50-73cc2393f58c">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="800" height="95" uuid="0cde5cff-fda2-4685-9b50-73cc2393f58c">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<imageExpression><![CDATA[$P{PAR_LOGO}]]></imageExpression>
@@ -250,7 +249,7 @@ where conc_id_pk = $P{PAR_CONCURSO}
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="25">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<textField textAdjust="StretchHeight">
+							<textField isStretchWithOverflow="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="30" height="25" uuid="c105d90c-d268-4756-857e-8f6aaec9ecfe"/>
 								<box topPadding="5" leftPadding="5" bottomPadding="5" rightPadding="5"/>
 								<textElement textAlignment="Center"/>
@@ -267,7 +266,7 @@ where conc_id_pk = $P{PAR_CONCURSO}
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="25">
-							<textField textAdjust="StretchHeight">
+							<textField isStretchWithOverflow="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="250" height="25" uuid="8e148ba4-4b70-4daf-adf5-fb84ed02015a">
 									<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 								</reportElement>
@@ -337,7 +336,7 @@ where conc_id_pk = $P{PAR_CONCURSO}
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 3_TD" height="25">
-							<textField textAdjust="StretchHeight">
+							<textField isStretchWithOverflow="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="110" height="25" uuid="96a55aad-24f0-4f95-a721-723c1bfb84f4"/>
 								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{func_apelido}]]></textFieldExpression>

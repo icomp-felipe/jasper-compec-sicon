@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.3.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPA" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="331c611e-9a05-4f6f-9858-8c0ae81a1a5b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<property name="com.jaspersoft.studio.report.description" value="Recibo de Pagamento a Autônomo (RPA). Criado por Felipe André. Última atualização em 28/10/2021."/>
-	<style name="TABLE_CONTEUDO" mode="Opaque" backcolor="#FFFFFF" hTextAlign="Center" vTextAlign="Middle" fontName="DejaVu">
+	<style name="TABLE_CONTEUDO" mode="Opaque" backcolor="#FFFFFF" hAlign="Center" vAlign="Middle" fontName="DejaVu">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -13,7 +12,7 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="TABLE_TITLE" mode="Opaque" backcolor="#BFE1FF" vTextAlign="Middle" fontName="DejaVu">
+	<style name="TABLE_TITLE" mode="Opaque" backcolor="#BFE1FF" vAlign="Middle" fontName="DejaVu">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -22,7 +21,7 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="TABLE_COLUNAS" mode="Opaque" backcolor="#FFFFFF" vTextAlign="Middle" fontName="DejaVu" fontSize="9" isBold="true">
+	<style name="TABLE_COLUNAS" mode="Opaque" backcolor="#FFFFFF" vAlign="Middle" fontName="DejaVu" fontSize="9" isBold="true">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -31,9 +30,9 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="COLAB_TITULOS" hTextAlign="Right" vTextAlign="Middle" fontName="DejaVu" fontSize="11" isBold="true"/>
-	<style name="COLAB_CONTEUDO" hTextAlign="Left" vTextAlign="Middle" isBlankWhenNull="true" fontName="DejaVu" fontSize="11"/>
-	<style name="ASSINATURAS" hTextAlign="Center" fontName="DejaVu" fontSize="7"/>
+	<style name="COLAB_TITULOS" hAlign="Right" vAlign="Middle" fontName="DejaVu" fontSize="11" isBold="true"/>
+	<style name="COLAB_CONTEUDO" hAlign="Left" vAlign="Middle" isBlankWhenNull="true" fontName="DejaVu" fontSize="11"/>
+	<style name="ASSINATURAS" hAlign="Center" fontName="DejaVu" fontSize="7"/>
 	<subDataset name="Calculos" uuid="5d047050-9a48-4660-ba3a-c889991cc668">
 		<parameter name="TABLE_VAL_BRUTO" class="java.lang.String"/>
 		<parameter name="TABLE_DESC_INSS" class="java.lang.String"/>
@@ -387,7 +386,7 @@ order by colab_nome]]>
 				<reportElement style="COLAB_CONTEUDO" x="464" y="301" width="90" height="15" uuid="d9f905f3-3cb2-455b-942e-2f03b6e3a12e"/>
 				<textFieldExpression><![CDATA[$F{colab_rg_orgao}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="ScaleFont">
+			<textField>
 				<reportElement x="0" y="332" width="218" height="15" uuid="c29786e5-95fa-4359-ad3f-a98ce613cfd9">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -650,7 +649,7 @@ order by colab_nome]]>
 				<reportElement style="COLAB_CONTEUDO" x="465" y="701" width="90" height="15" uuid="21bc471f-6b1b-4f9a-b590-1ec7ad99b7ad"/>
 				<textFieldExpression><![CDATA[$F{colab_rg_orgao}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="ScaleFont">
+			<textField>
 				<reportElement x="1" y="732" width="218" height="15" uuid="045f51a9-e57f-4220-9b44-05d8dc79e5a9">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DocLiquidacao" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e0fb1156-34d5-49f7-83f5-e1dcacc07a3a">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -7,8 +6,8 @@
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="538"/>
 	<style name="Título" forecolor="#000000" fontName="DejaVu" fontSize="16" isBold="false"/>
 	<style name="Rodapé" fontName="DejaVu" fontSize="6" isBold="false"/>
-	<style name="Identificações" hTextAlign="Left" fontName="DejaVu" fontSize="11" isBold="true"/>
-	<style name="SubTítulo" mode="Transparent" forecolor="#006600" hTextAlign="Left" vTextAlign="Middle" fontName="DejaVu" fontSize="13" isBold="true">
+	<style name="Identificações" hAlign="Left" fontName="DejaVu" fontSize="11" isBold="true"/>
+	<style name="SubTítulo" mode="Transparent" forecolor="#006600" hAlign="Left" vAlign="Middle" fontName="DejaVu" fontSize="13" isBold="true">
 		<paragraph leftIndent="5"/>
 	</style>
 	<style name="Barras" mode="Transparent" forecolor="#006600">
@@ -16,8 +15,8 @@
 			<pen lineWidth="1.0"/>
 		</box>
 	</style>
-	<style name="Texto Estático" hTextAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
-	<style name="Texto Dinâmico" hTextAlign="Left" pattern="" isBlankWhenNull="true" fontName="DejaVu" fontSize="12"/>
+	<style name="Texto Estático" hAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
+	<style name="Texto Dinâmico" hAlign="Left" pattern="" isBlankWhenNull="true" fontName="DejaVu" fontSize="12"/>
 	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -36,10 +35,10 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Títulos (Tabela)" hTextAlign="Center" fontName="DejaVu" fontSize="12" isBold="true">
+	<style name="Títulos (Tabela)" hAlign="Center" fontName="DejaVu" fontSize="12" isBold="true">
 		<box topPadding="4"/>
 	</style>
-	<style name="Fields (Tabela)" hTextAlign="Center" vTextAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="11">
+	<style name="Fields (Tabela)" hAlign="Center" vAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="11">
 		<box topPadding="0" leftPadding="0"/>
 		<paragraph leftIndent="0"/>
 	</style>
@@ -242,7 +241,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textField textAdjust="StretchHeight">
+				<textField isStretchWithOverflow="true">
 					<reportElement style="SubTítulo" positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="479" height="20" uuid="3ed54e88-d78e-484a-942a-b9aea9da471a">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -314,7 +313,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				</reportElement>
 				<textFieldExpression><![CDATA[String.format(new Locale("pt","BR"), "%,.2f", $F{valor_bruto})]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight">
+			<textField isStretchWithOverflow="true">
 				<reportElement style="Texto Dinâmico" positionType="Float" x="0" y="140" width="555" height="15" uuid="13853ccf-c852-4ba8-8e9d-0b45ecda1cba">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -412,7 +411,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textField textAdjust="StretchHeight">
+				<textField isStretchWithOverflow="true">
 					<reportElement style="SubTítulo" positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="479" height="20" uuid="6a2ec1d3-fbd3-4de2-9b10-91376e749075">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -459,7 +458,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<textField textAdjust="StretchHeight">
+				<textField isStretchWithOverflow="true">
 					<reportElement style="SubTítulo" positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="545" height="20" uuid="4d302c59-5d21-490f-a33b-b2faef29906f">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -603,7 +602,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 			</line>
-			<textField textAdjust="StretchHeight">
+			<textField isStretchWithOverflow="true">
 				<reportElement style="Texto Dinâmico" positionType="Float" x="0" y="400" width="555" height="15" uuid="184889a2-f9e8-4122-83e0-ff050b492300">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -618,7 +617,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textField textAdjust="StretchHeight">
+				<textField isStretchWithOverflow="true">
 					<reportElement style="SubTítulo" positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="545" height="20" uuid="177e7ba1-4097-456b-acbb-bbe46421a390">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -751,7 +750,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textField textAdjust="StretchHeight">
+				<textField isStretchWithOverflow="true">
 					<reportElement style="SubTítulo" positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="479" height="20" isPrintWhenDetailOverflows="true" uuid="e75a6783-16c7-4c5d-870a-c4c6619dce29">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -823,7 +822,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 				</reportElement>
 				<textFieldExpression><![CDATA[String.format("%s.%s/%s-%s", $F{financ_sei}.substring(0, 5), $F{financ_sei}.substring(5, 11), $F{financ_sei}.substring(11, 15), $F{financ_sei}.substring(15))]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight">
+			<textField isStretchWithOverflow="true">
 				<reportElement style="Texto Dinâmico" positionType="Float" x="0" y="560" width="555" height="15" uuid="a2f143dc-0ceb-429f-bc16-b823bc6ba6a5">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -856,7 +855,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textField textAdjust="StretchHeight">
+				<textField isStretchWithOverflow="true">
 					<reportElement style="SubTítulo" positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="479" height="20" isPrintWhenDetailOverflows="true" uuid="e9f8660f-4649-4850-a84f-a8e42b520fc9">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -915,7 +914,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 			</line>
-			<textField textAdjust="StretchHeight">
+			<textField isStretchWithOverflow="true">
 				<reportElement style="Texto Dinâmico" positionType="Float" x="0" y="705" width="555" height="15" uuid="45789e0e-0e40-4c58-9427-6558cd4041ef">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -970,7 +969,7 @@ where financ_conc_id = $P{PAR_CONC_COD}
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
-							<textField textAdjust="StretchHeight">
+							<textField isStretchWithOverflow="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="40" height="20" uuid="cf013f0d-4165-492b-a9a5-03ff09563808"/>
 								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 							</textField>

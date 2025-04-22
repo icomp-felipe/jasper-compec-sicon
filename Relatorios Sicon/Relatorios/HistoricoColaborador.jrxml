@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HistoricoColaborador" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0417783b-14c1-4388-9568-080baeeded93">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -12,13 +11,13 @@
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
-	<style name="Título" hTextAlign="Center" fontName="DejaVu" fontSize="14" isBold="true"/>
-	<style name="Ttulos (Estáticos)" hTextAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
+	<style name="Título" hAlign="Center" fontName="DejaVu" fontSize="14" isBold="true"/>
+	<style name="Ttulos (Estáticos)" hAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
 	<style name="Texto Dinâmico" fontName="DejaVu" fontSize="12"/>
-	<style name="Títulos (Tabela)" hTextAlign="Center" vTextAlign="Middle" fontName="DejaVu" fontSize="10" isBold="true">
+	<style name="Títulos (Tabela)" hAlign="Center" vAlign="Middle" fontName="DejaVu" fontSize="10" isBold="true">
 		<box topPadding="4"/>
 	</style>
-	<style name="Fields (Tabela)" hTextAlign="Left" vTextAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="10">
+	<style name="Fields (Tabela)" hAlign="Left" vAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="10">
 		<box topPadding="2" leftPadding="5"/>
 		<paragraph leftIndent="0"/>
 	</style>
@@ -111,7 +110,7 @@ order by conc_id_pk desc]]>
 		<band height="150">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
-				<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="802" height="95" uuid="908c6036-1d55-460a-acf9-86d0112edd30">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="802" height="95" uuid="908c6036-1d55-460a-acf9-86d0112edd30">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -189,7 +188,7 @@ order by conc_id_pk desc]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
-							<textField textAdjust="StretchHeight">
+							<textField isStretchWithOverflow="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="230" height="20" uuid="c96bd75f-273f-495b-a9df-85eedccb5f54"/>
 								<textFieldExpression><![CDATA[$F{conc_nome}]]></textFieldExpression>
 							</textField>
@@ -222,7 +221,7 @@ order by conc_id_pk desc]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
-							<textField textAdjust="StretchHeight">
+							<textField isStretchWithOverflow="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="80" height="20" uuid="6aba6f0a-a861-4282-a175-982bf0272c2a"/>
 								<box leftPadding="0"/>
 								<textElement textAlignment="Center"/>
@@ -239,7 +238,7 @@ order by conc_id_pk desc]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
-							<textField textAdjust="StretchHeight">
+							<textField isStretchWithOverflow="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="220" height="20" uuid="ab9a3be6-fd4d-4aba-9956-b350ee459088"/>
 								<textFieldExpression><![CDATA[$F{inst_nome}]]></textFieldExpression>
 							</textField>
@@ -255,7 +254,7 @@ order by conc_id_pk desc]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
-							<textField textAdjust="StretchHeight">
+							<textField isStretchWithOverflow="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="120" height="20" uuid="cf01bf8e-6efe-4b5f-aaeb-b25d460567c2"/>
 								<box leftPadding="0"/>
 								<textElement textAlignment="Center"/>
@@ -273,7 +272,7 @@ order by conc_id_pk desc]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
-							<textField textAdjust="StretchHeight">
+							<textField isStretchWithOverflow="true">
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="60" height="20" uuid="0c5c231e-3da7-4288-abb7-5cc0a6eaf5bd"/>
 								<box leftPadding="0"/>
 								<textElement textAlignment="Center"/>

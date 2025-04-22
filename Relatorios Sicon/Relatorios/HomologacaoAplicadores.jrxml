@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HomologacaoAplicadores" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d475ab0-9e5f-4602-b747-4ee87d32a2cd">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
-	<style name="Título" hTextAlign="Center" fontName="DejaVu" fontSize="14" isBold="true"/>
-	<style name="Ttulos (Estáticos)" hTextAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
+	<style name="Título" hAlign="Center" fontName="DejaVu" fontSize="14" isBold="true"/>
+	<style name="Ttulos (Estáticos)" hAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
 	<style name="Texto Dinâmico" fontName="DejaVu" fontSize="12"/>
 	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
 		<box>
@@ -25,10 +24,10 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Títulos (Tabela)" hTextAlign="Center" vTextAlign="Middle" fontName="DejaVu" fontSize="10" isBold="true">
+	<style name="Títulos (Tabela)" hAlign="Center" vAlign="Middle" fontName="DejaVu" fontSize="10" isBold="true">
 		<box topPadding="0"/>
 	</style>
-	<style name="Fields (Tabela)" hTextAlign="Left" vTextAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="10">
+	<style name="Fields (Tabela)" hAlign="Left" vAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="10">
 		<box topPadding="2" leftPadding="5" bottomPadding="2"/>
 		<paragraph leftIndent="0"/>
 	</style>
@@ -127,7 +126,7 @@ where conc_id_pk = $P{PAR_CONCURSO}]]>
 		<band height="125" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
-				<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="802" height="65" uuid="090dcdf8-c282-4786-b489-d338f209d40a">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="802" height="65" uuid="090dcdf8-c282-4786-b489-d338f209d40a">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -237,7 +236,7 @@ where conc_id_pk = $P{PAR_CONCURSO}]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
-							<textField textAdjust="ScaleFont">
+							<textField>
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="230" height="20" uuid="6e330555-c0e1-440c-ad81-884ed8501c56"/>
 								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{colab_nome})]]></textFieldExpression>
 							</textField>
@@ -269,7 +268,7 @@ where conc_id_pk = $P{PAR_CONCURSO}]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="20">
-							<textField textAdjust="ScaleFont">
+							<textField>
 								<reportElement style="Fields (Tabela)" x="0" y="0" width="440" height="20" uuid="3e3916fe-40bd-4433-a1e4-e0eba4dc6211"/>
 								<textFieldExpression><![CDATA[String.format("%s [%s - %s]", $F{inst_nome}, $F{muni_nome}, $F{uf_sigla})]]></textFieldExpression>
 							</textField>

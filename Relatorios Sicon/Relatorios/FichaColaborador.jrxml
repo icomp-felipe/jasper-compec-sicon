@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FichaColaborador" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f6e4db4-9f8f-4ffe-9759-6e1fd142f492">
 	<property name="template.type" value="columnar"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<style name="Título" forecolor="#000000" fontName="DejaVu" fontSize="20" isBold="true" isUnderline="false"/>
-	<style name="SubTitle" forecolor="#666666" hTextAlign="Left" vTextAlign="Middle" fontName="DejaVu" fontSize="15" isBold="true">
+	<style name="SubTitle" forecolor="#666666" hAlign="Left" vAlign="Middle" fontName="DejaVu" fontSize="15" isBold="true">
 		<paragraph leftIndent="5"/>
 	</style>
 	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
@@ -15,8 +14,8 @@
 			<style mode="Opaque" backcolor="#F0EFEF"/>
 		</conditionalStyle>
 	</style>
-	<style name="Static Texts" hTextAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
-	<style name="Dynamic Texts" hTextAlign="Left" pattern="" isBlankWhenNull="true" fontName="DejaVu" fontSize="12"/>
+	<style name="Static Texts" hAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
+	<style name="Dynamic Texts" hAlign="Left" pattern="" isBlankWhenNull="true" fontName="DejaVu" fontSize="12"/>
 	<style name="Rodapé" fontName="DejaVu" fontSize="6"/>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_NOME" class="java.lang.String"/>
@@ -60,7 +59,7 @@
 					<box>
 						<pen lineWidth="1.0" lineStyle="Solid"/>
 					</box>
-					<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="0" width="479" height="24" forecolor="#000000" uuid="5e76cb22-32d3-4838-8141-516d8f994b65"/>
 						<textElement>
 							<font isBold="true"/>
@@ -73,7 +72,7 @@
 					<box>
 						<pen lineWidth="1.0" lineStyle="Solid"/>
 					</box>
-					<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="0" width="479" height="24" forecolor="#000000" uuid="7bd229b7-83b9-4f6e-b828-215b6743b85d"/>
 						<textElement>
 							<font isBold="true"/>
@@ -86,7 +85,7 @@
 					<box>
 						<pen lineWidth="1.0" lineStyle="Solid"/>
 					</box>
-					<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="1" width="479" height="24" forecolor="#000000" uuid="9bb63645-ee03-45b0-800d-2849007faf8a"/>
 						<textElement>
 							<font isBold="true"/>
@@ -99,7 +98,7 @@
 					<box>
 						<pen lineWidth="1.0" lineStyle="Solid"/>
 					</box>
-					<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="1" width="479" height="24" forecolor="#000000" uuid="dd8b7659-be8d-4b52-bfb4-ecf05bc6ada9"/>
 						<textElement>
 							<font isBold="true"/>
@@ -357,7 +356,7 @@
 					<box>
 						<pen lineWidth="1.0" lineStyle="Solid"/>
 					</box>
-					<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="0" y="1" width="405" height="24" forecolor="#000000" uuid="25f707ae-9ac7-48d3-b45f-b14ee85fae9a"/>
 						<textElement verticalAlignment="Middle">
 							<font size="15" isBold="true"/>
@@ -414,7 +413,7 @@
 	</columnHeader>
 	<detail>
 		<band height="65" splitType="Stretch">
-			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement key="" style="Dynamic Texts" x="0" y="35" width="555" height="15" uuid="6b894291-54d5-4b73-ab56-d58e9088e69b">
 					<printWhenExpression><![CDATA[!$P{PAR_OBS}.isEmpty()]]></printWhenExpression>
 				</reportElement>
@@ -428,7 +427,7 @@
 				<box>
 					<pen lineWidth="1.0" lineStyle="Solid"/>
 				</box>
-				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 					<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="1" width="479" height="24" forecolor="#000000" uuid="6020b278-cd69-4930-861b-2b3908bb9db0"/>
 					<textElement>
 						<font isBold="true"/>
