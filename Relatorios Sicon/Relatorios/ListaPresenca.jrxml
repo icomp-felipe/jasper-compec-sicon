@@ -71,9 +71,6 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="311"/>
 		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="683"/>
-		<scriptlet name="JASPER_DRIVER" class="compec.ufam.sicon.interfaces.JasperDriver">
-			<description><![CDATA[]]></description>
-		</scriptlet>
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<query language="sql"><![CDATA[select CapitalizaNome(colab_nome) as colab_nome, date_format(colab_nascimento, '%d/%m/%y') as colab_nascimento, colab_cpf, func_apelido, colab_categoria_id, banco_apelido, colab_agencia, colab_conta, colab_conta_dv
