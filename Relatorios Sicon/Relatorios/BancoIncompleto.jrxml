@@ -2,23 +2,15 @@
 <jasperReport name="BancoIncompleto" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59169312-c258-4d3b-8a51-1333adda39a9">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
-	<style name="Identificações" hTextAlign="Left" hImageAlign="Left" fontName="DejaVu" fontSize="11.0" bold="true"/>
-	<style name="Título" hTextAlign="Center" hImageAlign="Center" fontName="DejaVu" fontSize="15.0" bold="true"/>
-	<style name="Títulos (Tabela)" hTextAlign="Center" vTextAlign="Middle" hImageAlign="Center" fontName="DejaVu" fontSize="10.0" bold="true">
-		<box topPadding="4"/>
-	</style>
 	<style name="Fields (Tabela)" hTextAlign="Left" vTextAlign="Middle" hImageAlign="Left" vImageAlign="Middle" markup="html" blankWhenNull="true" fontName="DejaVu" fontSize="10.0">
 		<box topPadding="0" leftPadding="0"/>
 		<paragraph leftIndent="0"/>
 	</style>
-	<style name="Table_TH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<leftPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-			<rightPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
+	<style name="Identificações" hTextAlign="Left" hImageAlign="Left" fontName="DejaVu" fontSize="11.0" bold="true"/>
+	<style name="Rodapé" fontName="DejaVu" fontSize="10.0"/>
+	<style name="Título" hTextAlign="Center" hImageAlign="Center" fontName="DejaVu" fontSize="15.0" bold="true"/>
+	<style name="Títulos (Tabela)" hTextAlign="Center" vTextAlign="Middle" hImageAlign="Center" fontName="DejaVu" fontSize="10.0" bold="true">
+		<box topPadding="4"/>
 	</style>
 	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
 		<box>
@@ -29,12 +21,20 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Rodapé" fontName="DejaVu" fontSize="10.0"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
 	<dataset name="BancoIncompletoDataset" uuid="b49d1aaf-4414-4515-a657-fe929d16c41b">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 		<parameter name="PAR_CONC_ID" class="java.lang.Integer"/>
-		<query language="SQL"><![CDATA[select fconc_conc_id, colab_id_pk, CapitalizaNome(colab_nome) as colab_nome, colab_celular_1, func_apelido, mapa_vaga_publica, inst_nome, muni_nome, uf_sigla, banco_nome, colab_agencia, colab_conta, colab_conta_dv 
+		<query language="SQL"><![CDATA[select fconc_conc_id, colab_id_pk, CapitalizaNome(colab_nome) as colab_nome, fn_formata_celular(colab_celular_1) as colab_celular_1, func_apelido, mapa_vaga_publica, inst_nome, muni_nome, uf_sigla, banco_nome, colab_agencia, colab_conta, colab_conta_dv 
 from vw_banco_incompleto
 where fconc_conc_id =  $P{PAR_CONC_ID} ]]></query>
 		<field name="fconc_conc_id" class="java.lang.Integer">
@@ -144,8 +144,8 @@ where conc_id_pk =  $P{PAR_CONC_ID} ]]></query>
 		<property name="com.jaspersoft.studio.unit.height" value="px"/>
 	</title>
 	<detail>
-		<band height="88" splitType="Stretch">
-			<element kind="component" uuid="a00ce3a3-a41b-4bfa-aee5-ba3255a2b20e" x="0" y="0" width="802" height="70">
+		<band height="50" splitType="Stretch">
+			<element kind="component" uuid="a00ce3a3-a41b-4bfa-aee5-ba3255a2b20e" x="0" y="0" width="802" height="50">
 				<component kind="table">
 					<datasetRun uuid="3848e792-7d4f-4895-be04-ad8017e3517f" subDataset="BancoIncompletoDataset">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION} ]]></connectionExpression>
@@ -181,14 +181,14 @@ where conc_id_pk =  $P{PAR_CONC_ID} ]]></query>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 					</column>
-					<column kind="single" uuid="1f01cd37-3e10-4117-8748-dcb810c3cf21" width="80">
+					<column kind="single" uuid="1f01cd37-3e10-4117-8748-dcb810c3cf21" width="90">
 						<tableHeader height="20" rowSpan="1" style="Table_TH">
-							<element kind="staticText" uuid="6183b619-19a7-48da-9c13-773db3dbfbd4" x="0" y="0" width="80" height="20" style="Títulos (Tabela)">
+							<element kind="staticText" uuid="6183b619-19a7-48da-9c13-773db3dbfbd4" x="0" y="0" width="90" height="20" style="Títulos (Tabela)">
 								<text><![CDATA[Celular]]></text>
 							</element>
 						</tableHeader>
 						<detailCell height="30" style="Table_TD">
-							<element kind="textField" uuid="450052f0-3de7-4a29-8328-340ee837f3bd" x="0" y="0" width="80" height="30" hTextAlign="Center" style="Fields (Tabela)">
+							<element kind="textField" uuid="450052f0-3de7-4a29-8328-340ee837f3bd" x="0" y="0" width="90" height="30" hTextAlign="Center" style="Fields (Tabela)">
 								<expression><![CDATA[$F{colab_celular_1}]]></expression>
 							</element>
 						</detailCell>
@@ -207,14 +207,14 @@ where conc_id_pk =  $P{PAR_CONC_ID} ]]></query>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 					</column>
-					<column kind="single" uuid="f4949fa0-e8dd-49f2-9909-fe381f59041b" width="194">
+					<column kind="single" uuid="f4949fa0-e8dd-49f2-9909-fe381f59041b" width="184">
 						<tableHeader height="20" rowSpan="1" style="Table_TH">
-							<element kind="staticText" uuid="5efddaea-d574-47af-8895-df99301bdb99" x="0" y="0" width="194" height="20" style="Títulos (Tabela)">
+							<element kind="staticText" uuid="5efddaea-d574-47af-8895-df99301bdb99" x="0" y="0" width="184" height="20" style="Títulos (Tabela)">
 								<text><![CDATA[Instituição]]></text>
 							</element>
 						</tableHeader>
 						<detailCell height="30" style="Table_TD">
-							<element kind="textField" uuid="07a837cb-5b5f-4760-91a0-9b980bc3ee62" x="0" y="0" width="194" height="30" style="Fields (Tabela)">
+							<element kind="textField" uuid="07a837cb-5b5f-4760-91a0-9b980bc3ee62" x="0" y="0" width="184" height="30" style="Fields (Tabela)">
 								<expression><![CDATA[String.format("%s (%s - %s)", $F{inst_nome}, $F{muni_nome}, $F{uf_sigla})]]></expression>
 								<box leftPadding="5" rightPadding="5" style="Fields (Tabela)"/>
 							</element>
@@ -269,6 +269,7 @@ where conc_id_pk =  $P{PAR_CONC_ID} ]]></query>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</band>
 	</detail>
 	<pageFooter height="20" splitType="Stretch">
