@@ -2,6 +2,7 @@
 <jasperReport name="BancoIncompleto" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59169312-c258-4d3b-8a51-1333adda39a9">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
+	<property name="net.sf.jasperreports.print.create.bookmarks" value="true"/>
 	<style name="Fields (Tabela)" hTextAlign="Left" vTextAlign="Middle" hImageAlign="Left" vImageAlign="Middle" markup="html" blankWhenNull="true" fontName="DejaVu" fontSize="10.0">
 		<box topPadding="0" leftPadding="0"/>
 		<paragraph leftIndent="0"/>
@@ -103,19 +104,12 @@ where fconc_conc_id =  $P{PAR_CONC_ID} ]]></query>
 			<property name="com.jaspersoft.studio.field.tree.path" value="vw_banco_incompleto"/>
 		</field>
 	</dataset>
-	<parameter name="PAR_CONC_ID" class="java.lang.Integer"/>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
-	<query language="SQL"><![CDATA[select conc_nome, date_format(conc_data_realizacao, '%d/%m/%Y') as conc_data_realizacao
-from concurso
-where conc_id_pk =  $P{PAR_CONC_ID} ]]></query>
-	<field name="conc_nome" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="conc_nome"/>
-		<property name="com.jaspersoft.studio.field.label" value="conc_nome"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
-	</field>
-	<field name="conc_data_realizacao" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="conc_data_realizacao"/>
-		<property name="com.jaspersoft.studio.field.label" value="conc_data_realizacao"/>
+	<parameter name="PAR_CONCURSO" class="compec.ufam.sicon.model.Concurso"/>
+	<query language="SQL"><![CDATA[select (1) as num]]></query>
+	<field name="num" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="num"/>
+		<property name="com.jaspersoft.studio.field.label" value="num"/>
 	</field>
 	<background splitType="Stretch"/>
 	<title height="140" splitType="Stretch">
@@ -131,13 +125,13 @@ where conc_id_pk =  $P{PAR_CONC_ID} ]]></query>
 			<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 		</element>
-		<element kind="textField" uuid="b0195a89-f98f-44fc-adba-68eed20b7bc2" x="0" y="120" width="605" height="15" style="Identificações">
-			<expression><![CDATA[$F{conc_nome}]]></expression>
+		<element kind="textField" uuid="b0195a89-f98f-44fc-adba-68eed20b7bc2" x="0" y="120" width="605" height="15" blankWhenNull="true" style="Identificações">
+			<expression><![CDATA[$P{PAR_CONCURSO}.getDescricao()]]></expression>
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 		</element>
 		<element kind="textField" uuid="a407684c-d15b-4968-b475-d5413a7c5bcf" x="610" y="120" width="192" height="15" markup="html" fontSize="11.0" blankWhenNull="true" bold="false" hTextAlign="Left" style="Identificações">
-			<expression><![CDATA["<b>Data de Realização: </b>" + $F{conc_data_realizacao}]]></expression>
+			<expression><![CDATA["<b>Data de Realização: </b>" + $P{PAR_CONCURSO}.getDataRealizacaoString()]]></expression>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			<property name="com.jaspersoft.studio.unit.x" value="px"/>
 		</element>
@@ -146,13 +140,18 @@ where conc_id_pk =  $P{PAR_CONC_ID} ]]></query>
 	<detail>
 		<band height="50" splitType="Stretch">
 			<element kind="component" uuid="a00ce3a3-a41b-4bfa-aee5-ba3255a2b20e" x="0" y="0" width="802" height="50">
-				<component kind="table">
-					<datasetRun uuid="3848e792-7d4f-4895-be04-ad8017e3517f" subDataset="BancoIncompletoDataset">
-						<connectionExpression><![CDATA[$P{REPORT_CONNECTION} ]]></connectionExpression>
+				<component kind="table" whenNoDataType="NoDataCell">
+					<datasetRun uuid="3df6aa24-02ac-4063-9970-d4656f5221a4" subDataset="BancoIncompletoDataset">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 						<parameter name="PAR_CONC_ID">
-							<expression><![CDATA[$P{PAR_CONC_ID}]]></expression>
+							<expression><![CDATA[$P{PAR_CONCURSO}.getID()]]></expression>
 						</parameter>
 					</datasetRun>
+					<noData height="30">
+						<element kind="staticText" uuid="e871e9ec-773b-4918-961b-9223e70ad1fe" x="0" y="0" width="802" height="30" fontSize="12.0" style="Títulos (Tabela)">
+							<text><![CDATA[Sem dados]]></text>
+						</element>
+					</noData>
 					<column kind="single" uuid="3cb4fd19-c960-4146-9e7f-2aab4271a53a" width="30">
 						<tableHeader height="20" rowSpan="1" style="Table_TH">
 							<element kind="staticText" uuid="82ae6eab-e786-4764-a626-cecd29e2bbed" x="0" y="0" width="30" height="20" style="Títulos (Tabela)">
