@@ -3,6 +3,7 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<property name="net.sf.jasperreports.print.create.bookmarks" value="true"/>
+	<import>compec.ufam.sicon.model.Constants.DateTimeFormatters</import>
 	<style name="Fields (Tabela)" hTextAlign="Left" vTextAlign="Middle" hImageAlign="Left" vImageAlign="Middle" markup="html" blankWhenNull="true" fontName="DejaVu" fontSize="10.0">
 		<box topPadding="0" leftPadding="0"/>
 		<paragraph leftIndent="0"/>
@@ -35,7 +36,7 @@
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 		<parameter name="PAR_CONC_ID" class="java.lang.Integer"/>
-		<query language="SQL"><![CDATA[select fconc_conc_id, colab_id_pk, CapitalizaNome(colab_nome) as colab_nome, fn_formata_celular(colab_celular_1) as colab_celular_1, func_apelido, mapa_vaga_publica, inst_nome, muni_nome, uf_sigla, banco_nome, colab_agencia, colab_conta, colab_conta_dv 
+		<query language="SQL"><![CDATA[select fconc_conc_id, colab_id_pk, fn_capitaliza(colab_nome) as colab_nome, fn_formata_celular(colab_celular_1) as colab_celular_1, func_apelido, mapa_vaga_publica, inst_nome, muni_nome, uf_sigla, banco_nome, colab_agencia, colab_conta, colab_conta_dv 
 from vw_banco_incompleto
 where fconc_conc_id =  $P{PAR_CONC_ID} ]]></query>
 		<field name="fconc_conc_id" class="java.lang.Integer">
@@ -131,7 +132,7 @@ where fconc_conc_id =  $P{PAR_CONC_ID} ]]></query>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 		</element>
 		<element kind="textField" uuid="a407684c-d15b-4968-b475-d5413a7c5bcf" x="610" y="120" width="192" height="15" markup="html" fontSize="11.0" blankWhenNull="true" bold="false" hTextAlign="Left" style="Identificações">
-			<expression><![CDATA["<b>Data de Realização: </b>" + $P{PAR_CONCURSO}.getDataRealizacaoString()]]></expression>
+			<expression><![CDATA["<b>Data de Realização: </b>" + $P{PAR_CONCURSO}.getDataRealizacao(DateTimeFormatters.BRAZILIAN_DATE)]]></expression>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			<property name="com.jaspersoft.studio.unit.x" value="px"/>
 		</element>
