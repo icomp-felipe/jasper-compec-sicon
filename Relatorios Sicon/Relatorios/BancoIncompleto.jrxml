@@ -3,6 +3,7 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 	<property name="net.sf.jasperreports.print.create.bookmarks" value="true"/>
+	<property name="com.jaspersoft.studio.report.description" value="Lista colaboradores inscritos em um determinado concurso, cujo pagamento é efetuado via tesouro nacional (categoria tributável) e possuem dados bancários incompletos ou inválidos."/>
 	<import>compec.ufam.sicon.model.Constants.DateTimeFormatters</import>
 	<style name="Fields (Tabela)" hTextAlign="Left" vTextAlign="Middle" hImageAlign="Left" vImageAlign="Middle" markup="html" blankWhenNull="true" fontName="DejaVu" fontSize="10.0">
 		<box topPadding="0" leftPadding="0"/>
