@@ -49,6 +49,7 @@
 		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="683"/>
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
+		<parameter name="TABLE_APENAS_POLICIAIS" class="java.lang.Boolean"/>
 		<query language="sql"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, date_format(colab_nascimento, '%d/%m/%y') as colab_nascimento, colab_cpf, func_apelido, colab_categoria_id, banco_apelido, colab_agencia, colab_conta, colab_conta_dv
 from colaborador
     join inscricao on colab_id_pk = insc_colab_id
@@ -59,6 +60,7 @@ from colaborador
 where fconc_conc_id = $P{TABLE_CONCURSO}
   and mapa_inst_id = $P{TABLE_INSTITUICAO}
   and insc_ativa = true
+  and ($P{TABLE_APENAS_POLICIAIS} = false or func_id_pk in (10, 19, 20))
 order by func_nome, colab_nome]]></query>
 		<field name="colab_nome" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
@@ -110,6 +112,7 @@ order by func_nome, colab_nome]]></query>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_CONCURSO" class="java.lang.Integer"/>
 	<parameter name="PAR_INSTITUICAO" class="java.lang.Integer"/>
+	<parameter name="PAR_APENAS_POLICIAIS" class="java.lang.Boolean"/>
 	<parameter name="PAR_OBS" class="java.lang.String"/>
 	<query language="sql"><![CDATA[select c.conc_nome, date_format(c.conc_data_realizacao, '%d/%m/%Y') as conc_data_realizacao, i.inst_nome, m.muni_nome, u.uf_sigla
 from concurso c, instituicao i
@@ -180,13 +183,16 @@ where c.conc_id_pk = $P{PAR_CONCURSO}
 		<band height="45" splitType="Stretch">
 			<element kind="component" uuid="3cc53829-fa4a-4915-a057-8518c18f4670" x="0" y="0" width="802" height="45">
 				<component kind="table">
-					<datasetRun uuid="c408afea-e6d2-4d48-a352-b560a0d8cf60" subDataset="ListaPresencaDataset">
+					<datasetRun uuid="a4315d70-d623-4170-b375-ce1c395dde26" subDataset="ListaPresencaDataset">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 						<parameter name="TABLE_CONCURSO">
 							<expression><![CDATA[$P{PAR_CONCURSO}]]></expression>
 						</parameter>
 						<parameter name="TABLE_INSTITUICAO">
 							<expression><![CDATA[$P{PAR_INSTITUICAO}]]></expression>
+						</parameter>
+						<parameter name="TABLE_APENAS_POLICIAIS">
+							<expression><![CDATA[$P{PAR_APENAS_POLICIAIS}]]></expression>
 						</parameter>
 					</datasetRun>
 					<column kind="single" uuid="89b51ddf-182a-4cab-8322-b54f0ee23bd8" width="30">
