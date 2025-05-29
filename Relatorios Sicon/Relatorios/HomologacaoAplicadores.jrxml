@@ -1,11 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HomologacaoAplicadores" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d475ab0-9e5f-4602-b747-4ee87d32a2cd">
+<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
+<jasperReport name="HomologacaoAplicadores" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d475ab0-9e5f-4602-b747-4ee87d32a2cd">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
-	<property name="com.jaspersoft.studio.report.description" value=""/>
-	<style name="Título" hAlign="Center" fontName="DejaVu" fontSize="14" isBold="true"/>
-	<style name="Ttulos (Estáticos)" hAlign="Right" fontName="DejaVu" fontSize="12" isBold="true"/>
-	<style name="Texto Dinâmico" fontName="DejaVu" fontSize="12"/>
+	<property name="com.jaspersoft.studio.report.description" value="Lista todos os aplicadores inscritos por em pública em um determinado concurso."/>
+	<style name="Fields (Tabela)" hTextAlign="Left" vTextAlign="Middle" hImageAlign="Left" vImageAlign="Middle" markup="html" blankWhenNull="true" fontName="DejaVu" fontSize="10.0">
+		<box topPadding="0" leftPadding="5" bottomPadding="0"/>
+		<paragraph leftIndent="0"/>
+	</style>
+	<style name="Rodapé" fontName="DejaVu" fontSize="10.0"/>
+	<style name="Texto Dinâmico" fontName="DejaVu" fontSize="12.0"/>
+	<style name="Título" hTextAlign="Center" hImageAlign="Center" fontName="DejaVu" fontSize="14.0" bold="true"/>
+	<style name="Ttulos (Estáticos)" hTextAlign="Right" hImageAlign="Right" fontName="DejaVu" fontSize="12.0" bold="true"/>
+	<style name="Títulos (Tabela)" hTextAlign="Center" vTextAlign="Middle" hImageAlign="Center" vImageAlign="Middle" fontName="DejaVu" fontSize="10.0" bold="true">
+		<box topPadding="0"/>
+	</style>
 	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -24,23 +32,11 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Títulos (Tabela)" hAlign="Center" vAlign="Middle" fontName="DejaVu" fontSize="10" isBold="true">
-		<box topPadding="0"/>
-	</style>
-	<style name="Fields (Tabela)" hAlign="Left" vAlign="Middle" markup="html" isBlankWhenNull="true" fontName="DejaVu" fontSize="10">
-		<box topPadding="2" leftPadding="5" bottomPadding="2"/>
-		<paragraph leftIndent="0"/>
-	</style>
-	<style name="Rodapé" fontName="DejaVu" fontSize="10"/>
-	<subDataset name="AplicadorDataset" uuid="53065284-a100-4016-95c9-29e84cebc281">
+	<dataset name="AplicadorDataset" uuid="53065284-a100-4016-95c9-29e84cebc281">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
-		<scriptlet name="JASPER_DRIVER" class="compec.ufam.sicon.interfaces.JasperDriver">
-			<scriptletDescription><![CDATA[]]></scriptletDescription>
-		</scriptlet>
 		<parameter name="PAR_CONC_ID" class="java.lang.INteger"/>
-		<queryString language="SQL">
-			<![CDATA[select colab_nome, colab_cpf, inst_nome, muni_nome, uf_sigla, inst_maps
+		<query language="SQL"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, colab_cpf, inst_nome, muni_nome, uf_sigla, inst_maps
 from inscricao
     join mapa on insc_mapa_id = mapa_id_pk
     join funcao_concurso on mapa_fconc_id = fconc_id_pk
@@ -50,10 +46,9 @@ from inscricao
     join uf on inst_uf_id = uf_id_pk
 where fconc_conc_id = $P!{PAR_CONC_ID}
   and fconc_func_id = 1
-  and mapa_vaga_publica
-  and insc_ativa
-order by colab_nome]]>
-		</queryString>
+  and mapa_vaga_publica = true
+  and insc_ativa = true
+order by colab_nome]]></query>
 		<field name="colab_nome" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
 			<property name="com.jaspersoft.studio.field.label" value="colab_nome"/>
@@ -85,31 +80,29 @@ order by colab_nome]]>
 			<property name="com.jaspersoft.studio.field.tree.path" value="instituicao"/>
 		</field>
 		<group name="colab_nome">
-			<groupExpression><![CDATA[$F{colab_nome}]]></groupExpression>
+			<expression><![CDATA[$F{colab_nome}]]></expression>
 		</group>
 		<group name="colab_cpf">
-			<groupExpression><![CDATA[$F{colab_cpf}]]></groupExpression>
+			<expression><![CDATA[$F{colab_cpf}]]></expression>
 		</group>
 		<group name="inst_nome">
-			<groupExpression><![CDATA[$F{inst_nome}]]></groupExpression>
+			<expression><![CDATA[$F{inst_nome}]]></expression>
 		</group>
 		<group name="muni_nome">
-			<groupExpression><![CDATA[$F{muni_nome}]]></groupExpression>
+			<expression><![CDATA[$F{muni_nome}]]></expression>
 		</group>
 		<group name="uf_sigla">
-			<groupExpression><![CDATA[$F{uf_sigla}]]></groupExpression>
+			<expression><![CDATA[$F{uf_sigla}]]></expression>
 		</group>
 		<group name="inst_maps">
-			<groupExpression><![CDATA[$F{inst_maps}]]></groupExpression>
+			<expression><![CDATA[$F{inst_maps}]]></expression>
 		</group>
-	</subDataset>
+	</dataset>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_CONCURSO" class="java.lang.Integer"/>
-	<queryString language="SQL">
-		<![CDATA[select conc_nome, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao
+	<query language="SQL"><![CDATA[select conc_nome, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao
 from concurso
-where conc_id_pk = $P{PAR_CONCURSO}]]>
-	</queryString>
+where conc_id_pk = $P{PAR_CONCURSO}]]></query>
 	<field name="conc_nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="conc_nome"/>
 		<property name="com.jaspersoft.studio.field.label" value="conc_nome"/>
@@ -119,201 +112,154 @@ where conc_id_pk = $P{PAR_CONCURSO}]]>
 		<property name="com.jaspersoft.studio.field.name" value="conc_data_realizacao"/>
 		<property name="com.jaspersoft.studio.field.label" value="conc_data_realizacao"/>
 	</field>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<title>
-		<band height="125" splitType="Stretch">
+	<background splitType="Stretch"/>
+	<title height="125" splitType="Stretch">
+		<element kind="image" uuid="090dcdf8-c282-4786-b489-d338f209d40a" positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="802" height="65">
+			<expression><![CDATA[$P{PAR_LOGO}]]></expression>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<image>
-				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="802" height="65" uuid="090dcdf8-c282-4786-b489-d338f209d40a">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<imageExpression><![CDATA[$P{PAR_LOGO}]]></imageExpression>
-			</image>
-			<staticText>
-				<reportElement style="Título" x="0" y="75" width="800" height="20" uuid="0b988d09-664b-4c1a-be93-e9b165866610">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<text><![CDATA[Homologação de Aplicadores [Inscrições Públicas]]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Ttulos (Estáticos)" x="0" y="105" width="66" height="15" uuid="1d43f357-aba0-4de4-838e-975a436d69b5">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Left"/>
-				<text><![CDATA[Processo:]]></text>
-			</staticText>
-			<textField>
-				<reportElement style="Texto Dinâmico" x="70" y="105" width="570" height="15" uuid="f471c700-3358-4253-93ab-8b962cc17eb0">
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-				<textElement markup="none"/>
-				<textFieldExpression><![CDATA[$F{conc_nome}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement style="Ttulos (Estáticos)" x="645" y="105" width="80" height="15" uuid="1cfbf1d6-8045-438d-b4b2-7b5f4c77da3c">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<text><![CDATA[Realização:]]></text>
-			</staticText>
-			<textField>
-				<reportElement style="Texto Dinâmico" x="730" y="105" width="70" height="15" uuid="52cc66d0-a39f-41a2-94aa-90b3c9d1a352">
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Right" markup="none"/>
-				<textFieldExpression><![CDATA[$F{conc_data_realizacao}]]></textFieldExpression>
-			</textField>
-		</band>
+		</element>
+		<element kind="staticText" uuid="0b988d09-664b-4c1a-be93-e9b165866610" x="0" y="75" width="800" height="20" style="Título">
+			<text><![CDATA[Homologação de Aplicadores [Inscrições Públicas]]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+		</element>
+		<element kind="staticText" uuid="1d43f357-aba0-4de4-838e-975a436d69b5" x="0" y="105" width="66" height="15" hTextAlign="Left" style="Ttulos (Estáticos)">
+			<text><![CDATA[Processo:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<element kind="textField" uuid="f471c700-3358-4253-93ab-8b962cc17eb0" x="70" y="105" width="570" height="15" markup="none" style="Texto Dinâmico">
+			<expression><![CDATA[$F{conc_nome}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<element kind="staticText" uuid="1cfbf1d6-8045-438d-b4b2-7b5f4c77da3c" x="645" y="105" width="80" height="15" style="Ttulos (Estáticos)">
+			<text><![CDATA[Realização:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+		</element>
+		<element kind="textField" uuid="52cc66d0-a39f-41a2-94aa-90b3c9d1a352" x="730" y="105" width="70" height="15" markup="none" hTextAlign="Right" style="Texto Dinâmico">
+			<expression><![CDATA[$F{conc_data_realizacao}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
 	</title>
 	<detail>
 		<band height="40" splitType="Stretch">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<componentElement>
-				<reportElement x="0" y="0" width="800" height="40" uuid="ac9564cc-e8a8-4b29-bb41-dad2f837c84e">
-					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
-					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
-					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
-					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="AplicadorDataset" uuid="4128dbd2-7fd7-4a89-9af1-e4ba2fb5eb6e">
-						<datasetParameter name="PAR_CONC_ID">
-							<datasetParameterExpression><![CDATA[$P{PAR_CONCURSO}]]></datasetParameterExpression>
-						</datasetParameter>
+			<element kind="component" uuid="ac9564cc-e8a8-4b29-bb41-dad2f837c84e" x="0" y="0" width="800" height="40">
+				<component kind="table">
+					<datasetRun uuid="4128dbd2-7fd7-4a89-9af1-e4ba2fb5eb6e" subDataset="AplicadorDataset">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						<parameter name="PAR_CONC_ID">
+							<expression><![CDATA[$P{PAR_CONCURSO}]]></expression>
+						</parameter>
 					</datasetRun>
-					<jr:column width="30" uuid="214e5ef2-21b2-47c1-a084-854ef0aa3cf0">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
-						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
+					<column kind="single" uuid="214e5ef2-21b2-47c1-a084-854ef0aa3cf0" width="30">
+						<columnHeader height="20" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="8bc3364d-368f-45d9-907d-ed8295f9ae42" x="0" y="0" width="30" height="20" style="Títulos (Tabela)">
+								<text><![CDATA[#]]></text>
+								<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+							</element>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="30" height="20" uuid="8bc3364d-368f-45d9-907d-ed8295f9ae42">
-									<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-								</reportElement>
-								<text><![CDATA[#]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="20">
+						</columnHeader>
+						<detailCell height="20" style="Table_TD">
+							<element kind="textField" uuid="e2799330-bff8-4155-bd8a-a820c853a0fe" x="0" y="0" width="30" height="20" hTextAlign="Center" style="Fields (Tabela)">
+								<expression><![CDATA[$V{REPORT_COUNT}]]></expression>
+								<box topPadding="0" leftPadding="0" bottomPadding="0" style="Fields (Tabela)"/>
+							</element>
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<textField>
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="30" height="20" uuid="e2799330-bff8-4155-bd8a-a820c853a0fe"/>
-								<box topPadding="0" leftPadding="0" bottomPadding="0"/>
-								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="230" uuid="66b274e1-9dd5-4fe2-aed1-71e1228c7d09">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
-						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
-							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="230" height="20" uuid="27652f9a-a5aa-4be4-8cdd-4c0c47478eac"/>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+					</column>
+					<column kind="single" uuid="66b274e1-9dd5-4fe2-aed1-71e1228c7d09" width="230">
+						<columnHeader height="20" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="27652f9a-a5aa-4be4-8cdd-4c0c47478eac" x="0" y="0" width="230" height="20" style="Títulos (Tabela)">
 								<text><![CDATA[Aplicador]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="20">
-							<textField>
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="230" height="20" uuid="6e330555-c0e1-440c-ad81-884ed8501c56"/>
-								<textFieldExpression><![CDATA[$P{JASPER_DRIVER_SCRIPTLET}.formatName($F{colab_nome})]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="100" uuid="7c960f25-01a0-4757-adc0-9f0034d9c7d9">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
-						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
-							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="100" height="20" uuid="ba2c8ac8-a9ee-4272-bfca-c97a4e143b06"/>
+							</element>
+						</columnHeader>
+						<detailCell height="20" style="Table_TD">
+							<element kind="textField" uuid="6e330555-c0e1-440c-ad81-884ed8501c56" x="0" y="0" width="230" height="20" style="Fields (Tabela)">
+								<expression><![CDATA[$F{colab_nome}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+					</column>
+					<column kind="single" uuid="7c960f25-01a0-4757-adc0-9f0034d9c7d9" width="100">
+						<columnHeader height="20" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="ba2c8ac8-a9ee-4272-bfca-c97a4e143b06" x="0" y="0" width="100" height="20" style="Títulos (Tabela)">
 								<text><![CDATA[CPF]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="20">
-							<textField>
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="100" height="20" uuid="feb44f1d-bc8c-42a0-bd90-cab507331a19"/>
-								<box leftPadding="0"/>
-								<textElement textAlignment="Center"/>
-								<textFieldExpression><![CDATA[String.format("XXX.%s.%s-XX", $F{colab_cpf}.substring(3,6), $F{colab_cpf}.substring(6,9))]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="440" uuid="f0fbc7b1-042b-4dd7-81fc-35dfcc88dade">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
-						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
-							<staticText>
-								<reportElement style="Títulos (Tabela)" x="0" y="0" width="440" height="20" uuid="56415e8f-7980-40ce-9390-c4522f157dc8"/>
+							</element>
+						</columnHeader>
+						<detailCell height="20" style="Table_TD">
+							<element kind="textField" uuid="feb44f1d-bc8c-42a0-bd90-cab507331a19" x="0" y="0" width="100" height="20" hTextAlign="Center" style="Fields (Tabela)">
+								<expression><![CDATA[String.format("XXX.%s.%s-XX", $F{colab_cpf}.substring(3,6), $F{colab_cpf}.substring(6,9))]]></expression>
+								<box leftPadding="0" style="Fields (Tabela)"/>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+					</column>
+					<column kind="single" uuid="f0fbc7b1-042b-4dd7-81fc-35dfcc88dade" width="440">
+						<columnHeader height="20" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="56415e8f-7980-40ce-9390-c4522f157dc8" x="0" y="0" width="440" height="20" style="Títulos (Tabela)">
 								<text><![CDATA[Instituição]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="20">
-							<textField>
-								<reportElement style="Fields (Tabela)" x="0" y="0" width="440" height="20" uuid="3e3916fe-40bd-4433-a1e4-e0eba4dc6211"/>
-								<textFieldExpression><![CDATA[String.format("%s [%s - %s]", $F{inst_nome}, $F{muni_nome}, $F{uf_sigla})]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-				</jr:table>
-			</componentElement>
+							</element>
+						</columnHeader>
+						<detailCell height="20" style="Table_TD">
+							<element kind="textField" uuid="3e3916fe-40bd-4433-a1e4-e0eba4dc6211" x="0" y="0" width="440" height="20" style="Fields (Tabela)">
+								<expression><![CDATA[String.format("%s [%s - %s]", $F{inst_nome}, $F{muni_nome}, $F{uf_sigla})]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+					</column>
+				</component>
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+				<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+				<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</band>
 	</detail>
-	<pageFooter>
-		<band height="20" splitType="Stretch">
+	<pageFooter height="20" splitType="Stretch">
+		<element kind="textField" uuid="830331c3-0aa8-44c7-9527-bd47836e486e" x="290" y="5" width="100" height="15" hTextAlign="Right" style="Rodapé">
+			<expression><![CDATA["Página " + $V{PAGE_NUMBER}]]></expression>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<textField>
-				<reportElement style="Rodapé" x="290" y="5" width="100" height="15" uuid="830331c3-0aa8-44c7-9527-bd47836e486e">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement style="Rodapé" x="390" y="5" width="100" height="15" uuid="1221f450-78e5-4689-bbdc-3cecb2da3bf2">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-		</band>
+		</element>
+		<element kind="textField" uuid="1221f450-78e5-4689-bbdc-3cecb2da3bf2" x="390" y="5" width="100" height="15" evaluationTime="Report" hTextAlign="Left" style="Rodapé">
+			<expression><![CDATA[" de " + $V{PAGE_NUMBER}]]></expression>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
 	</pageFooter>
-	<summary>
-		<band height="20" splitType="Stretch">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<textField>
-				<reportElement style="Texto Dinâmico" positionType="Float" x="0" y="5" width="800" height="15" uuid="ec7c01e2-f7ef-4299-b099-cb304e9dd33a">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" markup="html">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA["<b>Documento extraído em: </b>" + new SimpleDateFormat("dd/MM/yyyy '<b>às</b>' HH:mm:ss",new Locale("pt","BR")).format(new java.util.Date())]]></textFieldExpression>
-			</textField>
-		</band>
+	<summary height="20" splitType="Stretch">
+		<element kind="textField" uuid="ec7c01e2-f7ef-4299-b099-cb304e9dd33a" positionType="Float" x="0" y="5" width="800" height="15" markup="html" fontSize="12.0" hTextAlign="Center" style="Texto Dinâmico">
+			<expression><![CDATA["<b>Documento extraído em: </b>" + new SimpleDateFormat("dd/MM/yyyy '<b>às</b>' HH:mm:ss",new Locale("pt","BR")).format(new java.util.Date())]]></expression>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
 	</summary>
 </jasperReport>
