@@ -1,0 +1,274 @@
+<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
+<jasperReport name="HistoricoColaborador" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0417783b-14c1-4388-9568-080baeeded93">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
+	<property name="com.jaspersoft.studio.report.description" value="Lista todos os concursos que um determinado colaborador prestou, por ordem do mais recente ao mais antigo."/>
+	<import>java.time.format.DateTimeFormatter</import>
+	<import>java.time.LocalDateTime</import>
+	<style name="Título" hTextAlign="Center" hImageAlign="Center" fontName="DejaVu" fontSize="14.0" bold="true"/>
+	<style name="Ttulos (Estáticos)" hTextAlign="Right" hImageAlign="Right" fontName="DejaVu" fontSize="12.0" bold="true"/>
+	<style name="Texto Dinâmico" fontName="DejaVu" fontSize="12.0"/>
+	<style name="Títulos (Tabela)" hTextAlign="Center" vTextAlign="Middle" hImageAlign="Center" vImageAlign="Middle" fontName="DejaVu" fontSize="10.0" bold="true">
+		<box topPadding="4"/>
+	</style>
+	<style name="Fields (Tabela)" hTextAlign="Left" vTextAlign="Middle" hImageAlign="Left" vImageAlign="Middle" markup="html" blankWhenNull="true" fontName="DejaVu" fontSize="10.0">
+		<box topPadding="0" leftPadding="3" bottomPadding="0" rightPadding="0"/>
+		<paragraph leftIndent="0"/>
+	</style>
+	<style name="Rodapé" fontName="DejaVu" fontSize="10.0"/>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<dataset name="HistoricoDataset" uuid="91e9c51f-71c7-4fd7-94cf-f60d33f1028d">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
+		<parameter name="TABLE_ID_COLABORADOR" class="java.lang.Integer">
+			<description><![CDATA[]]></description>
+		</parameter>
+		<query language="sql"><![CDATA[select conc_nome, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_realizacao, inst_nome, func_apelido, mapa_vaga_publica, date_format(insc_create_datetime,'%d/%m/%Y %H:%i:%s') as inscr_datetime
+from inscricao
+    join mapa on insc_mapa_id = mapa_id_pk
+    join funcao_concurso on mapa_fconc_id = fconc_id_pk
+    join funcao on fconc_func_id = func_id_pk
+    join concurso on fconc_conc_id = conc_id_pk
+    join instituicao on mapa_inst_id = inst_id_pk
+where insc_colab_id = $P{TABLE_ID_COLABORADOR}
+    and insc_ativa = true
+order by conc_id_pk desc]]></query>
+		<field name="conc_nome" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="conc_nome"/>
+			<property name="com.jaspersoft.studio.field.label" value="conc_nome"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="concurso"/>
+		</field>
+		<field name="conc_realizacao" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="conc_realizacao"/>
+			<property name="com.jaspersoft.studio.field.label" value="conc_realizacao"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="conc_realizacao"/>
+		</field>
+		<field name="inst_nome" class="java.lang.String">
+			<description><![CDATA[]]></description>
+			<property name="com.jaspersoft.studio.field.name" value="inst_nome"/>
+			<property name="com.jaspersoft.studio.field.label" value="inst_nome"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="instituicao"/>
+		</field>
+		<field name="func_apelido" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="func_apelido"/>
+			<property name="com.jaspersoft.studio.field.label" value="func_apelido"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="funcao"/>
+		</field>
+		<field name="mapa_vaga_publica" class="java.lang.Boolean">
+			<property name="com.jaspersoft.studio.field.name" value="mapa_vaga_publica"/>
+			<property name="com.jaspersoft.studio.field.label" value="mapa_vaga_publica"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="mapa"/>
+		</field>
+		<field name="inscr_datetime" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="inscr_datetime"/>
+			<property name="com.jaspersoft.studio.field.label" value="inscr_datetime"/>
+		</field>
+	</dataset>
+	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
+	<parameter name="PAR_ID_COLABORADOR" class="java.lang.Integer"/>
+	<query language="sql"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome from colaborador where colab_id_pk = $P{PAR_ID_COLABORADOR}]]></query>
+	<field name="colab_nome" class="java.lang.String">
+		<description><![CDATA[]]></description>
+		<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="135">
+		<element kind="image" uuid="908c6036-1d55-460a-acf9-86d0112edd30" positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="802" height="80" hImageAlign="Center" vImageAlign="Middle">
+			<expression><![CDATA[$P{PAR_LOGO}]]></expression>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="b03d2432-4bdd-414b-812a-5bbe2059beac" x="0" y="85" width="802" height="20" style="Título">
+			<text><![CDATA[Histórico de Colaborador]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+		</element>
+		<element kind="staticText" uuid="60f4d25b-65e0-4fa8-a074-b99e22302165" x="0" y="115" width="45" height="15" hTextAlign="Right" style="Ttulos (Estáticos)">
+			<text><![CDATA[Nome:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+		</element>
+		<element kind="textField" uuid="05b14fed-a660-42fe-b0ed-4ba5ec00cc02" x="50" y="115" width="752" height="15" markup="none" style="Texto Dinâmico">
+			<expression><![CDATA[$F{colab_nome}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</title>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<element kind="component" uuid="205d3a49-bbd0-4930-8a01-79099feb4d16" key="" x="0" y="0" width="800" height="40">
+				<component kind="table">
+					<datasetRun uuid="500f592e-136d-415e-82df-63c9eecc000f" subDataset="HistoricoDataset">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						<parameter name="TABLE_ID_COLABORADOR">
+							<expression><![CDATA[$P{PAR_ID_COLABORADOR}]]></expression>
+						</parameter>
+					</datasetRun>
+					<column kind="single" uuid="6a6c9247-464f-479c-889c-532614c20cde" width="20">
+						<columnHeader height="20" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="bac845c7-aff8-4457-9d1e-120482fd1a9d" x="0" y="0" width="20" height="20" style="Títulos (Tabela)">
+								<text><![CDATA[#]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="20" style="Table_TD">
+							<element kind="textField" uuid="1f05d10b-09df-40bd-bbcf-4ab5f5d0cf95" stretchType="ContainerHeight" x="0" y="0" width="20" height="20" hTextAlign="Center" style="Fields (Tabela)">
+								<expression><![CDATA[$V{REPORT_COUNT}]]></expression>
+								<box leftPadding="0" style="Fields (Tabela)"/>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+					</column>
+					<column kind="single" uuid="1e5e7e67-f568-4225-b3e2-37aab45e0fcf" width="230">
+						<columnHeader height="20" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="51c6d040-43c7-4e8a-bec1-b2893fbe9027" key="" positionType="Float" x="0" y="0" width="230" height="20" style="Títulos (Tabela)">
+								<text><![CDATA[Concurso]]></text>
+							</element>
+							<box topPadding="0" style="Table_CH"/>
+						</columnHeader>
+						<detailCell height="20" style="Table_TD">
+							<element kind="textField" uuid="c96bd75f-273f-495b-a9df-85eedccb5f54" stretchType="ContainerHeight" x="0" y="0" width="230" height="20" textAdjust="StretchHeight" style="Fields (Tabela)">
+								<expression><![CDATA[$F{conc_nome}]]></expression>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5" style="Fields (Tabela)"/>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+					</column>
+					<column kind="single" uuid="68249ca0-0361-4eee-919e-1487c48c04ff" width="70">
+						<columnHeader height="20" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="833f2c10-f91a-47fe-920b-9a6d2fa038a0" x="0" y="0" width="70" height="20" style="Títulos (Tabela)">
+								<text><![CDATA[Realização]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="20" style="Table_TD">
+							<element kind="textField" uuid="983796d4-37c3-4544-9b99-33b4de77ed59" stretchType="ContainerHeight" x="0" y="0" width="70" height="20" printRepeatedValues="false" hTextAlign="Center" style="Fields (Tabela)">
+								<expression><![CDATA[$F{conc_realizacao}]]></expression>
+								<box leftPadding="0" style="Fields (Tabela)"/>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+					</column>
+					<column kind="single" uuid="b4716000-f49a-432a-9daa-d8b9e8dee2f5" width="80">
+						<columnHeader height="20" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="696d3618-a5e4-4c83-8967-6c540988f45a" x="0" y="0" width="80" height="20" style="Títulos (Tabela)">
+								<text><![CDATA[Função]]></text>
+								<box padding="0" style="Títulos (Tabela)"/>
+							</element>
+						</columnHeader>
+						<detailCell height="20" style="Table_TD">
+							<element kind="textField" uuid="6aba6f0a-a861-4282-a175-982bf0272c2a" stretchType="ContainerHeight" x="0" y="0" width="80" height="20" textAdjust="StretchHeight" hTextAlign="Center" style="Fields (Tabela)">
+								<expression><![CDATA[$F{func_apelido}]]></expression>
+								<box leftPadding="5" rightPadding="5" style="Fields (Tabela)"/>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+					</column>
+					<column kind="single" uuid="162bf3ed-7f69-46e0-bb0a-7f43a2452d13" width="220">
+						<columnHeader height="20" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="38c6a9bb-c1df-4f6e-8815-edc0975e9101" x="0" y="0" width="220" height="20" style="Títulos (Tabela)">
+								<text><![CDATA[Instituição]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="20" style="Table_TD">
+							<element kind="textField" uuid="ab9a3be6-fd4d-4aba-9956-b350ee459088" stretchType="ContainerHeight" x="0" y="0" width="220" height="20" textAdjust="StretchHeight" style="Fields (Tabela)">
+								<expression><![CDATA[$F{inst_nome}]]></expression>
+								<box topPadding="2" bottomPadding="2" rightPadding="3" style="Fields (Tabela)"/>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+					</column>
+					<column kind="single" uuid="32fe1346-8cd7-4c63-ad91-c8625aad80fb" width="120">
+						<columnHeader height="20" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="bc278da0-2f67-48c4-ab94-e8e4fdd86b21" x="0" y="0" width="120" height="20" style="Títulos (Tabela)">
+								<text><![CDATA[Inscrição]]></text>
+								<box padding="0" style="Títulos (Tabela)"/>
+							</element>
+						</columnHeader>
+						<detailCell height="20" style="Table_TD">
+							<element kind="textField" uuid="cf01bf8e-6efe-4b5f-aaeb-b25d460567c2" stretchType="ContainerHeight" x="0" y="0" width="120" height="20" textAdjust="StretchHeight" hTextAlign="Center" style="Fields (Tabela)">
+								<expression><![CDATA[$F{inscr_datetime}]]></expression>
+								<box leftPadding="0" style="Fields (Tabela)"/>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+					</column>
+					<column kind="single" uuid="f55b5f4f-3154-4423-85c2-9fcd17d0b288" width="60">
+						<columnHeader height="20" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="fa04adbb-0dac-4457-8ffc-55f68fe82698" x="0" y="0" width="60" height="20" style="Títulos (Tabela)">
+								<text><![CDATA[Vaga]]></text>
+								<box padding="0" style="Títulos (Tabela)"/>
+							</element>
+						</columnHeader>
+						<detailCell height="20" style="Table_TD">
+							<element kind="textField" uuid="0c5c231e-3da7-4288-abb7-5cc0a6eaf5bd" stretchType="ContainerHeight" x="0" y="0" width="60" height="20" textAdjust="StretchHeight" hTextAlign="Center" style="Fields (Tabela)">
+								<expression><![CDATA[$F{mapa_vaga_publica} ? "Pública" : "Indicação"]]></expression>
+								<box leftPadding="0" style="Fields (Tabela)"/>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+					</column>
+				</component>
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</detail>
+	<pageFooter height="25" splitType="Stretch">
+		<element kind="textField" uuid="06250e94-058b-47ef-93ea-02ad5f30fc32" x="290" y="10" width="100" height="15" hTextAlign="Right" style="Rodapé">
+			<expression><![CDATA["Página " + $V{PAGE_NUMBER}]]></expression>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="968badb6-5a3c-40f7-be1f-fc13b6b65f9b" x="390" y="10" width="100" height="15" evaluationTime="Report" hTextAlign="Left" style="Rodapé">
+			<expression><![CDATA[" de " + $V{PAGE_NUMBER}]]></expression>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</pageFooter>
+	<summary height="20">
+		<element kind="textField" uuid="5d84e29d-e30b-4db5-9539-7d6f3a78c66b" positionType="Float" x="0" y="5" width="800" height="15" markup="html" fontSize="10.0" hTextAlign="Center" style="Texto Dinâmico">
+			<expression><![CDATA["<b>Documento extraído em: </b>" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy '<b>às</b>' HH:mm:ss"))]]></expression>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</summary>
+</jasperReport>
