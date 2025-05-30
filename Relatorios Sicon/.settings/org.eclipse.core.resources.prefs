@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//Relatorios/BancoIncompleto.jrxml=UTF-8
 encoding//Relatorios/FichaColaborador.jrxml=UTF-8
+encoding//Relatorios/FichaLocalProva.jrxml=UTF-8
 encoding//Relatorios/HistoricoColaborador.jrxml=UTF-8
 encoding//Relatorios/HomologacaoAplicadores.jrxml=UTF-8
 encoding//Relatorios/ListaColaboradorFuncao.jrxml=UTF-8
@@ -12,7 +13,6 @@ encoding//Relatorios/Revisar/Depreciar/ListaPresencaPM.jrxml=UTF-8
 encoding//Relatorios/Revisar/Depreciar/RPAvulso.jrxml=UTF-8
 encoding//Relatorios/Revisar/DocAuxLiquidacao.jrxml=UTF-8
 encoding//Relatorios/Revisar/FichaInstituicao.jrxml=UTF-8
-encoding//Relatorios/Revisar/FichaLocalProva.jrxml=UTF-8
 encoding//Relatorios/Revisar/LCLancamento.jrxml=UTF-8
 encoding//Relatorios/Revisar/LCLancamentoServidor.jrxml=UTF-8
 encoding//Relatorios/Revisar/LCLiquidacao.jrxml=UTF-8
