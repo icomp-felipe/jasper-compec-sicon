@@ -2,7 +2,7 @@
 <jasperReport name="RPA" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="331c611e-9a05-4f6f-9858-8c0ae81a1a5b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
-	<property name="com.jaspersoft.studio.report.description" value="Recibo de Pagamento a Autônomo (RPA). Criado por Felipe André. Última atualização em 28/05/2025."/>
+	<property name="com.jaspersoft.studio.report.description" value="Gera o Recibo de Pagamento a Autônomo (RPA) dos colaboradores inscritos em determinados concurso e instituição, cujo pagamento é efetuado via tesouro nacional (categoria tributável)."/>
 	<import>java.time.format.DateTimeFormatter</import>
 	<import>java.time.LocalDate</import>
 	<import>compec.ufam.sicon.model.Constants.DateTimeFormatters</import>
@@ -52,6 +52,7 @@
 	<parameter name="PAR_INSTITUICAO_ID" class="java.lang.Integer"/>
 	<parameter name="PAR_INSCRICOES" class="java.lang.String"/>
 	<parameter name="PAR_INSCRICOES_TODAS" class="java.lang.Boolean"/>
+	<parameter name="PAR_APENAS_POLICIAIS" class="java.lang.Boolean"/>
 	<parameter name="PAR_RPA_DATA" class="java.time.LocalDate"/>
 	<parameter name="PAR_ASSINATURA" class="java.awt.image.BufferedImage"/>
 	<query language="SQL"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, date_format(colab_nascimento, '%d/%m/%Y') as colab_nascimento, fn_mascara_cpf(colab_cpf) as colab_cpf, colab_rg, colab_rg_orgao, func_nome, fconc_valor_bruto, fconc_desc_inss, fconc_desc_iss, (fconc_valor_bruto - fconc_desc_inss - fconc_desc_iss) as valor_liquido
@@ -70,6 +71,7 @@ where fconc_conc_id = $P{PAR_CONCURSO_ID}
   and categ_tributavel = true
   and insc_ativa = true
   and ($P{PAR_INSCRICOES_TODAS} = true or insc_id_pk in ($P!{PAR_INSCRICOES}))
+  and ($P{PAR_APENAS_POLICIAIS} = false or func_id_pk in (10, 19, 20))
 order by colab_nome]]></query>
 	<field name="colab_nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
