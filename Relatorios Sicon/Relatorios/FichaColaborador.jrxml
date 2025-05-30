@@ -1,0 +1,454 @@
+<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
+<jasperReport name="FichaColaborador" language="java" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f6e4db4-9f8f-4ffe-9759-6e1fd142f492">
+	<property name="template.type" value="columnar"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
+	<property name="com.jaspersoft.studio.report.description" value="Exibe todos os dados cadastrais de determinado colaborador."/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="403"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="586"/>
+	<import>java.time.format.DateTimeFormatter</import>
+	<import>java.time.LocalDate</import>
+	<style name="Título" forecolor="#000000" fontName="DejaVu" fontSize="20.0" bold="true" underline="false"/>
+	<style name="SubTitle" forecolor="#666666" hTextAlign="Left" vTextAlign="Middle" hImageAlign="Left" vImageAlign="Middle" fontName="DejaVu" fontSize="14.0" bold="true">
+		<paragraph leftIndent="5"/>
+	</style>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle mode="Opaque" backcolor="#F0EFEF">
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+		</conditionalStyle>
+	</style>
+	<style name="Static Texts" hTextAlign="Right" hImageAlign="Right" fontName="DejaVu" fontSize="12.0" bold="true"/>
+	<style name="Dynamic Texts" hTextAlign="Left" hImageAlign="Left" pattern="" blankWhenNull="true" fontName="DejaVu" fontSize="12.0"/>
+	<style name="Rodapé" fontName="DejaVu" fontSize="6.0"/>
+	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
+	<parameter name="PAR_COLABORADOR_ID" class="java.lang.Integer"/>
+	<query language="sql"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, colab_sexo, colab_cpf, fn_mascara_cpf(colab_cpf) as colab_cpf_formatado, date_format(colab_nascimento, '%d/%m/%Y') as colab_nascimento, fn_mascara_cpf(colab_pis) as colab_pis, colab_rg, colab_rg_orgao,
+       fn_capitaliza(colab_logradouro) as colab_logradouro, colab_logradouro_numero, fn_capitaliza(colab_bairro) as colab_bairro, colab_complemento, muni_nome, fn_mascara_cep(colab_cep) as colab_cep,
+       fn_mascara_celular(colab_fixo) as colab_fixo, fn_mascara_celular(colab_celular_1) as colab_celular_1, fn_mascara_celular(colab_celular_2) as colab_celular_2, colab_email,
+       banco_nome, banco_codigo, colab_agencia, colab_conta, colab_conta_dv,
+       categ_nome, colab_matricula, fn_capitaliza(colab_lotacao) as colab_lotacao, colab_obs
+from colaborador
+left join banco on colab_banco_id = banco_id_pk
+left join categoria on colab_categoria_id = categ_id_pk
+left join municipio on colab_municipio_id = muni_id_pk
+where colab_id_pk = $P{PAR_COLABORADOR_ID}]]></query>
+	<field name="colab_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_nome"/>
+	</field>
+	<field name="colab_sexo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_sexo"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_sexo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+	</field>
+	<field name="colab_cpf" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="colab_cpf"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_cpf"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+	</field>
+	<field name="colab_cpf_formatado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_cpf_formatado"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_cpf_formatado"/>
+	</field>
+	<field name="colab_nascimento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_nascimento"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_nascimento"/>
+	</field>
+	<field name="colab_pis" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_pis"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_pis"/>
+	</field>
+	<field name="colab_rg" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_rg"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_rg"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+	</field>
+	<field name="colab_rg_orgao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_rg_orgao"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_rg_orgao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+	</field>
+	<field name="colab_logradouro" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_logradouro"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_logradouro"/>
+	</field>
+	<field name="colab_logradouro_numero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_logradouro_numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_logradouro_numero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+	</field>
+	<field name="colab_bairro" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_bairro"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_bairro"/>
+	</field>
+	<field name="colab_complemento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_complemento"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_complemento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+	</field>
+	<field name="muni_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="muni_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="muni_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="municipio"/>
+	</field>
+	<field name="colab_cep" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_cep"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_cep"/>
+	</field>
+	<field name="colab_fixo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_fixo"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_fixo"/>
+	</field>
+	<field name="colab_celular_1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_celular_1"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_celular_1"/>
+	</field>
+	<field name="colab_celular_2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_celular_2"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_celular_2"/>
+	</field>
+	<field name="colab_email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_email"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+	</field>
+	<field name="banco_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="banco_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="banco_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="banco"/>
+	</field>
+	<field name="banco_codigo" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="banco_codigo"/>
+		<property name="com.jaspersoft.studio.field.label" value="banco_codigo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="banco"/>
+	</field>
+	<field name="colab_agencia" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_agencia"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_agencia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+	</field>
+	<field name="colab_conta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_conta"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_conta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+	</field>
+	<field name="colab_conta_dv" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_conta_dv"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_conta_dv"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+	</field>
+	<field name="categ_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="categ_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="categ_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="categoria"/>
+	</field>
+	<field name="colab_matricula" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_matricula"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_matricula"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+	</field>
+	<field name="colab_lotacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_lotacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_lotacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+	</field>
+	<field name="colab_obs" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_obs"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_obs"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+	</field>
+	<title height="90" splitType="Stretch">
+		<element kind="staticText" uuid="f49d68fd-a2c7-44ec-a5fc-9300d10c85a1" x="0" y="65" width="555" height="25" fontSize="16.0" hTextAlign="Center" style="Título">
+			<text><![CDATA[Ficha de Dados de Colaborador]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+		</element>
+		<element kind="image" uuid="5b592710-7d77-492b-8f76-365597f9a46d" x="0" y="0" width="555" height="60" hImageAlign="Center" vImageAlign="Middle">
+			<expression><![CDATA[$P{PAR_LOGO}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</title>
+	<detail>
+		<band height="420" splitType="Stretch">
+			<element kind="frame" uuid="867e0549-4455-4b07-9990-ba29a45b1848" mode="Opaque" x="0" y="100" width="555" height="20" forecolor="#000000" backcolor="#FFFFFF">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<element kind="textField" uuid="2d86542e-714b-405d-a6af-adc9e5fca191" x="2" y="0" width="479" height="20" forecolor="#000000" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" printRepeatedValues="false" bold="true" style="SubTitle">
+					<expression><![CDATA["Endereço"]]></expression>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+			</element>
+			<element kind="frame" uuid="783fd807-4fa3-4fcf-bf03-aa53a227cf2f" mode="Opaque" x="0" y="195" width="555" height="20" forecolor="#000000" backcolor="#FFFFFF">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<element kind="textField" uuid="06c6be24-33be-40ee-ba3a-c095d8765b90" x="2" y="0" width="479" height="20" forecolor="#000000" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" printRepeatedValues="false" bold="true" style="SubTitle">
+					<expression><![CDATA["Contato"]]></expression>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+			</element>
+			<element kind="frame" uuid="3740236d-9ea6-4653-82f0-52dd3b70845e" mode="Opaque" x="0" y="270" width="555" height="20" forecolor="#000000" backcolor="#FFFFFF">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<element kind="textField" uuid="def0a36a-c7f3-48a0-95d4-d5772c7aa513" x="2" y="1" width="479" height="20" forecolor="#000000" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" printRepeatedValues="false" bold="true" style="SubTitle">
+					<expression><![CDATA["Informações Bancárias"]]></expression>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+			</element>
+			<element kind="frame" uuid="2f4eb807-79ce-4813-bb57-92938966d9bd" mode="Opaque" x="0" y="325" width="555" height="20" forecolor="#000000" backcolor="#FFFFFF">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<element kind="textField" uuid="a3a8336c-d018-44b7-aed5-8ef4e7e51ce8" x="2" y="1" width="479" height="20" forecolor="#000000" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" printRepeatedValues="false" bold="true" style="SubTitle">
+					<expression><![CDATA["Informações Cadastrais"]]></expression>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="4d3be7b7-3ceb-4c8e-aca0-529dd5ba4a7e" key="" positionType="FixRelativeToBottom" x="0" y="35" width="50" height="15" style="Static Texts">
+				<text><![CDATA[Nome:]]></text>
+			</element>
+			<element kind="staticText" uuid="405902b5-d7ae-4c72-b725-b05a5afd647b" key="" positionType="FixRelativeToBottom" x="350" y="55" width="60" height="15" style="Static Texts">
+				<text><![CDATA[Nascim.:]]></text>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="staticText" uuid="1fed6c18-2dc9-4ff3-ada1-95caf31a05fa" key="" positionType="FixRelativeToBottom" x="0" y="55" width="50" height="15" style="Static Texts">
+				<text><![CDATA[CPF:]]></text>
+			</element>
+			<element kind="staticText" uuid="0da30bb4-dd13-40b4-bd1e-03547337ab42" key="" positionType="FixRelativeToBottom" x="350" y="35" width="60" height="15" style="Static Texts">
+				<text><![CDATA[Sexo:]]></text>
+				<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+			</element>
+			<element kind="textField" uuid="0cec42e3-16cc-4568-a347-83aed8a54f1c" key="" x="55" y="55" width="100" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_cpf_formatado}]]></expression>
+			</element>
+			<element kind="textField" uuid="4da11f6f-0626-4f95-804e-6b55d4371ddb" key="" x="415" y="55" width="90" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_nascimento}]]></expression>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="textField" uuid="b9ad6967-b1d6-479e-8b8e-26b9808c7500" key="" x="55" y="35" width="285" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_nome}]]></expression>
+			</element>
+			<element kind="textField" uuid="7401e19a-8271-4b31-9bce-7eda996deb0a" key="" x="415" y="35" width="140" height="15" blankWhenNull="true" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_sexo}]]></expression>
+			</element>
+			<element kind="staticText" uuid="d9418a42-4f7c-4b9f-8637-17ee32b44faa" key="" positionType="FixRelativeToBottom" x="0" y="130" width="55" height="15" style="Static Texts">
+				<text><![CDATA[Rua/Av:]]></text>
+			</element>
+			<element kind="textField" uuid="92467c12-e93f-42a1-a66b-16135324dea0" key="" x="60" y="130" width="350" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_logradouro}]]></expression>
+			</element>
+			<element kind="staticText" uuid="63766208-b5d0-49e0-accb-eed4dc5a82f1" key="" positionType="FixRelativeToBottom" x="415" y="130" width="65" height="15" style="Static Texts">
+				<text><![CDATA[Número:]]></text>
+			</element>
+			<element kind="textField" uuid="19081c52-52bf-4b61-b287-04ae7285fed9" key="" x="485" y="130" width="70" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_logradouro_numero}]]></expression>
+			</element>
+			<element kind="textField" uuid="fab1b2c3-2e6a-4a2b-b273-f2238556e323" key="" x="485" y="150" width="70" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_cep}]]></expression>
+			</element>
+			<element kind="staticText" uuid="7f0dae91-971d-4a0f-9aec-052a5b73a1fc" key="" positionType="FixRelativeToBottom" x="415" y="150" width="65" height="15" style="Static Texts">
+				<text><![CDATA[CEP:]]></text>
+			</element>
+			<element kind="staticText" uuid="ff259e90-3b9e-414e-88eb-d54233eb4f7f" key="" positionType="FixRelativeToBottom" x="0" y="150" width="55" height="15" style="Static Texts">
+				<text><![CDATA[Bairro:]]></text>
+				<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+			</element>
+			<element kind="textField" uuid="1d830083-70d9-46c0-9335-2b8557567f8e" key="" x="60" y="150" width="135" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_bairro}]]></expression>
+			</element>
+			<element kind="staticText" uuid="af986b78-4ee1-4406-a006-965b7a423e16" key="" positionType="FixRelativeToBottom" x="200" y="150" width="75" height="15" style="Static Texts">
+				<text><![CDATA[Município:]]></text>
+				<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+			</element>
+			<element kind="textField" uuid="f0cf39db-541b-48c0-a403-ac0dc4ed0750" key="" x="280" y="150" width="130" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{muni_nome}]]></expression>
+			</element>
+			<element kind="staticText" uuid="9e1bb2cc-6839-40e9-9d96-47f0dcfa3569" key="" positionType="FixRelativeToBottom" x="0" y="225" width="50" height="15" style="Static Texts">
+				<text><![CDATA[Fixo:]]></text>
+			</element>
+			<element kind="textField" uuid="8e3a746c-af01-45cf-8c69-55648ec4b052" key="" x="55" y="225" width="105" height="15" blankWhenNull="true" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_fixo}]]></expression>
+			</element>
+			<element kind="staticText" uuid="1bc51240-e36a-4260-bcef-f31558ae7466" key="" positionType="FixRelativeToBottom" x="205" y="225" width="50" height="15" style="Static Texts">
+				<text><![CDATA[Cel. 1:]]></text>
+			</element>
+			<element kind="textField" uuid="0f3f6866-b3d5-4c58-a41e-f41d43ec917d" key="" x="260" y="225" width="105" height="15" blankWhenNull="true" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_celular_1}]]></expression>
+			</element>
+			<element kind="staticText" uuid="813cd435-6cf9-4253-a082-0b2f119fcc5e" key="" positionType="FixRelativeToBottom" x="395" y="225" width="50" height="15" style="Static Texts">
+				<text><![CDATA[Cel. 2:]]></text>
+			</element>
+			<element kind="textField" uuid="88bb721c-fe64-42bf-a99f-1c39163a63c3" key="" x="450" y="225" width="105" height="15" blankWhenNull="true" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_celular_2}]]></expression>
+			</element>
+			<element kind="staticText" uuid="3c3f60b9-23cf-4ae9-ab47-1099da4bd113" key="" positionType="FixRelativeToBottom" x="0" y="245" width="50" height="15" style="Static Texts">
+				<text><![CDATA[e-mail:]]></text>
+			</element>
+			<element kind="textField" uuid="61d2cfa1-c0e4-4a84-a8c4-dcd446e2dd15" key="" x="55" y="245" width="500" height="15" blankWhenNull="true" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_email}]]></expression>
+			</element>
+			<element kind="staticText" uuid="c1c51719-9518-4f0a-a336-dafb5a79af72" key="" positionType="FixRelativeToBottom" x="0" y="300" width="50" height="15" style="Static Texts">
+				<text><![CDATA[Banco:]]></text>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="textField" uuid="ca1507de-7152-495a-aeea-93840469e870" key="" x="55" y="300" width="155" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{banco_codigo}  == 0 ? null : String.format("%s (%03d)", $F{banco_nome}, $F{banco_codigo})]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="staticText" uuid="07d16491-cc12-4056-8eaa-6d9d6ee74972" key="" positionType="FixRelativeToBottom" x="214" y="300" width="60" height="15" style="Static Texts">
+				<text><![CDATA[Agência:]]></text>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="textField" uuid="b4457f76-cff8-41a6-9021-9a0ee873eb5f" key="" x="280" y="300" width="31" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_agencia}]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			</element>
+			<element kind="staticText" uuid="51d5d9cc-72cb-4cf7-af50-f389f0cfb73a" key="" positionType="FixRelativeToBottom" x="315" y="300" width="50" height="15" style="Static Texts">
+				<text><![CDATA[Conta:]]></text>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="textField" uuid="8da7af66-80f6-4eb4-bc1c-ed196e14398e" key="" x="370" y="300" width="135" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_conta}]]></expression>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="staticText" uuid="4ea13b92-bfbe-4dc0-b031-52d2bd547cdd" key="" positionType="FixRelativeToBottom" x="180" y="355" width="125" height="15" hTextAlign="Right" style="Static Texts">
+				<text><![CDATA[Categoria:]]></text>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="textField" uuid="4b13b276-a20b-4c8c-8739-67c8c0b9e3ca" key="" x="310" y="355" width="245" height="15" printRepeatedValues="false" style="Dynamic Texts">
+				<expression><![CDATA[$F{categ_nome}]]></expression>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="staticText" uuid="de8c70f2-4405-4b61-9bf4-3c588305626b" key="" positionType="FixRelativeToBottom" x="0" y="375" width="75" height="15" style="Static Texts">
+				<text><![CDATA[ID:]]></text>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="textField" uuid="33b96ff0-4e09-4ba5-87f4-608d5e214d1c" key="" x="80" y="375" width="80" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$P{PAR_COLABORADOR_ID}]]></expression>
+			</element>
+			<element kind="component" uuid="e5633ac7-7dea-4b77-99c5-78a5e2a801c8" x="232" y="395" width="100" height="25" printRepeatedValues="false">
+				<component kind="barbecue" type="EAN13" drawText="true" checksumRequired="false">
+					<codeExpression><![CDATA[String.format("%012d", $F{colab_cpf})]]></codeExpression>
+				</component>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			</element>
+			<element kind="staticText" uuid="41edc688-783f-444c-b096-34ef8ed9008b" key="" positionType="FixRelativeToBottom" x="0" y="355" width="75" height="15" style="Static Texts">
+				<text><![CDATA[Matrícula:]]></text>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="textField" uuid="a73b7b88-924a-4529-933e-01f6dc1b7f9d" key="" x="80" y="355" width="80" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_matricula}]]></expression>
+			</element>
+			<element kind="staticText" uuid="f88360fa-e173-40c1-b29a-d82fb69773b5" key="" positionType="FixRelativeToBottom" x="180" y="375" width="125" height="15" hTextAlign="Right" style="Static Texts">
+				<text><![CDATA[Lotação/Curso:]]></text>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="textField" uuid="98d29a25-adc2-4928-9fb4-e4cacd4ffa3e" key="" x="310" y="375" width="245" height="15" printRepeatedValues="false" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_lotacao}]]></expression>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="staticText" uuid="97306801-b2d2-4416-a8a2-fdaeabc07f1c" key="" positionType="FixRelativeToBottom" x="0" y="75" width="50" height="15" style="Static Texts">
+				<text><![CDATA[N° RG:]]></text>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="staticText" uuid="7d263fb1-1303-4d4c-afab-294b5e99a38f" key="" positionType="FixRelativeToBottom" x="185" y="55" width="50" height="15" style="Static Texts">
+				<text><![CDATA[PIS:]]></text>
+				<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+			</element>
+			<element kind="textField" uuid="b88842e7-6143-46ee-a6a6-1789642d1904" key="" x="240" y="55" width="100" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_pis}]]></expression>
+			</element>
+			<element kind="staticText" uuid="f4dab26d-5067-476e-8711-fc283fca10fb" key="" positionType="FixRelativeToBottom" x="350" y="75" width="60" height="15" style="Static Texts">
+				<text><![CDATA[Órgão:]]></text>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			</element>
+			<element kind="textField" uuid="ebbda1b7-29ba-4ab7-a42e-90b2e5bb6ae4" key="" x="415" y="75" width="139" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_rg_orgao}]]></expression>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			</element>
+			<element kind="textField" uuid="b1fa2149-98bc-4a36-8db6-e468d875e7ab" key="" x="55" y="75" width="285" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_rg}]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			</element>
+			<element kind="frame" uuid="19127373-e069-4e8e-b35c-9309040b1b8d" mode="Opaque" x="0" y="5" width="555" height="20" forecolor="#000000" backcolor="#FFFFFF">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<element kind="textField" uuid="32187c8e-7363-4a88-a20b-e22515996a51" x="0" y="1" width="405" height="20" forecolor="#000000" fontSize="14.0" textAdjust="StretchHeight" linkType="None" linkTarget="Self" blankWhenNull="true" printRepeatedValues="false" bold="true" vTextAlign="Middle" style="SubTitle">
+					<expression><![CDATA["Identificação"]]></expression>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="812b666f-372e-4e2c-8643-da0ff0191302" x="0" y="170" width="55" height="15" style="Static Texts">
+				<text><![CDATA[Compl:]]></text>
+			</element>
+			<element kind="textField" uuid="3540a18e-67f4-440e-a9ce-f5a2e473673b" x="60" y="170" width="495" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_complemento}]]></expression>
+			</element>
+			<element kind="staticText" uuid="1e1b4280-40c5-4c39-b510-0de58c575441" key="" positionType="FixRelativeToBottom" x="511" y="300" width="25" height="15" style="Static Texts">
+				<text><![CDATA[DV:]]></text>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="textField" uuid="ff2ce778-1694-40f6-87ba-851f4623c630" key="" x="541" y="300" width="14" height="15" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_conta_dv}]]></expression>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+		<band height="61">
+			<printWhenExpression><![CDATA[($F{colab_obs} != null) && (!$F{colab_obs}.isBlank())]]></printWhenExpression>
+			<element kind="textField" uuid="cde02731-eb42-449c-b4c2-58c208d8beec" key="" x="5" y="40" width="555" height="15" textAdjust="StretchHeight" blankWhenNull="true" hTextAlign="Justified" vTextAlign="Top" style="Dynamic Texts">
+				<expression><![CDATA[$F{colab_obs}]]></expression>
+			</element>
+			<element kind="frame" uuid="5a6255e6-2bde-4e2d-a15a-a677efbef5ae" mode="Opaque" x="0" y="5" width="555" height="20" forecolor="#000000" backcolor="#FFFFFF">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<element kind="textField" uuid="3edd8598-7ae5-4720-b253-0ded75028dbd" x="2" y="1" width="479" height="20" forecolor="#000000" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" printRepeatedValues="false" bold="true" style="SubTitle">
+					<expression><![CDATA["Observações"]]></expression>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+			</element>
+			<element kind="line" uuid="ae62fad5-ecfe-4d74-8fd1-477b099f4499" key="" positionType="FixRelativeToBottom" x="5" y="60" width="555" height="1"/>
+		</band>
+	</detail>
+	<pageFooter height="13" splitType="Stretch">
+		<element kind="frame" uuid="bfdca178-800d-445c-9a31-bb616a00e8ce" mode="Opaque" x="0" y="0" width="555" height="13" forecolor="#000000" backcolor="#FFFFFF">
+			<element kind="textField" uuid="2fba0f87-635e-476d-858f-d102b26146fe" x="540" y="0" width="10" height="13" forecolor="#000000" fontSize="10.0" evaluationTime="Report" bold="true" vTextAlign="Middle" style="Rodapé">
+				<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+			</element>
+			<element kind="textField" uuid="e454d23d-bcfc-4c79-a399-0ef520a3150a" mode="Transparent" x="468" y="0" width="70" height="13" forecolor="#000000" fontSize="10.0" bold="true" hTextAlign="Right" vTextAlign="Middle" style="Rodapé">
+				<expression><![CDATA["Página "+$V{PAGE_NUMBER} + " de "]]></expression>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			</element>
+			<element kind="textField" uuid="14d8de1e-8695-4078-a67f-0e69172574d5" x="5" y="0" width="425" height="13" forecolor="#000000" fontSize="10.0" pattern="EEEEE dd MMMMM yyyy" bold="true" vTextAlign="Middle" style="Rodapé">
+				<expression><![CDATA[LocalDate.now().format(DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' yyyy", Locale.of("pt", "BR")))]]></expression>
+			</element>
+		</element>
+	</pageFooter>
+</jasperReport>
