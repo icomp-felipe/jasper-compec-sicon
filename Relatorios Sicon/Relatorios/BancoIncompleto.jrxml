@@ -37,7 +37,7 @@
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
 		<parameter name="PAR_CONC_ID" class="java.lang.Integer"/>
-		<query language="SQL"><![CDATA[select fconc_conc_id, colab_id_pk, fn_capitaliza(colab_nome) as colab_nome, fn_formata_celular(colab_celular_1) as colab_celular_1, func_apelido, mapa_vaga_publica, inst_nome, muni_nome, uf_sigla, banco_nome, colab_agencia, colab_conta, colab_conta_dv 
+		<query language="SQL"><![CDATA[select fconc_conc_id, colab_id_pk, fn_capitaliza(colab_nome) as colab_nome, fn_mascara_telefone(colab_celular_1) as colab_celular_1, func_apelido, mapa_vaga_publica, inst_nome, muni_nome, uf_sigla, banco_nome, colab_agencia, colab_conta, colab_conta_dv 
 from vw_banco_incompleto
 where fconc_conc_id =  $P{PAR_CONC_ID} ]]></query>
 		<field name="fconc_conc_id" class="java.lang.Integer">

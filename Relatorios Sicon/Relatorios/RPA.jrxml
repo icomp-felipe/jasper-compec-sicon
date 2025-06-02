@@ -314,7 +314,7 @@ order by colab_nome]]></query>
 			<element kind="textField" uuid="d9f905f3-3cb2-455b-942e-2f03b6e3a12e" x="464" y="301" width="90" height="15" style="COLAB_CONTEUDO">
 				<expression><![CDATA[$F{colab_rg_orgao}]]></expression>
 			</element>
-			<element kind="textField" uuid="c29786e5-95fa-4359-ad3f-a98ce613cfd9" x="0" y="332" width="218" height="15" fontName="DejaVu" fontSize="11.0" blankWhenNull="false">
+			<element kind="textField" uuid="c29786e5-95fa-4359-ad3f-a98ce613cfd9" x="0" y="332" width="218" height="30" fontName="DejaVu" fontSize="11.0" textAdjust="ScaleFont" blankWhenNull="false">
 				<expression><![CDATA[$V{VAR_LOCAL_DATA}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
@@ -501,7 +501,7 @@ order by colab_nome]]></query>
 			<element kind="textField" uuid="21bc471f-6b1b-4f9a-b590-1ec7ad99b7ad" x="465" y="701" width="90" height="15" style="COLAB_CONTEUDO">
 				<expression><![CDATA[$F{colab_rg_orgao}]]></expression>
 			</element>
-			<element kind="textField" uuid="045f51a9-e57f-4220-9b44-05d8dc79e5a9" x="1" y="732" width="218" height="15" fontName="DejaVu" fontSize="11.0" blankWhenNull="false">
+			<element kind="textField" uuid="045f51a9-e57f-4220-9b44-05d8dc79e5a9" x="1" y="732" width="218" height="30" fontName="DejaVu" fontSize="11.0" textAdjust="ScaleFont" blankWhenNull="false">
 				<expression><![CDATA[$V{VAR_LOCAL_DATA}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>

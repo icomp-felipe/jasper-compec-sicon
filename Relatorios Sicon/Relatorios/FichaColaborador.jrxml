@@ -25,7 +25,7 @@
 	<parameter name="PAR_COLABORADOR_ID" class="java.lang.Integer"/>
 	<query language="sql"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, colab_sexo, colab_cpf, fn_mascara_cpf(colab_cpf) as colab_cpf_formatado, date_format(colab_nascimento, '%d/%m/%Y') as colab_nascimento, fn_mascara_cpf(colab_pis) as colab_pis, colab_rg, colab_rg_orgao,
        fn_capitaliza(colab_logradouro) as colab_logradouro, colab_logradouro_numero, fn_capitaliza(colab_bairro) as colab_bairro, colab_complemento, muni_nome, fn_mascara_cep(colab_cep) as colab_cep,
-       fn_mascara_celular(colab_fixo) as colab_fixo, fn_mascara_celular(colab_celular_1) as colab_celular_1, fn_mascara_celular(colab_celular_2) as colab_celular_2, colab_email,
+       fn_mascara_telefone(colab_fixo) as colab_fixo, fn_mascara_telefone(colab_celular_1) as colab_celular_1, fn_mascara_telefone(colab_celular_2) as colab_celular_2, colab_email,
        banco_nome, banco_codigo, colab_agencia, colab_conta, colab_conta_dv,
        categ_nome, colab_matricula, fn_capitaliza(colab_lotacao) as colab_lotacao, colab_obs
 from colaborador

@@ -51,7 +51,7 @@
 		<parameter name="TABLE_MUNICIPIO" class="java.lang.String"/>
 		<parameter name="TABLE_ORDER_BY" class="java.lang.String"/>
 		<parameter name="TABLE_CELULAR_LOCALIZACAO" class="java.lang.Boolean"/>
-		<query language="sql"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, inst_codigo, inst_nome, inst_bairro, inst_municipio_id, muni_nome, fn_mascara_celular(colab_celular_1) as colab_celular_1, fn_mascara_celular(colab_celular_2) as colab_celular_2, inst_maps
+		<query language="sql"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, inst_codigo, inst_nome, inst_bairro, inst_municipio_id, muni_nome, fn_mascara_telefone(colab_celular_1) as colab_celular_1, fn_mascara_telefone(colab_celular_2) as colab_celular_2, inst_maps
 from inscricao
     join mapa on insc_mapa_id = mapa_id_pk
     join funcao_concurso on mapa_fconc_id = fconc_id_pk

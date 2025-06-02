@@ -75,7 +75,7 @@
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<parameter name="TABLE_NASC_CONTATO" class="java.lang.Boolean"/>
-		<query language="sql"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, fn_mascara_cpf(colab_cpf) as colab_cpf, date_format(colab_nascimento, '%d/%m/%Y') as colab_nascimento, fn_mascara_celular(colab_celular_1) as colab_celular_1, colab_rg, func_apelido, mapa_vaga_publica
+		<query language="sql"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, fn_mascara_cpf(colab_cpf) as colab_cpf, date_format(colab_nascimento, '%d/%m/%Y') as colab_nascimento, fn_mascara_telefone(colab_celular_1) as colab_celular_1, colab_rg, func_apelido, mapa_vaga_publica
 from colaborador
     join inscricao on colab_id_pk = insc_colab_id
     join mapa on insc_mapa_id = mapa_id_pk
