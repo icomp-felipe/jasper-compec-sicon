@@ -61,10 +61,6 @@ from inscricao
     join mapa on insc_mapa_id = mapa_id_pk
     join funcao_concurso on mapa_fconc_id = fconc_id_pk
     join funcao on func_id_pk = fconc_func_id
-    join instituicao on inst_id_pk = mapa_inst_id
-    join municipio on muni_id_pk = inst_municipio_id
-    join uf on inst_uf_id = uf_id_pk
-    join concurso on conc_id_pk = fconc_conc_id
     join categoria on categ_id_pk = colab_categoria_id
 where fconc_conc_id = $P{PAR_CONCURSO_ID}
   and mapa_inst_id =  $P{PAR_INSTITUICAO_ID}
