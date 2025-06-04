@@ -11,7 +11,7 @@
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
-	<property name="com.jaspersoft.studio.report.description" value="Lista todos os colaboradores inscritos em determinada função em determinados concurso e município (opcional). O relatório pode imprimir a lista com contatos de celular ou localizações do Google das instituições."/>
+	<property name="com.jaspersoft.studio.report.description" value="Lista todos os colaboradores inscritos em determinada função em determinados concurso e município (opcional)."/>
 	<import>java.time.format.DateTimeFormatter</import>
 	<import>java.time.LocalDateTime</import>
 	<style name="Título" hTextAlign="Center" hImageAlign="Center" fontName="DejaVu" fontSize="14.0" bold="true"/>
@@ -51,7 +51,7 @@
 		<parameter name="TABLE_MUNICIPIO" class="java.lang.String"/>
 		<parameter name="TABLE_ORDER_BY" class="java.lang.String"/>
 		<parameter name="TABLE_CELULAR_LOCALIZACAO" class="java.lang.Boolean"/>
-		<query language="sql"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, inst_codigo, inst_nome, inst_bairro, inst_municipio_id, muni_nome, fn_mascara_telefone(colab_celular_1) as colab_celular_1, fn_mascara_telefone(colab_celular_2) as colab_celular_2, inst_maps
+		<query language="sql"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, inst_codigo, inst_nome, inst_bairro, inst_municipio_id, muni_nome, colab_celular_1, fn_mascara_telefone(colab_celular_1) as colab_celular_1_mask, colab_celular_2, fn_mascara_telefone(colab_celular_2) as colab_celular_2_mask, inst_maps
 from inscricao
     join mapa on insc_mapa_id = mapa_id_pk
     join funcao_concurso on mapa_fconc_id = fconc_id_pk
@@ -105,25 +105,30 @@ order by $P!{TABLE_ORDER_BY}]]></query>
 			<property name="com.jaspersoft.studio.field.label" value="colab_celular_1"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 		</field>
+		<field name="colab_celular_1_mask" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="colab_celular_1_mask"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_celular_1_mask"/>
+		</field>
 		<field name="colab_celular_2" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="colab_celular_2"/>
 			<property name="com.jaspersoft.studio.field.name" value="colab_celular_2"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_celular_2"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+		</field>
+		<field name="colab_celular_2_mask" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="colab_celular_2_mask"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_celular_2_mask"/>
 		</field>
 		<field name="inst_maps" class="java.lang.String">
 			<description><![CDATA[]]></description>
-			<property name="com.jaspersoft.studio.field.name" value="colab_celular_2"/>
-			<property name="com.jaspersoft.studio.field.label" value="colab_celular_2"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+			<property name="com.jaspersoft.studio.field.name" value="inst_maps"/>
+			<property name="com.jaspersoft.studio.field.label" value="inst_maps"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="instituicao"/>
 		</field>
 	</dataset>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
 	<parameter name="PAR_CONCURSO_ID" class="java.lang.Integer"/>
 	<parameter name="PAR_FUNCAO_ID" class="java.lang.Integer"/>
 	<parameter name="PAR_MUNICIPIO_ID" class="java.lang.Integer"/>
-	<parameter name="PAR_CELULAR_LOCALIZACAO" class="java.lang.Boolean">
-		<description><![CDATA['true' para relatório com números de celular ou 'false' para o relatório com localizações do Google Maps.]]></description>
-	</parameter>
 	<parameter name="PAR_ORDER_BY" class="java.lang.String"/>
 	<query language="sql"><![CDATA[select conc_nome, date_format(conc_data_realizacao,'%d/%m/%Y') as conc_data_realizacao, func_plural
 from concurso, funcao
@@ -169,7 +174,7 @@ where conc_id_pk = $P{PAR_CONCURSO_ID}
 			<property name="com.jaspersoft.studio.unit.y" value="px"/>
 		</element>
 		<element kind="textField" uuid="a2069ea9-9116-4fe1-9390-a79b453e9ab2" x="0" y="85" width="802" height="20" style="Título">
-			<expression><![CDATA[String.format("Lista de %s (com %s)", $F{func_plural}, $P{PAR_CELULAR_LOCALIZACAO} ? "Celular" : "Localização")]]></expression>
+			<expression><![CDATA["Lista de " + $F{func_plural}]]></expression>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			<property name="com.jaspersoft.studio.unit.y" value="px"/>
 		</element>
@@ -179,7 +184,7 @@ where conc_id_pk = $P{PAR_CONCURSO_ID}
 		<band height="40" splitType="Stretch">
 			<element kind="component" uuid="205d3a49-bbd0-4930-8a01-79099feb4d16" key="" x="0" y="0" width="800" height="40" style="Ttulos (Estáticos)">
 				<component kind="table">
-					<datasetRun uuid="18d668ea-8d12-4db1-a89d-1a38849717ab" subDataset="ListaColaboradorDataset">
+					<datasetRun uuid="e63f034c-aa62-4b4c-982f-a74a901d4993" subDataset="ListaColaboradorDataset">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 						<parameter name="TABLE_ORDER_BY">
 							<expression><![CDATA[$P{PAR_ORDER_BY}]]></expression>
@@ -189,9 +194,6 @@ where conc_id_pk = $P{PAR_CONCURSO_ID}
 						</parameter>
 						<parameter name="TABLE_CONCURSO">
 							<expression><![CDATA[$P{PAR_CONCURSO_ID}]]></expression>
-						</parameter>
-						<parameter name="TABLE_CELULAR_LOCALIZACAO">
-							<expression><![CDATA[$P{PAR_CELULAR_LOCALIZACAO}]]></expression>
 						</parameter>
 						<parameter name="TABLE_MUNICIPIO">
 							<expression><![CDATA[$P{PAR_MUNICIPIO_ID} == null ? "%" : Integer.toString($P{PAR_MUNICIPIO_ID})]]></expression>
@@ -213,9 +215,9 @@ where conc_id_pk = $P{PAR_CONCURSO_ID}
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					</column>
-					<column kind="single" uuid="1e5e7e67-f568-4225-b3e2-37aab45e0fcf" width="190">
+					<column kind="single" uuid="1e5e7e67-f568-4225-b3e2-37aab45e0fcf" width="210">
 						<columnHeader height="20" rowSpan="1" style="Table_CH">
-							<element kind="staticText" uuid="fa667e49-5c10-46ae-b39c-bd1ffca653f0" x="0" y="0" width="190" height="20" bold="true" hTextAlign="Center" style="Títulos (Tabela)">
+							<element kind="staticText" uuid="fa667e49-5c10-46ae-b39c-bd1ffca653f0" x="0" y="0" width="210" height="20" bold="true" hTextAlign="Center" style="Títulos (Tabela)">
 								<text><![CDATA[Colaborador]]></text>
 								<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 								<box topPadding="4" style="Títulos (Tabela)"/>
@@ -223,7 +225,7 @@ where conc_id_pk = $P{PAR_CONCURSO_ID}
 							<box topPadding="0" style="Table_CH"/>
 						</columnHeader>
 						<detailCell height="20" style="Table_TD">
-							<element kind="textField" uuid="5292e224-80ac-4c52-b0db-748649a4479c" stretchType="ContainerHeight" x="0" y="0" width="190" height="20" textAdjust="StretchHeight" style="Fields (Tabela)">
+							<element kind="textField" uuid="5292e224-80ac-4c52-b0db-748649a4479c" stretchType="ContainerHeight" x="0" y="0" width="210" height="20" textAdjust="StretchHeight" style="Fields (Tabela)">
 								<expression><![CDATA[$F{colab_nome}]]></expression>
 								<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 								<box leftPadding="5" style="Fields (Tabela)"/>
@@ -231,44 +233,45 @@ where conc_id_pk = $P{PAR_CONCURSO_ID}
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 					</column>
-					<column kind="single" uuid="1dffc873-0b6a-4f57-861b-e2108a9a1c02" width="210">
+					<column kind="single" uuid="1dffc873-0b6a-4f57-861b-e2108a9a1c02" width="360">
 						<columnHeader height="20" rowSpan="1" style="Table_CH">
-							<element kind="staticText" uuid="d5744b56-ea2b-4c8b-bc9c-faae81af87cb" x="0" y="0" width="210" height="20" bold="true" hTextAlign="Center" style="Títulos (Tabela)">
-								<text><![CDATA[Instituição]]></text>
+							<element kind="staticText" uuid="d5744b56-ea2b-4c8b-bc9c-faae81af87cb" x="0" y="0" width="360" height="20" bold="true" hTextAlign="Center" style="Títulos (Tabela)">
+								<text><![CDATA[Instituição (Google Maps)]]></text>
 								<box topPadding="4" style="Títulos (Tabela)"/>
 							</element>
 						</columnHeader>
 						<detailCell height="20" style="Table_TD">
-							<element kind="textField" uuid="ec4f8fe7-1f0d-4098-9ff7-a4297f0a83f5" stretchType="ContainerHeight" x="0" y="0" width="210" height="20" textAdjust="StretchHeight" style="Fields (Tabela)">
-								<expression><![CDATA[($F{inst_municipio_id}== 1) ? String.format("%03d. %s", $F{inst_codigo}, $F{inst_nome}) : String.format("%d%03d. %s", $F{inst_municipio_id}, $F{inst_codigo}, $F{inst_nome})]]></expression>
+							<element kind="textField" uuid="ec4f8fe7-1f0d-4098-9ff7-a4297f0a83f5" stretchType="ContainerHeight" x="0" y="0" width="360" height="20" textAdjust="StretchHeight" style="Fields (Tabela)">
+								<expression><![CDATA[($F{inst_maps} != null && !$F{inst_maps}.isBlank()) ? String.format("<a href='%s' style='color: #0000EE; text-decoration: underline;'>%s [%s - %s]</a>", $F{inst_maps}, $F{inst_nome}, $F{inst_bairro}, $F{muni_nome}) : String.format("%s [%s - %s]", $F{inst_nome}, $F{inst_bairro}, $F{muni_nome})]]></expression>
 								<box padding="5" style="Fields (Tabela)"/>
 							</element>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 					</column>
-					<column kind="single" uuid="b4716000-f49a-432a-9daa-d8b9e8dee2f5" width="130">
+					<column kind="single" uuid="68249ca0-0361-4eee-919e-1487c48c04ff" width="100">
 						<columnHeader height="20" rowSpan="1" style="Table_CH">
-							<element kind="staticText" uuid="696d3618-a5e4-4c83-8967-6c540988f45a" x="0" y="0" width="130" height="20" bold="true" hTextAlign="Center" style="Títulos (Tabela)">
-								<text><![CDATA[Endereço]]></text>
+							<element kind="staticText" uuid="75b9c0be-d29e-4dc6-8196-ac4a4b86c01e" x="0" y="0" width="100" height="20" bold="true" hTextAlign="Center" style="Títulos (Tabela)">
+								<text><![CDATA[Celular 01]]></text>
 								<box padding="0" topPadding="4" style="Títulos (Tabela)"/>
 							</element>
 						</columnHeader>
 						<detailCell height="20" style="Table_TD">
-							<element kind="textField" uuid="229f1cf6-5e65-4179-aa3a-467af204d7f4" stretchType="ContainerHeight" x="0" y="0" width="130" height="20" textAdjust="StretchHeight" hTextAlign="Center" style="Fields (Tabela)">
-								<expression><![CDATA[$F{inst_bairro} + " - " + $F{muni_nome}]]></expression>
+							<element kind="textField" uuid="fe264695-a9b7-46fd-8b63-6df318b8e1b5" stretchType="ContainerHeight" x="0" y="0" width="100" height="20" markup="html" textAdjust="StretchHeight" hTextAlign="Center" style="Fields (Tabela)">
+								<expression><![CDATA[($F{colab_celular_1} != null && !$F{colab_celular_1}.isBlank()) ? String.format("<a href='https://api.whatsapp.com/send?phone=55%s' style='color: #0000EE; text-decoration: underline;'>%s</a>", $F{colab_celular_1}, $F{colab_celular_1_mask}) : null]]></expression>
 							</element>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 					</column>
-					<column kind="single" uuid="68249ca0-0361-4eee-919e-1487c48c04ff" width="240">
+					<column kind="single" uuid="23bd42d0-3404-4967-9c02-76163d2d576c" width="100">
 						<columnHeader height="20" rowSpan="1" style="Table_CH">
-							<element kind="textField" uuid="725ff457-99e5-4824-85ef-1dd6c6f747dd" x="0" y="0" width="240" height="20" style="Títulos (Tabela)">
-								<expression><![CDATA[$P{TABLE_CELULAR_LOCALIZACAO} ? "Contatos" : "Localização (Google)"]]></expression>
+							<element kind="staticText" uuid="1762aff2-8d7f-40e1-9a67-ac0389959713" x="0" y="0" width="100" height="20" bold="true" hTextAlign="Center" style="Títulos (Tabela)">
+								<text><![CDATA[Celular 02]]></text>
+								<box padding="0" topPadding="4" style="Títulos (Tabela)"/>
 							</element>
 						</columnHeader>
 						<detailCell height="20" style="Table_TD">
-							<element kind="textField" uuid="fe264695-a9b7-46fd-8b63-6df318b8e1b5" stretchType="ContainerHeight" x="0" y="0" width="240" height="20" textAdjust="StretchHeight" hTextAlign="Center" style="Fields (Tabela)">
-								<expression><![CDATA[$P{TABLE_CELULAR_LOCALIZACAO} ? String.format("%s  %s", $F{colab_celular_1} == null ? "" : $F{colab_celular_1}, $F{colab_celular_2} == null ? "" : $F{colab_celular_2}) : $F{inst_maps}]]></expression>
+							<element kind="textField" uuid="fe264695-a9b7-46fd-8b63-6df318b8e1b6" stretchType="ContainerHeight" x="0" y="0" width="100" height="20" markup="html" textAdjust="StretchHeight" hTextAlign="Center" style="Fields (Tabela)">
+								<expression><![CDATA[($F{colab_celular_2} != null && !$F{colab_celular_2}.isBlank()) ? String.format("<a href='https://api.whatsapp.com/send?phone=55%s' style='color: #0000EE; text-decoration: underline;'>%s</a>", $F{colab_celular_2}, $F{colab_celular_2_mask}) : null]]></expression>
 							</element>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
