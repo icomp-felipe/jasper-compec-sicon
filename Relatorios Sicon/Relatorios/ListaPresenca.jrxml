@@ -182,7 +182,7 @@ where c.conc_id_pk = $P{PAR_CONCURSO}
 	<detail>
 		<band height="45" splitType="Stretch">
 			<element kind="component" uuid="3cc53829-fa4a-4915-a057-8518c18f4670" x="0" y="0" width="802" height="45">
-				<component kind="table">
+				<component kind="table" whenNoDataType="NoDataCell">
 					<datasetRun uuid="a4315d70-d623-4170-b375-ce1c395dde26" subDataset="ListaPresencaDataset">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 						<parameter name="TABLE_CONCURSO">
@@ -195,6 +195,11 @@ where c.conc_id_pk = $P{PAR_CONCURSO}
 							<expression><![CDATA[$P{PAR_APENAS_POLICIAIS}]]></expression>
 						</parameter>
 					</datasetRun>
+					<noData height="50">
+						<element kind="staticText" uuid="380c6d9a-113a-422c-b08c-52a4113e41a8" x="0" y="0" width="802" height="50" fontSize="12.0" vTextAlign="Middle" style="Títulos (Tabela)">
+							<text><![CDATA[Sem dados]]></text>
+						</element>
+					</noData>
 					<column kind="single" uuid="89b51ddf-182a-4cab-8322-b54f0ee23bd8" width="30">
 						<columnHeader height="20" rowSpan="1" style="Table 3_CH">
 							<element kind="staticText" uuid="33e35cc5-e397-46c5-a75d-7dad50038d29" x="0" y="0" width="30" height="20" style="Títulos (Tabela)">
@@ -386,4 +391,9 @@ where c.conc_id_pk = $P{PAR_CONCURSO}
 		</element>
 		<property name="com.jaspersoft.studio.unit.height" value="px"/>
 	</summary>
+	<noData height="50">
+		<element kind="staticText" uuid="ab4553ae-76ea-4dfe-90a6-7c1ac602026f" x="340" y="10" width="100" height="30">
+			<text><![CDATA[Static Text]]></text>
+		</element>
+	</noData>
 </jasperReport>
