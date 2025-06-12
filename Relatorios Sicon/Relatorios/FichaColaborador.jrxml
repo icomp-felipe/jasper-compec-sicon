@@ -328,7 +328,7 @@ where colab_id_pk = $P{PAR_COLABORADOR_ID}]]></query>
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			</element>
-			<element kind="staticText" uuid="4ea13b92-bfbe-4dc0-b031-52d2bd547cdd" key="" positionType="FixRelativeToBottom" x="180" y="355" width="125" height="15" hTextAlign="Right" style="Static Texts">
+			<element kind="staticText" uuid="4ea13b92-bfbe-4dc0-b031-52d2bd547cdd" key="" x="180" y="355" width="125" height="15" hTextAlign="Right" style="Static Texts">
 				<text><![CDATA[Categoria:]]></text>
 				<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			</element>
@@ -336,7 +336,7 @@ where colab_id_pk = $P{PAR_COLABORADOR_ID}]]></query>
 				<expression><![CDATA[$F{categ_nome}]]></expression>
 				<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			</element>
-			<element kind="staticText" uuid="de8c70f2-4405-4b61-9bf4-3c588305626b" key="" positionType="FixRelativeToBottom" x="0" y="375" width="75" height="15" style="Static Texts">
+			<element kind="staticText" uuid="de8c70f2-4405-4b61-9bf4-3c588305626b" key="" x="0" y="375" width="75" height="15" style="Static Texts">
 				<text><![CDATA[ID:]]></text>
 				<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			</element>
@@ -351,18 +351,18 @@ where colab_id_pk = $P{PAR_COLABORADOR_ID}]]></query>
 				<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				<property name="com.jaspersoft.studio.unit.x" value="px"/>
 			</element>
-			<element kind="staticText" uuid="41edc688-783f-444c-b096-34ef8ed9008b" key="" positionType="FixRelativeToBottom" x="0" y="355" width="75" height="15" style="Static Texts">
+			<element kind="staticText" uuid="41edc688-783f-444c-b096-34ef8ed9008b" key="" x="0" y="355" width="75" height="15" style="Static Texts">
 				<text><![CDATA[Matrícula:]]></text>
 				<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			</element>
 			<element kind="textField" uuid="a73b7b88-924a-4529-933e-01f6dc1b7f9d" key="" x="80" y="355" width="80" height="15" style="Dynamic Texts">
 				<expression><![CDATA[$F{colab_matricula}]]></expression>
 			</element>
-			<element kind="staticText" uuid="f88360fa-e173-40c1-b29a-d82fb69773b5" key="" positionType="FixRelativeToBottom" x="180" y="375" width="125" height="15" hTextAlign="Right" style="Static Texts">
+			<element kind="staticText" uuid="f88360fa-e173-40c1-b29a-d82fb69773b5" key="" x="180" y="375" width="125" height="15" hTextAlign="Right" style="Static Texts">
 				<text><![CDATA[Lotação/Curso:]]></text>
 				<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			</element>
-			<element kind="textField" uuid="98d29a25-adc2-4928-9fb4-e4cacd4ffa3e" key="" x="310" y="375" width="245" height="15" printRepeatedValues="false" style="Dynamic Texts">
+			<element kind="textField" uuid="98d29a25-adc2-4928-9fb4-e4cacd4ffa3e" key="" x="310" y="375" width="245" height="15" textAdjust="ScaleFont" printRepeatedValues="false" vTextAlign="Middle" style="Dynamic Texts">
 				<expression><![CDATA[$F{colab_lotacao}]]></expression>
 				<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			</element>
