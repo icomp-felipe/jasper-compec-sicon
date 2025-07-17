@@ -1,4 +1,4 @@
-<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
 <jasperReport name="RPA" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="331c611e-9a05-4f6f-9858-8c0ae81a1a5b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -41,6 +41,7 @@
 		<parameter name="TABLE_VAL_BRUTO" class="java.lang.String"/>
 		<parameter name="TABLE_DESC_INSS" class="java.lang.String"/>
 		<parameter name="TABLE_DESC_ISS" class="java.lang.String"/>
+		<parameter name="TABLE_DESC_IR" class="java.lang.String"/>
 		<parameter name="TABLE_DESC_TOTAL" class="java.lang.String"/>
 		<parameter name="TABLE_VAL_LIQUIDO" class="java.lang.String"/>
 		<query language="sql"><![CDATA[]]></query>
@@ -55,19 +56,35 @@
 	<parameter name="PAR_APENAS_POLICIAIS" class="java.lang.Boolean"/>
 	<parameter name="PAR_RPA_DATA" class="java.time.LocalDate"/>
 	<parameter name="PAR_ASSINATURA" class="java.awt.image.BufferedImage"/>
-	<query language="SQL"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, date_format(colab_nascimento, '%d/%m/%Y') as colab_nascimento, fn_mascara_cpf(colab_cpf) as colab_cpf, colab_rg, colab_rg_orgao, func_nome, fconc_valor_bruto, fconc_desc_inss, fconc_desc_iss, (fconc_valor_bruto - fconc_desc_inss - fconc_desc_iss) as valor_liquido
+	<parameter name="PAR_INSCRICAO_LANCAMENTO" class="java.lang.Boolean">
+		<description><![CDATA[Define a origem dos dados para confecção do recibo. Se 'true', os dados virão da tabela de inscrições, caso contrário, virão da tabela de lançamentos avulsos.]]></description>
+	</parameter>
+	<parameter name="PAR_LANCAMENTOS" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, date_format(colab_nascimento, '%d/%m/%Y') as colab_nascimento, fn_mascara_cpf(colab_cpf) as colab_cpf, colab_rg, colab_rg_orgao, func_nome, fconc_valor_bruto as func_valor_bruto, fconc_desc_inss as func_desc_inss, fconc_desc_iss as func_desc_iss, 0 as func_desc_ir, (fconc_valor_bruto - fconc_desc_inss - fconc_desc_iss) as valor_liquido, null as data_inicio, null as data_fim
 from inscricao
     join colaborador on colab_id_pk = insc_colab_id
     join mapa on insc_mapa_id = mapa_id_pk
     join funcao_concurso on mapa_fconc_id = fconc_id_pk
     join funcao on func_id_pk = fconc_func_id
     join categoria on categ_id_pk = colab_categoria_id
-where fconc_conc_id = $P{PAR_CONCURSO_ID}
+where $P{PAR_INSCRICAO_LANCAMENTO} = true
+  and fconc_conc_id = $P{PAR_CONCURSO_ID}
   and mapa_inst_id =  $P{PAR_INSTITUICAO_ID}
   and categ_tributavel = true
   and insc_ativa = true
   and ($P{PAR_INSCRICOES_TODAS} = true or insc_id_pk in ($P!{PAR_INSCRICOES}))
   and ($P{PAR_APENAS_POLICIAIS} = false or func_id_pk in (10, 19, 20))
+
+union
+
+select fn_capitaliza(colab_nome) as colab_nome, date_format(colab_nascimento, '%d/%m/%Y') as colab_nascimento, fn_mascara_cpf(colab_cpf) as colab_cpf, colab_rg, colab_rg_orgao, func_nome, lanc_valor_bruto as func_valor_bruto, lanc_desc_inss as func_desc_inss, lanc_desc_iss as func_desc_iss, ifnull(lanc_desc_ir, 0) as func_desc_ir, (lanc_valor_bruto - lanc_desc_inss - lanc_desc_iss - ifnull(lanc_desc_ir, 0)) as valor_liquido, date_format(lanc_data_inicio, '%d/%m/%Y') as data_inicio, date_format(lanc_data_fim, '%d/%m/%Y') as data_fim
+from lancamento
+    join colaborador on lanc_colab_id = colab_id_pk
+    join funcao on lanc_func_id = func_id_pk
+    join categoria on categ_id_pk = colab_categoria_id
+where $P{PAR_INSCRICAO_LANCAMENTO} = false
+  and lanc_id_pk in ($P!{PAR_LANCAMENTOS})
+  and categ_tributavel = true
 order by colab_nome]]></query>
 	<field name="colab_nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="colab_nome"/>
@@ -99,54 +116,67 @@ order by colab_nome]]></query>
 		<property name="com.jaspersoft.studio.field.label" value="func_nome"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="funcao"/>
 	</field>
-	<field name="fconc_valor_bruto" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="fconc_valor_bruto"/>
-		<property name="com.jaspersoft.studio.field.label" value="fconc_valor_bruto"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="funcao_concurso"/>
+	<field name="func_valor_bruto" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="func_valor_bruto"/>
+		<property name="com.jaspersoft.studio.field.label" value="func_valor_bruto"/>
 	</field>
-	<field name="fconc_desc_inss" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="fconc_desc_inss"/>
-		<property name="com.jaspersoft.studio.field.label" value="fconc_desc_inss"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="funcao_concurso"/>
+	<field name="func_desc_inss" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="func_desc_inss"/>
+		<property name="com.jaspersoft.studio.field.label" value="func_desc_inss"/>
 	</field>
-	<field name="fconc_desc_iss" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="fconc_desc_iss"/>
-		<property name="com.jaspersoft.studio.field.label" value="fconc_desc_iss"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="funcao_concurso"/>
+	<field name="func_desc_iss" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="func_desc_iss"/>
+		<property name="com.jaspersoft.studio.field.label" value="func_desc_iss"/>
+	</field>
+	<field name="func_desc_ir" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="func_desc_ir"/>
+		<property name="com.jaspersoft.studio.field.label" value="func_desc_ir"/>
 	</field>
 	<field name="valor_liquido" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="valor_liquido"/>
 		<property name="com.jaspersoft.studio.field.label" value="valor_liquido"/>
 	</field>
+	<field name="data_inicio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="data_inicio"/>
+		<property name="com.jaspersoft.studio.field.label" value="data_inicio"/>
+	</field>
+	<field name="data_fim" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="data_fim"/>
+		<property name="com.jaspersoft.studio.field.label" value="data_fim"/>
+	</field>
+	<variable name="VAR_MIOLO" class="java.lang.String">
+		<expression><![CDATA[$P{PAR_INSCRICAO_LANCAMENTO}
+? "no dia <b>" + $P{PAR_CONCURSO}.getDataRealizacao(DateTimeFormatters.BRAZILIAN_DATE) + "</b> no(a) <b>" + $P{PAR_INSTITUICAO}.getNome() + "</b>"
+: $F{data_fim} == null ? String.format("no dia <b>%s</b>", $F{data_inicio}) : String.format("entre os dias <b>%s</b> e <b>%s</b>", $F{data_inicio}, $F{data_fim})]]></expression>
+	</variable>
 	<variable name="DESC_TOTAL" class="java.math.BigDecimal">
-		<expression><![CDATA[$F{fconc_desc_inss}.add($F{fconc_desc_iss})]]></expression>
+		<expression><![CDATA[$F{func_desc_inss}.add($F{func_desc_iss}).add($F{func_desc_ir})]]></expression>
 	</variable>
 	<variable name="VAR_MAIN_TEXT" class="java.lang.String">
-		<expression><![CDATA["Recebi da <b>Fundação Universidade do Amazonas</b>, CNPJ <b>04.378.626/0001-97</b>, a importância líquida de <b>" + NumberFormat.getCurrencyInstance(Locale.of("pt","BR")).format($F{valor_liquido}) + " (" + JasperDriver.getExtenso($F{valor_liquido}) + ")</b>, pela prestação de serviços como <b>" + $F{func_nome} + "</b> no <b>" + $P{PAR_CONCURSO}.getNome() + "</b>, realizado pela Comissão Permanente de Concursos – COMPEC/UFAM no dia <b>" + $P{PAR_CONCURSO}.getDataRealizacao(DateTimeFormatters.BRAZILIAN_DATE) + "</b> no(a) <b>" + $P{PAR_INSTITUICAO}.getNome() + "</b>. Será efetuado o recolhimento dos impostos discriminados abaixo."]]></expression>
+		<expression><![CDATA["Recebi da <b>Fundação Universidade do Amazonas</b>, CNPJ <b>04.378.626/0001-97</b>, a importância líquida de <b>" + NumberFormat.getCurrencyInstance(Locale.of("pt","BR")).format($F{valor_liquido}) + " (" + JasperDriver.getExtenso($F{valor_liquido}) + ")</b>, pela prestação de serviços como <b>" + $F{func_nome} + "</b> no <b>" + $P{PAR_CONCURSO}.getNome() + "</b>, realizado pela Comissão Permanente de Concursos – COMPEC/UFAM " + $V{VAR_MIOLO} + ". Será efetuado o recolhimento dos impostos discriminados abaixo."]]></expression>
 	</variable>
 	<variable name="VAR_VALOR_BRUTO" class="java.lang.String">
-		<expression><![CDATA[NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($F{fconc_valor_bruto})]]></expression>
+		<expression><![CDATA[NumberFormat.getCurrencyInstance(Locale.of("pt","BR")).format($F{func_valor_bruto})]]></expression>
 	</variable>
 	<variable name="VAR_DESC_INSS" class="java.lang.String">
-		<expression><![CDATA[NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($F{fconc_desc_inss})]]></expression>
+		<expression><![CDATA[NumberFormat.getCurrencyInstance(Locale.of("pt","BR")).format($F{func_desc_inss})]]></expression>
 	</variable>
 	<variable name="VAR_DESC_ISS" class="java.lang.String">
-		<expression><![CDATA[NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($F{fconc_desc_iss})]]></expression>
+		<expression><![CDATA[NumberFormat.getCurrencyInstance(Locale.of("pt","BR")).format($F{func_desc_iss})]]></expression>
+	</variable>
+	<variable name="VAR_DESC_IR" class="java.lang.String">
+		<expression><![CDATA[NumberFormat.getCurrencyInstance(Locale.of("pt","BR")).format($F{func_desc_ir})]]></expression>
 	</variable>
 	<variable name="VAR_DESC_TOTAL" class="java.lang.String">
-		<expression><![CDATA[NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($V{DESC_TOTAL})]]></expression>
+		<expression><![CDATA[NumberFormat.getCurrencyInstance(Locale.of("pt","BR")).format($V{DESC_TOTAL})]]></expression>
 	</variable>
 	<variable name="VAR_VALOR_LIQUIDO" class="java.lang.String">
-		<expression><![CDATA[NumberFormat.getCurrencyInstance(new Locale("pt","BR")).format($F{valor_liquido})]]></expression>
-	</variable>
-	<variable name="VAR_COLAB_NOME" class="java.lang.String">
-		<expression><![CDATA[$F{colab_nome}]]></expression>
-	</variable>
-	<variable name="VAR_COLAB_CPF" class="java.lang.String">
-		<expression><![CDATA[$F{colab_cpf}]]></expression>
+		<expression><![CDATA[NumberFormat.getCurrencyInstance(Locale.of("pt","BR")).format($F{valor_liquido})]]></expression>
 	</variable>
 	<variable name="VAR_LOCAL_DATA" class="java.lang.String">
-		<expression><![CDATA[$P{PAR_INSTITUICAO}.getMunicipio().getNome() + " - " + $P{PAR_INSTITUICAO}.getUF().getSigla() + ", " + $P{PAR_RPA_DATA}.format(DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' yyyy", Locale.of("pt", "BR")))]]></expression>
+		<expression><![CDATA[$P{PAR_INSCRICAO_LANCAMENTO}
+? $P{PAR_INSTITUICAO}.getMunicipio().getNome() + " - " + $P{PAR_INSTITUICAO}.getUF().getSigla() + ", " + $P{PAR_RPA_DATA}.format(DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' yyyy", Locale.of("pt", "BR")))
+: "Manaus-AM, " + $P{PAR_RPA_DATA}.format(DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' yyyy", Locale.of("pt", "BR")))]]></expression>
 	</variable>
 	<background splitType="Stretch"/>
 	<detail>
@@ -166,7 +196,7 @@ order by colab_nome]]></query>
 			</element>
 			<element kind="component" uuid="7bb1df60-b3ba-4e88-899b-0274d0de5020" x="0" y="191" width="560" height="45">
 				<component kind="table">
-					<datasetRun uuid="073323d6-af13-4fce-b4b0-6bd194e95ff9" subDataset="Calculos">
+					<datasetRun uuid="c44c097e-0167-4f6f-87bc-6008ca423827" subDataset="Calculos">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
 						<parameter name="TABLE_VAL_BRUTO">
 							<expression><![CDATA[$V{VAR_VALOR_BRUTO}]]></expression>
@@ -183,25 +213,27 @@ order by colab_nome]]></query>
 						<parameter name="TABLE_VAL_LIQUIDO">
 							<expression><![CDATA[$V{VAR_VALOR_LIQUIDO}]]></expression>
 						</parameter>
+						<parameter name="TABLE_DESC_IR">
+							<expression><![CDATA[$V{VAR_DESC_IR}]]></expression>
+						</parameter>
 					</datasetRun>
-					<column kind="group" uuid="e4313ac8-4894-4a8d-87ab-3647064b0bdf" width="560">
+					<column kind="group" uuid="e4313ac8-4894-4a8d-87ab-3647064b0bdf" width="559">
 						<tableHeader height="15" rowSpan="1" style="TABLE_CONTEUDO">
-							<element kind="staticText" uuid="f21f48d8-e1df-4f78-8097-ece15ceccf41" x="0" y="0" width="560" height="15" backcolor="#FFFFFF" fontSize="11.0" bold="true" hTextAlign="Center" style="TABLE_TITLE">
+							<element kind="staticText" uuid="f21f48d8-e1df-4f78-8097-ece15ceccf41" x="0" y="0" width="559" height="15" backcolor="#FFFFFF" fontSize="11.0" bold="true" hTextAlign="Center" style="TABLE_TITLE">
 								<text><![CDATA[Discriminação de Valores]]></text>
 							</element>
 						</tableHeader>
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [5]"/>
-						<column kind="group" uuid="e69eeb2b-3049-45c6-af34-f6d306b1a426" width="560">
-							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [5]"/>
-							<column kind="single" uuid="27ab963d-6937-4d51-a8a9-96aa372ec5fc" width="100">
-								<tableFooter height="0" rowSpan="1" style="TABLE_CONTEUDO"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [6]"/>
+						<column kind="group" uuid="e69eeb2b-3049-45c6-af34-f6d306b1a426" width="559">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [6]"/>
+							<column kind="single" uuid="27ab963d-6937-4d51-a8a9-96aa372ec5fc" width="93">
 								<columnHeader height="15" rowSpan="1" style="TABLE_TITLE">
-									<element kind="staticText" uuid="deeb1ada-00d6-4b3b-b89e-036aa0c12add" x="0" y="0" width="100" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
+									<element kind="staticText" uuid="deeb1ada-00d6-4b3b-b89e-036aa0c12add" x="0" y="0" width="93" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
 										<text><![CDATA[Valor Bruto]]></text>
 									</element>
 								</columnHeader>
 								<detailCell height="15" style="TABLE_COLUNAS">
-									<element kind="textField" uuid="9e36e08b-7c9b-43e4-8f85-43768a9b8ae9" x="0" y="0" width="100" height="15" style="TABLE_CONTEUDO">
+									<element kind="textField" uuid="9e36e08b-7c9b-43e4-8f85-43768a9b8ae9" x="0" y="0" width="93" height="15" style="TABLE_CONTEUDO">
 										<expression><![CDATA[$P{TABLE_VAL_BRUTO}]]></expression>
 										<box style="TABLE_CONTEUDO">
 											<topPen lineStyle="Solid" lineColor="#000000"/>
@@ -213,61 +245,70 @@ order by colab_nome]]></query>
 								</detailCell>
 								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 							</column>
-							<column kind="single" uuid="0d721a5e-bea7-4807-8fd1-f8319c088922" width="120">
-								<tableFooter height="0" rowSpan="1" style="TABLE_CONTEUDO"/>
+							<column kind="single" uuid="0d721a5e-bea7-4807-8fd1-f8319c088922" width="93">
 								<columnHeader height="15" rowSpan="1" style="TABLE_TITLE">
-									<element kind="staticText" uuid="5a92dcde-00bb-4b82-9a03-6eb18f225e04" x="0" y="0" width="120" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
-										<text><![CDATA[Desconto INSS (11%)]]></text>
+									<element kind="staticText" uuid="5a92dcde-00bb-4b82-9a03-6eb18f225e04" x="0" y="0" width="93" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
+										<text><![CDATA[Desc. INSS (11%)]]></text>
 									</element>
 								</columnHeader>
 								<detailCell height="15" style="TABLE_COLUNAS">
-									<element kind="textField" uuid="ee110ab3-edc3-4029-87b4-ad3e2a65c86b" x="0" y="0" width="120" height="15" style="TABLE_CONTEUDO">
+									<element kind="textField" uuid="ee110ab3-edc3-4029-87b4-ad3e2a65c86b" x="0" y="0" width="93" height="15" style="TABLE_CONTEUDO">
 										<expression><![CDATA[$P{TABLE_DESC_INSS}]]></expression>
 									</element>
 								</detailCell>
 								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 							</column>
-							<column kind="single" uuid="13390907-90e3-4e3c-8c3a-9a1bfb2d0e51" width="100">
-								<tableFooter height="0" rowSpan="1" style="TABLE_CONTEUDO"/>
+							<column kind="single" uuid="13390907-90e3-4e3c-8c3a-9a1bfb2d0e51" width="93">
 								<columnHeader height="15" rowSpan="1" style="TABLE_TITLE">
-									<element kind="staticText" uuid="afdd33e2-b066-461f-b590-628057a8db44" x="0" y="0" width="100" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
-										<text><![CDATA[Desconto ISS (5%)]]></text>
+									<element kind="staticText" uuid="afdd33e2-b066-461f-b590-628057a8db44" x="0" y="0" width="93" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
+										<text><![CDATA[Desc. ISS (5%)]]></text>
 									</element>
 								</columnHeader>
 								<detailCell height="15" style="TABLE_COLUNAS">
-									<element kind="textField" uuid="b383ab44-52ef-499c-8a45-cec524801d69" x="0" y="0" width="100" height="15" style="TABLE_CONTEUDO">
+									<element kind="textField" uuid="b383ab44-52ef-499c-8a45-cec524801d69" x="0" y="0" width="93" height="15" style="TABLE_CONTEUDO">
 										<expression><![CDATA[$P{TABLE_DESC_ISS}]]></expression>
 									</element>
 								</detailCell>
 								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 							</column>
-							<column kind="single" uuid="48284b6c-4281-4615-a19c-fd458ed9e7a6" width="140">
-								<tableFooter height="0" rowSpan="1" style="TABLE_CONTEUDO"/>
-								<columnHeader height="15" rowSpan="1" style="TABLE_TITLE">
-									<element kind="staticText" uuid="2820e923-d7df-4e99-9fa5-b83851af4d88" x="0" y="0" width="140" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
-										<text><![CDATA[Total de Descontos (16%)]]></text>
+							<column kind="single" uuid="5e3e9227-3c11-485c-9668-b4db69edd2ad" width="93">
+								<columnHeader height="15">
+									<element kind="staticText" uuid="a456e960-d375-49e6-a358-b54ce16983b8" x="0" y="0" width="93" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
+										<text><![CDATA[Desc. IR]]></text>
 									</element>
 								</columnHeader>
-								<detailCell height="15" style="TABLE_COLUNAS">
-									<element kind="textField" uuid="1888f2dd-7da8-41dd-ae10-62757916071b" x="0" y="0" width="140" height="15" style="TABLE_CONTEUDO">
-										<expression><![CDATA[$P{TABLE_DESC_TOTAL}]]></expression>
+								<detailCell height="15">
+									<element kind="textField" uuid="382da1a0-2777-4216-a187-4b9b50cd5d58" x="0" y="0" width="93" height="15" style="TABLE_CONTEUDO">
+										<expression><![CDATA[$P{TABLE_DESC_IR}]]></expression>
 									</element>
 								</detailCell>
 								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 							</column>
-							<column kind="single" uuid="58316c9b-cd5c-469b-b9af-1fb606187bfd" width="100">
-								<tableFooter height="0" rowSpan="1" style="TABLE_CONTEUDO"/>
+							<column kind="single" uuid="48284b6c-4281-4615-a19c-fd458ed9e7a6" width="93">
 								<columnHeader height="15" rowSpan="1" style="TABLE_TITLE">
-									<element kind="staticText" uuid="82ff9233-acc0-494c-b393-b564b462166e" x="0" y="0" width="100" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
+									<element kind="staticText" uuid="2820e923-d7df-4e99-9fa5-b83851af4d88" x="0" y="0" width="93" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
+										<text><![CDATA[Desc. Total]]></text>
+									</element>
+								</columnHeader>
+								<detailCell height="15" style="TABLE_COLUNAS">
+									<element kind="textField" uuid="1888f2dd-7da8-41dd-ae10-62757916071b" x="0" y="0" width="93" height="15" style="TABLE_CONTEUDO">
+										<expression><![CDATA[$P{TABLE_DESC_TOTAL}]]></expression>
+									</element>
+								</detailCell>
+								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+							</column>
+							<column kind="single" uuid="58316c9b-cd5c-469b-b9af-1fb606187bfd" width="94">
+								<columnHeader height="15" rowSpan="1" style="TABLE_TITLE">
+									<element kind="staticText" uuid="82ff9233-acc0-494c-b393-b564b462166e" x="0" y="0" width="94" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
 										<text><![CDATA[Valor Líquido]]></text>
 									</element>
 								</columnHeader>
 								<detailCell height="15" style="TABLE_COLUNAS">
-									<element kind="textField" uuid="8fd43679-3667-4eed-9940-0d7dccd7aa36" x="0" y="0" width="100" height="15" style="TABLE_CONTEUDO">
+									<element kind="textField" uuid="8fd43679-3667-4eed-9940-0d7dccd7aa36" x="0" y="0" width="94" height="15" style="TABLE_CONTEUDO">
 										<expression><![CDATA[$P{TABLE_VAL_LIQUIDO}]]></expression>
 									</element>
 								</detailCell>
-								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
 							</column>
 						</column>
 					</column>
@@ -287,10 +328,10 @@ order by colab_nome]]></query>
 				<text><![CDATA[CPF:]]></text>
 			</element>
 			<element kind="textField" uuid="c919b369-6d2d-49cc-82a3-5403b7314207" x="52" y="284" width="335" height="15" style="COLAB_CONTEUDO">
-				<expression><![CDATA[$V{VAR_COLAB_NOME}]]></expression>
+				<expression><![CDATA[$F{colab_nome}]]></expression>
 			</element>
 			<element kind="textField" uuid="06f79f63-b7c5-4503-b48f-42f7c5a19951" x="52" y="301" width="100" height="15" style="COLAB_CONTEUDO">
-				<expression><![CDATA[$V{VAR_COLAB_CPF}]]></expression>
+				<expression><![CDATA[$F{colab_cpf}]]></expression>
 			</element>
 			<element kind="staticText" uuid="aba54248-e8b4-4755-9c01-d045656d516e" x="189" y="301" width="30" height="15" style="COLAB_TITULOS">
 				<text><![CDATA[RG:]]></text>
@@ -353,7 +394,7 @@ order by colab_nome]]></query>
 			</element>
 			<element kind="component" uuid="7821ab28-d035-411c-bca1-d7be22029d6c" x="1" y="591" width="560" height="45">
 				<component kind="table">
-					<datasetRun uuid="9e607d71-2ee4-433f-9d4a-e6da3c9a28a6" subDataset="Calculos">
+					<datasetRun uuid="b8f83264-1e8a-41a7-b04c-9a7aaae80bda" subDataset="Calculos">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
 						<parameter name="TABLE_VAL_BRUTO">
 							<expression><![CDATA[$V{VAR_VALOR_BRUTO}]]></expression>
@@ -370,6 +411,9 @@ order by colab_nome]]></query>
 						<parameter name="TABLE_VAL_LIQUIDO">
 							<expression><![CDATA[$V{VAR_VALOR_LIQUIDO}]]></expression>
 						</parameter>
+						<parameter name="TABLE_DESC_IR">
+							<expression><![CDATA[$V{VAR_DESC_IR}]]></expression>
+						</parameter>
 					</datasetRun>
 					<column kind="group" uuid="c17f2277-ee19-481f-9170-d775630f2579" width="560">
 						<tableHeader height="15" rowSpan="1" style="TABLE_CONTEUDO">
@@ -377,18 +421,18 @@ order by colab_nome]]></query>
 								<text><![CDATA[Discriminação de Valores]]></text>
 							</element>
 						</tableHeader>
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [5]"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [6]"/>
 						<column kind="group" uuid="164f8edb-3f88-4a4c-8c3b-806e823a662e" width="560">
-							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [5]"/>
-							<column kind="single" uuid="ffc3f99f-148f-4fdb-84fe-6aee177a331e" width="100">
-								<tableFooter height="0" rowSpan="1" style="TABLE_CONTEUDO"/>
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [6]"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<column kind="single" uuid="ffc3f99f-148f-4fdb-84fe-6aee177a331e" width="94">
 								<columnHeader height="15" rowSpan="1" style="TABLE_TITLE">
-									<element kind="staticText" uuid="4bf5c024-65ab-41e5-951b-605e2296f604" x="0" y="0" width="100" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
+									<element kind="staticText" uuid="4bf5c024-65ab-41e5-951b-605e2296f604" x="0" y="0" width="94" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
 										<text><![CDATA[Valor Bruto]]></text>
 									</element>
 								</columnHeader>
 								<detailCell height="15" style="TABLE_COLUNAS">
-									<element kind="textField" uuid="53670fe1-1ce6-44a9-a093-4a9fa3e9e300" x="0" y="0" width="100" height="15" style="TABLE_CONTEUDO">
+									<element kind="textField" uuid="53670fe1-1ce6-44a9-a093-4a9fa3e9e300" x="0" y="0" width="94" height="15" style="TABLE_CONTEUDO">
 										<expression><![CDATA[$P{TABLE_VAL_BRUTO}]]></expression>
 										<box style="TABLE_CONTEUDO">
 											<topPen lineStyle="Solid" lineColor="#000000"/>
@@ -400,61 +444,70 @@ order by colab_nome]]></query>
 								</detailCell>
 								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 							</column>
-							<column kind="single" uuid="bd687b1a-3ee0-4035-b49f-d9842377676e" width="120">
-								<tableFooter height="0" rowSpan="1" style="TABLE_CONTEUDO"/>
+							<column kind="single" uuid="bd687b1a-3ee0-4035-b49f-d9842377676e" width="93">
 								<columnHeader height="15" rowSpan="1" style="TABLE_TITLE">
-									<element kind="staticText" uuid="51e561a5-40da-409f-a0f6-9763a173ebd6" x="0" y="0" width="120" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
-										<text><![CDATA[Desconto INSS (11%)]]></text>
+									<element kind="staticText" uuid="51e561a5-40da-409f-a0f6-9763a173ebd6" x="0" y="0" width="93" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
+										<text><![CDATA[Desc. INSS (11%)]]></text>
 									</element>
 								</columnHeader>
 								<detailCell height="15" style="TABLE_COLUNAS">
-									<element kind="textField" uuid="c4c9b8ee-60d8-4ac5-b0e4-8a04f38ded6e" x="0" y="0" width="120" height="15" style="TABLE_CONTEUDO">
+									<element kind="textField" uuid="c4c9b8ee-60d8-4ac5-b0e4-8a04f38ded6e" x="0" y="0" width="93" height="15" style="TABLE_CONTEUDO">
 										<expression><![CDATA[$P{TABLE_DESC_INSS}]]></expression>
 									</element>
 								</detailCell>
 								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 							</column>
-							<column kind="single" uuid="d09f0771-6434-4b1a-b48d-00d3e6d7a767" width="100">
-								<tableFooter height="0" rowSpan="1" style="TABLE_CONTEUDO"/>
+							<column kind="single" uuid="d09f0771-6434-4b1a-b48d-00d3e6d7a767" width="93">
 								<columnHeader height="15" rowSpan="1" style="TABLE_TITLE">
-									<element kind="staticText" uuid="db7d0975-908e-4dbf-8b9b-faa83d87c796" x="0" y="0" width="100" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
-										<text><![CDATA[Desconto ISS (5%)]]></text>
+									<element kind="staticText" uuid="db7d0975-908e-4dbf-8b9b-faa83d87c796" x="0" y="0" width="93" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
+										<text><![CDATA[Desc. ISS (5%)]]></text>
 									</element>
 								</columnHeader>
 								<detailCell height="15" style="TABLE_COLUNAS">
-									<element kind="textField" uuid="ea21aada-d082-43f6-b797-846171bf5532" x="0" y="0" width="100" height="15" style="TABLE_CONTEUDO">
+									<element kind="textField" uuid="ea21aada-d082-43f6-b797-846171bf5532" x="0" y="0" width="93" height="15" style="TABLE_CONTEUDO">
 										<expression><![CDATA[$P{TABLE_DESC_ISS}]]></expression>
 									</element>
 								</detailCell>
 								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 							</column>
-							<column kind="single" uuid="6b6f2ac5-5876-4c3d-9c32-fa1a1c866e88" width="140">
-								<tableFooter height="0" rowSpan="1" style="TABLE_CONTEUDO"/>
-								<columnHeader height="15" rowSpan="1" style="TABLE_TITLE">
-									<element kind="staticText" uuid="cd77db7c-832c-42e5-b6d9-879489e03bc9" x="0" y="0" width="140" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
-										<text><![CDATA[Total de Descontos (16%)]]></text>
+							<column kind="single" uuid="dddddefa-6afa-4576-9065-3670aa316b8b" width="93">
+								<columnHeader height="15">
+									<element kind="staticText" uuid="d47135be-aef9-4b37-87a8-e958f3452347" x="0" y="0" width="93" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
+										<text><![CDATA[Desc. IR]]></text>
 									</element>
 								</columnHeader>
-								<detailCell height="15" style="TABLE_COLUNAS">
-									<element kind="textField" uuid="038757fe-4740-4e4c-9c31-e0613f1618b0" x="0" y="0" width="140" height="15" style="TABLE_CONTEUDO">
-										<expression><![CDATA[$P{TABLE_DESC_TOTAL}]]></expression>
+								<detailCell height="15">
+									<element kind="textField" uuid="a8a88337-a210-4205-9d3a-20b97d85484a" x="0" y="0" width="93" height="15" style="TABLE_CONTEUDO">
+										<expression><![CDATA[$P{TABLE_DESC_IR}]]></expression>
 									</element>
 								</detailCell>
 								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 							</column>
-							<column kind="single" uuid="cd3dc3d9-91f8-451f-a6ae-ad5c3699f676" width="100">
-								<tableFooter height="0" rowSpan="1" style="TABLE_CONTEUDO"/>
+							<column kind="single" uuid="6b6f2ac5-5876-4c3d-9c32-fa1a1c866e88" width="93">
 								<columnHeader height="15" rowSpan="1" style="TABLE_TITLE">
-									<element kind="staticText" uuid="289b1237-f88d-4adb-b801-3867962d8c18" x="0" y="0" width="100" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
+									<element kind="staticText" uuid="cd77db7c-832c-42e5-b6d9-879489e03bc9" x="0" y="0" width="93" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
+										<text><![CDATA[Desc. Total]]></text>
+									</element>
+								</columnHeader>
+								<detailCell height="15" style="TABLE_COLUNAS">
+									<element kind="textField" uuid="038757fe-4740-4e4c-9c31-e0613f1618b0" x="0" y="0" width="93" height="15" style="TABLE_CONTEUDO">
+										<expression><![CDATA[$P{TABLE_DESC_TOTAL}]]></expression>
+									</element>
+								</detailCell>
+								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+							</column>
+							<column kind="single" uuid="cd3dc3d9-91f8-451f-a6ae-ad5c3699f676" width="94">
+								<columnHeader height="15" rowSpan="1" style="TABLE_TITLE">
+									<element kind="staticText" uuid="289b1237-f88d-4adb-b801-3867962d8c18" x="0" y="0" width="94" height="15" hTextAlign="Center" style="TABLE_COLUNAS">
 										<text><![CDATA[Valor Líquido]]></text>
 									</element>
 								</columnHeader>
 								<detailCell height="15" style="TABLE_COLUNAS">
-									<element kind="textField" uuid="89757398-1b01-483a-8ecc-fef2296c7180" x="0" y="0" width="100" height="15" style="TABLE_CONTEUDO">
+									<element kind="textField" uuid="89757398-1b01-483a-8ecc-fef2296c7180" x="0" y="0" width="94" height="15" style="TABLE_CONTEUDO">
 										<expression><![CDATA[$P{TABLE_VAL_LIQUIDO}]]></expression>
 									</element>
 								</detailCell>
-								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
 							</column>
 						</column>
 					</column>
@@ -474,10 +527,10 @@ order by colab_nome]]></query>
 				<text><![CDATA[CPF:]]></text>
 			</element>
 			<element kind="textField" uuid="60fe1304-a08d-48a7-a053-b3a359edcf48" x="53" y="684" width="335" height="15" style="COLAB_CONTEUDO">
-				<expression><![CDATA[$V{VAR_COLAB_NOME}]]></expression>
+				<expression><![CDATA[$F{colab_nome}]]></expression>
 			</element>
 			<element kind="textField" uuid="2c73ca53-9cf9-4ef7-8e7c-704d84d52d28" x="53" y="701" width="100" height="15" style="COLAB_CONTEUDO">
-				<expression><![CDATA[$V{VAR_COLAB_CPF}]]></expression>
+				<expression><![CDATA[$F{colab_cpf}]]></expression>
 			</element>
 			<element kind="staticText" uuid="ac73b94c-b1de-4e2b-b4b5-8b0ab9f760b0" x="190" y="701" width="30" height="15" style="COLAB_TITULOS">
 				<text><![CDATA[RG:]]></text>
