@@ -1,4 +1,5 @@
 <!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<!-- 2025-10-03T16:13:16 -->
 <jasperReport name="RPA" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="331c611e-9a05-4f6f-9858-8c0ae81a1a5b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -60,7 +61,7 @@
 		<description><![CDATA[Define a origem dos dados para confecção do recibo. Se 'true', os dados virão da tabela de inscrições, caso contrário, virão da tabela de lançamentos avulsos.]]></description>
 	</parameter>
 	<parameter name="PAR_LANCAMENTOS" class="java.lang.String"/>
-	<query language="SQL"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, date_format(colab_nascimento, '%d/%m/%Y') as colab_nascimento, fn_mascara_cpf(colab_cpf) as colab_cpf, colab_rg, colab_rg_orgao, func_nome, fconc_valor_bruto as func_valor_bruto, fconc_desc_inss as func_desc_inss, fconc_desc_iss as func_desc_iss, 0 as func_desc_ir, (fconc_valor_bruto - fconc_desc_inss - fconc_desc_iss) as valor_liquido, null as data_inicio, null as data_fim
+	<query language="SQL"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, date_format(colab_nascimento, '**/%m/%Y') as colab_nascimento, fn_anonimiza_cpf(colab_cpf) as colab_cpf, func_nome, fconc_valor_bruto as func_valor_bruto, fconc_desc_inss as func_desc_inss, fconc_desc_iss as func_desc_iss, 0 as func_desc_ir, (fconc_valor_bruto - fconc_desc_inss - fconc_desc_iss) as valor_liquido, null as data_inicio, null as data_fim
 from inscricao
     join colaborador on colab_id_pk = insc_colab_id
     join mapa on insc_mapa_id = mapa_id_pk
@@ -77,7 +78,7 @@ where $P{PAR_INSCRICAO_LANCAMENTO} = true
 
 union
 
-select fn_capitaliza(colab_nome) as colab_nome, date_format(colab_nascimento, '%d/%m/%Y') as colab_nascimento, fn_mascara_cpf(colab_cpf) as colab_cpf, colab_rg, colab_rg_orgao, func_nome, lanc_valor_bruto as func_valor_bruto, lanc_desc_inss as func_desc_inss, lanc_desc_iss as func_desc_iss, ifnull(lanc_desc_ir, 0) as func_desc_ir, (lanc_valor_bruto - lanc_desc_inss - lanc_desc_iss - ifnull(lanc_desc_ir, 0)) as valor_liquido, date_format(lanc_data_inicio, '%d/%m/%Y') as data_inicio, date_format(lanc_data_fim, '%d/%m/%Y') as data_fim
+select fn_capitaliza(colab_nome) as colab_nome, date_format(colab_nascimento, '**/%m/%Y') as colab_nascimento, fn_anonimiza_cpf(colab_cpf) as colab_cpf, func_nome, lanc_valor_bruto as func_valor_bruto, lanc_desc_inss as func_desc_inss, lanc_desc_iss as func_desc_iss, ifnull(lanc_desc_ir, 0) as func_desc_ir, (lanc_valor_bruto - lanc_desc_inss - lanc_desc_iss - ifnull(lanc_desc_ir, 0)) as valor_liquido, date_format(lanc_data_inicio, '%d/%m/%Y') as data_inicio, date_format(lanc_data_fim, '%d/%m/%Y') as data_fim
 from lancamento
     join colaborador on lanc_colab_id = colab_id_pk
     join funcao on lanc_func_id = func_id_pk
@@ -99,16 +100,6 @@ order by colab_nome]]></query>
 	<field name="colab_cpf" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="colab_cpf"/>
 		<property name="com.jaspersoft.studio.field.label" value="colab_cpf"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
-	</field>
-	<field name="colab_rg" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="colab_rg"/>
-		<property name="com.jaspersoft.studio.field.label" value="colab_rg"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
-	</field>
-	<field name="colab_rg_orgao" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="colab_rg_orgao"/>
-		<property name="com.jaspersoft.studio.field.label" value="colab_rg_orgao"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 	</field>
 	<field name="func_nome" class="java.lang.String">
@@ -333,23 +324,11 @@ order by colab_nome]]></query>
 			<element kind="textField" uuid="06f79f63-b7c5-4503-b48f-42f7c5a19951" x="52" y="301" width="100" height="15" style="COLAB_CONTEUDO">
 				<expression><![CDATA[$F{colab_cpf}]]></expression>
 			</element>
-			<element kind="staticText" uuid="aba54248-e8b4-4755-9c01-d045656d516e" x="189" y="301" width="30" height="15" style="COLAB_TITULOS">
-				<text><![CDATA[RG:]]></text>
-			</element>
-			<element kind="textField" uuid="0e0dec0c-a285-4ff5-864b-78badd134721" x="224" y="301" width="125" height="15" style="COLAB_CONTEUDO">
-				<expression><![CDATA[$F{colab_rg}]]></expression>
-			</element>
 			<element kind="staticText" uuid="96dde600-d818-48ab-983a-438967812d3c" x="390" y="284" width="70" height="15" style="COLAB_TITULOS">
 				<text><![CDATA[Nascim.:]]></text>
 			</element>
 			<element kind="textField" uuid="740f3d48-82a0-4a7d-b6ea-8900ebf5e955" x="464" y="284" width="90" height="15" style="COLAB_CONTEUDO">
 				<expression><![CDATA[$F{colab_nascimento}]]></expression>
-			</element>
-			<element kind="staticText" uuid="8752a519-c65d-4028-9036-add7c74258c6" x="360" y="301" width="100" height="15" style="COLAB_TITULOS">
-				<text><![CDATA[Órgão Emissor:]]></text>
-			</element>
-			<element kind="textField" uuid="d9f905f3-3cb2-455b-942e-2f03b6e3a12e" x="464" y="301" width="90" height="15" style="COLAB_CONTEUDO">
-				<expression><![CDATA[$F{colab_rg_orgao}]]></expression>
 			</element>
 			<element kind="textField" uuid="c29786e5-95fa-4359-ad3f-a98ce613cfd9" x="0" y="332" width="218" height="30" fontName="DejaVu" fontSize="11.0" textAdjust="ScaleFont" blankWhenNull="false">
 				<expression><![CDATA[$V{VAR_LOCAL_DATA}]]></expression>
@@ -532,23 +511,11 @@ order by colab_nome]]></query>
 			<element kind="textField" uuid="2c73ca53-9cf9-4ef7-8e7c-704d84d52d28" x="53" y="701" width="100" height="15" style="COLAB_CONTEUDO">
 				<expression><![CDATA[$F{colab_cpf}]]></expression>
 			</element>
-			<element kind="staticText" uuid="ac73b94c-b1de-4e2b-b4b5-8b0ab9f760b0" x="190" y="701" width="30" height="15" style="COLAB_TITULOS">
-				<text><![CDATA[RG:]]></text>
-			</element>
-			<element kind="textField" uuid="ef3b6957-791e-4b06-99bb-aed5b66ff2e2" x="225" y="701" width="125" height="15" style="COLAB_CONTEUDO">
-				<expression><![CDATA[$F{colab_rg}]]></expression>
-			</element>
 			<element kind="staticText" uuid="af552432-231e-4b1c-be54-823acbfb0214" x="391" y="684" width="70" height="15" style="COLAB_TITULOS">
 				<text><![CDATA[Nascim.:]]></text>
 			</element>
 			<element kind="textField" uuid="f3b1b2d0-2cb5-4306-b0c2-96225702366c" x="465" y="684" width="90" height="15" style="COLAB_CONTEUDO">
 				<expression><![CDATA[$F{colab_nascimento}]]></expression>
-			</element>
-			<element kind="staticText" uuid="54f84014-cf95-460c-b781-9d1419347aff" x="361" y="701" width="100" height="15" style="COLAB_TITULOS">
-				<text><![CDATA[Órgão Emissor:]]></text>
-			</element>
-			<element kind="textField" uuid="21bc471f-6b1b-4f9a-b590-1ec7ad99b7ad" x="465" y="701" width="90" height="15" style="COLAB_CONTEUDO">
-				<expression><![CDATA[$F{colab_rg_orgao}]]></expression>
 			</element>
 			<element kind="textField" uuid="045f51a9-e57f-4220-9b44-05d8dc79e5a9" x="1" y="732" width="218" height="30" fontName="DejaVu" fontSize="11.0" textAdjust="ScaleFont" blankWhenNull="false">
 				<expression><![CDATA[$V{VAR_LOCAL_DATA}]]></expression>
