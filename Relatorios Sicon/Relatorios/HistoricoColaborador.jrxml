@@ -114,7 +114,7 @@ order by conc_data_realizacao desc]]></query>
 		<property name="com.jaspersoft.studio.field.label" value="colab_cpf"/>
 	</field>
 	<background splitType="Stretch"/>
-	<title height="135">
+	<title height="110">
 		<element kind="image" uuid="908c6036-1d55-460a-acf9-86d0112edd30" positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="802" height="80" hImageAlign="Center" vImageAlign="Middle">
 			<expression><![CDATA[$P{PAR_LOGO}]]></expression>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -123,116 +123,111 @@ order by conc_data_realizacao desc]]></query>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</element>
 		<element kind="staticText" uuid="b03d2432-4bdd-414b-812a-5bbe2059beac" x="0" y="85" width="802" height="20" style="Título">
-			<text><![CDATA[Histórico de Participação de Colaborador em Concursos]]></text>
+			<text><![CDATA[Declaração de Participação de Colaborador em Concursos]]></text>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<property name="com.jaspersoft.studio.unit.y" value="px"/>
-		</element>
-		<element kind="staticText" uuid="60f4d25b-65e0-4fa8-a074-b99e22302165" x="0" y="115" width="45" height="15" hTextAlign="Right" style="Ttulos (Estáticos)">
-			<text><![CDATA[Nome:]]></text>
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<property name="com.jaspersoft.studio.unit.x" value="px"/>
-			<property name="com.jaspersoft.studio.unit.width" value="px"/>
-			<property name="com.jaspersoft.studio.unit.y" value="px"/>
-		</element>
-		<element kind="textField" uuid="05b14fed-a660-42fe-b0ed-4ba5ec00cc02" x="50" y="115" width="752" height="15" markup="none" style="Texto Dinâmico">
-			<expression><![CDATA[$F{colab_nome} + " [" + $F{colab_cpf} + "]"]]></expression>
-			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-			<property name="com.jaspersoft.studio.unit.x" value="px"/>
 			<property name="com.jaspersoft.studio.unit.y" value="px"/>
 		</element>
 		<property name="com.jaspersoft.studio.unit.height" value="px"/>
 	</title>
 	<detail>
-		<band height="40" splitType="Stretch">
-			<element kind="component" uuid="205d3a49-bbd0-4930-8a01-79099feb4d16" key="" x="0" y="0" width="800" height="40">
+		<band height="65">
+			<element kind="textField" uuid="1c758f82-d44c-4d2b-b6cb-9b86cb624715" x="0" y="0" width="802" height="60" markup="html" textAdjust="StretchHeight" hTextAlign="Justified" style="Texto Dinâmico">
+				<expression><![CDATA["Declaramos, para os devidos fins, que o(a) colaborador(a) <b>" + $F{colab_nome} + "</b>, inscrito(a) no CPF nº <b>" + $F{colab_cpf} + "</b>, prestou serviços à Comissão Permanente de Concursos - COMPEC/UFAM, atuando na organização, fiscalização, execução e/ou apoio às atividades relacionadas aos concursos públicos e processos seletivos promovidos por esta Comissão, conforme as funções desempenhadas em cada certame listado na tabela abaixo:"]]></expression>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+		<band height="40">
+			<element kind="component" uuid="71708036-3bb4-4343-8a36-1e1a426e6268" key="" x="0" y="0" width="800" height="40">
 				<component kind="table">
-					<datasetRun uuid="500f592e-136d-415e-82df-63c9eecc000f" subDataset="HistoricoDataset">
+					<datasetRun uuid="590b128e-6d74-444d-8163-b15c66070911" subDataset="HistoricoDataset">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 						<parameter name="TABLE_ID_COLABORADOR">
 							<expression><![CDATA[$P{PAR_ID_COLABORADOR}]]></expression>
 						</parameter>
 					</datasetRun>
-					<column kind="single" uuid="6a6c9247-464f-479c-889c-532614c20cde" width="20">
+					<column kind="single" uuid="ab942538-8bcf-4271-ae0a-b96f174d4fe2" width="20">
 						<columnHeader height="20" rowSpan="1" style="Table_CH">
-							<element kind="staticText" uuid="bac845c7-aff8-4457-9d1e-120482fd1a9d" x="0" y="0" width="20" height="20" style="Títulos (Tabela)">
+							<element kind="staticText" uuid="d487a260-ba4f-494e-8d38-867e29f57e61" x="0" y="0" width="20" height="20" style="Títulos (Tabela)">
 								<text><![CDATA[#]]></text>
 							</element>
 						</columnHeader>
 						<detailCell height="20" style="Table_TD">
-							<element kind="textField" uuid="1f05d10b-09df-40bd-bbcf-4ab5f5d0cf95" stretchType="ContainerHeight" x="0" y="0" width="20" height="20" hTextAlign="Center" style="Fields (Tabela)">
+							<element kind="textField" uuid="0ba79c4e-18dd-486a-b634-8a6b4ee19a55" stretchType="ContainerHeight" x="0" y="0" width="20" height="20" hTextAlign="Center" style="Fields (Tabela)">
 								<expression><![CDATA[$V{REPORT_COUNT}]]></expression>
 								<box leftPadding="0" style="Fields (Tabela)"/>
 							</element>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 					</column>
-					<column kind="single" uuid="1e5e7e67-f568-4225-b3e2-37aab45e0fcf" width="240">
+					<column kind="single" uuid="24a474da-6ffb-448f-baf8-da3a1c7a91ea" width="240">
 						<columnHeader height="20" rowSpan="1" style="Table_CH">
-							<element kind="staticText" uuid="51c6d040-43c7-4e8a-bec1-b2893fbe9027" key="" positionType="Float" x="0" y="0" width="240" height="20" style="Títulos (Tabela)">
-								<text><![CDATA[Concurso]]></text>
+							<element kind="staticText" uuid="763420f3-6de7-4132-9b9a-27b7fb39e7c6" key="" positionType="Float" x="0" y="0" width="240" height="20" style="Títulos (Tabela)">
+								<text><![CDATA[Certame]]></text>
 							</element>
 							<box topPadding="0" style="Table_CH"/>
 						</columnHeader>
 						<detailCell height="20" style="Table_TD">
-							<element kind="textField" uuid="c96bd75f-273f-495b-a9df-85eedccb5f54" stretchType="ContainerHeight" x="0" y="0" width="240" height="20" textAdjust="StretchHeight" style="Fields (Tabela)">
+							<element kind="textField" uuid="6a22f90f-94da-41e3-9f2a-65b40e321366" stretchType="ContainerHeight" x="0" y="0" width="240" height="20" textAdjust="StretchHeight" style="Fields (Tabela)">
 								<expression><![CDATA[$F{conc_nome}]]></expression>
 								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5" style="Fields (Tabela)"/>
 							</element>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 					</column>
-					<column kind="single" uuid="68249ca0-0361-4eee-919e-1487c48c04ff" width="70">
+					<column kind="single" uuid="b302ba17-5649-430e-99c5-3a9888af9227" width="70">
 						<columnHeader height="20" rowSpan="1" style="Table_CH">
-							<element kind="staticText" uuid="833f2c10-f91a-47fe-920b-9a6d2fa038a0" x="0" y="0" width="70" height="20" style="Títulos (Tabela)">
+							<element kind="staticText" uuid="cb0d5b73-03a0-42ba-97f5-f16a806a67bd" x="0" y="0" width="70" height="20" style="Títulos (Tabela)">
 								<text><![CDATA[Realização]]></text>
 							</element>
 						</columnHeader>
 						<detailCell height="20" style="Table_TD">
-							<element kind="textField" uuid="983796d4-37c3-4544-9b99-33b4de77ed59" stretchType="ContainerHeight" x="0" y="0" width="70" height="20" printRepeatedValues="false" hTextAlign="Center" style="Fields (Tabela)">
+							<element kind="textField" uuid="7ed486c4-16e9-4741-b50c-7835486238cb" stretchType="ContainerHeight" x="0" y="0" width="70" height="20" printRepeatedValues="false" hTextAlign="Center" style="Fields (Tabela)">
 								<expression><![CDATA[$F{conc_data_realizacao}.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 								<box leftPadding="0" style="Fields (Tabela)"/>
 							</element>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 					</column>
-					<column kind="single" uuid="b4716000-f49a-432a-9daa-d8b9e8dee2f5" width="110">
+					<column kind="single" uuid="1ffd1b38-c5e5-41c0-bbc5-bd51c1915338" width="110">
 						<columnHeader height="20" rowSpan="1" style="Table_CH">
-							<element kind="staticText" uuid="696d3618-a5e4-4c83-8967-6c540988f45a" x="0" y="0" width="110" height="20" style="Títulos (Tabela)">
+							<element kind="staticText" uuid="ac600bff-1607-406d-adb1-a33bf3bb7056" x="0" y="0" width="110" height="20" style="Títulos (Tabela)">
 								<text><![CDATA[Função]]></text>
 							</element>
 						</columnHeader>
 						<detailCell height="20" style="Table_TD">
-							<element kind="textField" uuid="6aba6f0a-a861-4282-a175-982bf0272c2a" stretchType="ContainerHeight" x="0" y="0" width="110" height="20" textAdjust="StretchHeight" hTextAlign="Center" style="Fields (Tabela)">
+							<element kind="textField" uuid="c4772ee4-b681-42e6-ba9f-36c8b9ade75d" stretchType="ContainerHeight" x="0" y="0" width="110" height="20" textAdjust="StretchHeight" hTextAlign="Center" style="Fields (Tabela)">
 								<expression><![CDATA[$F{func_nome}]]></expression>
 								<box leftPadding="5" rightPadding="5" style="Fields (Tabela)"/>
 							</element>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 					</column>
-					<column kind="single" uuid="162bf3ed-7f69-46e0-bb0a-7f43a2452d13" width="320">
+					<column kind="single" uuid="987eba02-bb52-4c9d-83d8-07dd120ff589" width="320">
 						<columnHeader height="20" rowSpan="1" style="Table_CH">
-							<element kind="staticText" uuid="38c6a9bb-c1df-4f6e-8815-edc0975e9101" x="0" y="0" width="320" height="20" style="Títulos (Tabela)">
-								<text><![CDATA[Instituição]]></text>
+							<element kind="staticText" uuid="348f1b02-fdd7-4cce-8be0-89c0f1a73819" x="0" y="0" width="320" height="20" style="Títulos (Tabela)">
+								<text><![CDATA[Local de Aplicação]]></text>
 							</element>
 						</columnHeader>
 						<detailCell height="20" style="Table_TD">
-							<element kind="textField" uuid="ab9a3be6-fd4d-4aba-9956-b350ee459088" stretchType="ContainerHeight" x="0" y="0" width="320" height="20" textAdjust="StretchHeight" style="Fields (Tabela)">
+							<element kind="textField" uuid="5b36a195-da42-4b0d-91a7-310cead05542" stretchType="ContainerHeight" x="0" y="0" width="320" height="20" textAdjust="StretchHeight" style="Fields (Tabela)">
 								<expression><![CDATA[$F{inst_nome} + " [" + $F{muni_nome} + "/" + $F{uf_sigla} + "]"]]></expression>
 								<box topPadding="2" bottomPadding="2" rightPadding="3" style="Fields (Tabela)"/>
 							</element>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
 					</column>
-					<column kind="single" uuid="32fe1346-8cd7-4c63-ad91-c8625aad80fb" width="40">
+					<column kind="single" uuid="e55caef6-68ca-4566-b344-6bd6dd7d2686" width="40">
 						<columnHeader height="20" rowSpan="1" style="Table_CH">
-							<element kind="staticText" uuid="bc278da0-2f67-48c4-ab94-e8e4fdd86b21" x="0" y="0" width="40" height="20" style="Títulos (Tabela)">
+							<element kind="staticText" uuid="876555f2-38ad-48bf-8eba-3cae50fff076" x="0" y="0" width="40" height="20" style="Títulos (Tabela)">
 								<text><![CDATA[C.H.]]></text>
 								<box padding="0" style="Títulos (Tabela)"/>
 							</element>
 						</columnHeader>
 						<detailCell height="20" style="Table_TD">
-							<element kind="textField" uuid="cf01bf8e-6efe-4b5f-aaeb-b25d460567c2" stretchType="ContainerHeight" x="0" y="0" width="40" height="20" textAdjust="StretchHeight" hTextAlign="Center" style="Fields (Tabela)">
+							<element kind="textField" uuid="d32e1663-887f-400a-86c0-472ec40b9098" stretchType="ContainerHeight" x="0" y="0" width="40" height="20" textAdjust="StretchHeight" hTextAlign="Center" style="Fields (Tabela)">
 								<expression><![CDATA[$F{fconc_carga_horaria} == null ? "-" : String.format("%.2fh", $F{fconc_carga_horaria})]]></expression>
 								<box leftPadding="0" style="Fields (Tabela)"/>
 							</element>
@@ -241,6 +236,7 @@ order by conc_data_realizacao desc]]></query>
 					</column>
 				</component>
 				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			</element>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -261,7 +257,7 @@ order by conc_data_realizacao desc]]></query>
 	</pageFooter>
 	<summary height="20">
 		<element kind="textField" uuid="5d84e29d-e30b-4db5-9539-7d6f3a78c66b" positionType="Float" x="0" y="5" width="800" height="15" markup="html" fontSize="10.0" hTextAlign="Center" style="Texto Dinâmico">
-			<expression><![CDATA["<b>Documento extraído em: </b>" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy '<b>às</b>' HH:mm:ss"))]]></expression>
+			<expression><![CDATA["<b>Declaração emitida em: </b>" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy '<b>às</b>' HH:mm:ss"))]]></expression>
 			<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.x" value="px"/>
