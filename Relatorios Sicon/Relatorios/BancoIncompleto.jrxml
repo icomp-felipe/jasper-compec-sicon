@@ -1,4 +1,4 @@
-<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
+<!-- Created with Jaspersoft Studio version 7.0.6.final using JasperReports Library version 7.0.6-5d2a603fdc6b3db8f842a83383e594f41891534d  -->
 <jasperReport name="BancoIncompleto" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59169312-c258-4d3b-8a51-1333adda39a9">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -35,9 +35,9 @@
 	</style>
 	<dataset name="BancoIncompletoDataset" uuid="b49d1aaf-4414-4515-a657-fe929d16c41b">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Development)"/>
 		<parameter name="PAR_CONC_ID" class="java.lang.Integer"/>
-		<query language="SQL"><![CDATA[select fconc_conc_id, colab_id_pk, fn_capitaliza(colab_nome) as colab_nome, fn_mascara_telefone(colab_celular_1) as colab_celular_1, func_apelido, mapa_vaga_publica, inst_nome, muni_nome, uf_sigla, banco_nome, colab_agencia, colab_conta, colab_conta_dv 
+		<query language="SQL"><![CDATA[select fconc_conc_id, colab_id_pk, fn_capitaliza(colab_nome) as colab_nome, fn_mascara_telefone(colab_celular) as colab_celular, func_apelido, mapa_vaga_publica, inst_nome, muni_nome, uf_sigla, banco_nome, colab_agencia, colab_conta, colab_conta_dv 
 from vw_banco_incompleto
 where fconc_conc_id =  $P{PAR_CONC_ID} ]]></query>
 		<field name="fconc_conc_id" class="java.lang.Integer">
@@ -55,9 +55,9 @@ where fconc_conc_id =  $P{PAR_CONC_ID} ]]></query>
 			<property name="com.jaspersoft.studio.field.label" value="colab_nome"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 		</field>
-		<field name="colab_celular_1" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="colab_celular_1"/>
-			<property name="com.jaspersoft.studio.field.label" value="colab_celular_1"/>
+		<field name="colab_celular" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="colab_celular"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_celular"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="vw_banco_incompleto"/>
 		</field>
 		<field name="func_apelido" class="java.lang.String">
@@ -190,7 +190,7 @@ where fconc_conc_id =  $P{PAR_CONC_ID} ]]></query>
 						</tableHeader>
 						<detailCell height="30" style="Table_TD">
 							<element kind="textField" uuid="450052f0-3de7-4a29-8328-340ee837f3bd" x="0" y="0" width="90" height="30" hTextAlign="Center" style="Fields (Tabela)">
-								<expression><![CDATA[$F{colab_celular_1}]]></expression>
+								<expression><![CDATA[$F{colab_celular}]]></expression>
 							</element>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>

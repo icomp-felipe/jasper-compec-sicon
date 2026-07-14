@@ -1,4 +1,4 @@
-<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
+<!-- Created with Jaspersoft Studio version 7.0.6.final using JasperReports Library version 7.0.6-5d2a603fdc6b3db8f842a83383e594f41891534d  -->
 <jasperReport name="ListaPresenca" language="java" pageWidth="842" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="009f7ba2-334c-4bd3-a6a1-b9fcc23d991f" summaryWithPageHeaderAndFooter="true">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -391,9 +391,4 @@ where c.conc_id_pk = $P{PAR_CONCURSO}
 		</element>
 		<property name="com.jaspersoft.studio.unit.height" value="px"/>
 	</summary>
-	<noData height="50">
-		<element kind="staticText" uuid="ab4553ae-76ea-4dfe-90a6-7c1ac602026f" x="340" y="10" width="100" height="30">
-			<text><![CDATA[Static Text]]></text>
-		</element>
-	</noData>
 </jasperReport>

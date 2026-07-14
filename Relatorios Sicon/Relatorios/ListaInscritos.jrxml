@@ -1,5 +1,4 @@
-<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
-<!-- 2025-10-03T16:48:22 -->
+<!-- Created with Jaspersoft Studio version 7.0.6.final using JasperReports Library version 7.0.6-5d2a603fdc6b3db8f842a83383e594f41891534d  -->
 <jasperReport name="ListaInscritos" language="java" pageWidth="842" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="009f7ba2-334c-4bd3-a6a1-b9fcc23d991f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
@@ -72,11 +71,11 @@
 	<style name="Rodapé" fontName="DejaVu" fontSize="10.0"/>
 	<dataset name="ListaInscritosDataset" uuid="c5f437a3-021a-4cca-905e-a15b65013dd6">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Development)"/>
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<parameter name="TABLE_INSTITUICAO" class="java.lang.Integer"/>
 		<parameter name="TABLE_NASC_CONTATO" class="java.lang.Boolean"/>
-		<query language="sql"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, fn_anonimiza_cpf(colab_cpf) as colab_cpf, date_format(colab_nascimento, '**/%m/%Y') as colab_nascimento, fn_mascara_telefone(colab_celular_1) as colab_celular_1, func_apelido, mapa_vaga_publica
+		<query language="sql"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, fn_anonimiza_cpf(colab_cpf) as colab_cpf, date_format(colab_nascimento, '**/%m/%Y') as colab_nascimento, fn_mascara_telefone(colab_celular) as colab_celular, func_apelido, mapa_vaga_publica
 from colaborador
     join inscricao on colab_id_pk = insc_colab_id
     join mapa on insc_mapa_id = mapa_id_pk
@@ -98,10 +97,14 @@ order by func_apelido, mapa_vaga_publica desc, colab_nome]]></query>
 			<property name="com.jaspersoft.studio.field.label" value="colab_cpf"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 		</field>
-		<field name="colab_celular_1" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="colab_celular_1"/>
-			<property name="com.jaspersoft.studio.field.label" value="colab_celular_1"/>
+		<field name="colab_nascimento" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="colab_nascimento"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_nascimento"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
+		</field>
+		<field name="colab_celular" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="colab_celular"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_celular"/>
 		</field>
 		<field name="func_apelido" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="func_apelido"/>
@@ -112,11 +115,6 @@ order by func_apelido, mapa_vaga_publica desc, colab_nome]]></query>
 			<property name="com.jaspersoft.studio.field.name" value="mapa_vaga_publica"/>
 			<property name="com.jaspersoft.studio.field.label" value="mapa_vaga_publica"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="mapa"/>
-		</field>
-		<field name="colab_nascimento" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="colab_nascimento"/>
-			<property name="com.jaspersoft.studio.field.name" value="colab_nascimento"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 		</field>
 	</dataset>
 	<parameter name="PAR_LOGO" class="java.awt.image.BufferedImage"/>
@@ -255,7 +253,7 @@ where conc_id_pk = $P{PAR_CONCURSO}
 						</columnHeader>
 						<detailCell height="25" style="Table 3_TD">
 							<element kind="textField" uuid="efd850e4-328d-43c1-80ff-150a3bef861b" x="0" y="0" width="110" height="25" hTextAlign="Center" style="Fields (Tabela)">
-								<expression><![CDATA[$P{TABLE_NASC_CONTATO} ? $F{colab_nascimento}  :$F{colab_celular_1}]]></expression>
+								<expression><![CDATA[$P{TABLE_NASC_CONTATO} ? $F{colab_nascimento}  :$F{colab_celular}]]></expression>
 							</element>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>

@@ -1,7 +1,7 @@
-<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
+<!-- Created with Jaspersoft Studio version 7.0.6.final using JasperReports Library version 7.0.6-5d2a603fdc6b3db8f842a83383e594f41891534d  -->
 <jasperReport name="FichaLocalProva" language="java" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f6e4db4-9f8f-4ffe-9759-6e1fd142f492">
 	<property name="template.type" value="columnar"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Development)"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value="Contrói as famosas 'caras de pasta' utilizadas na logística dos concursos da COMPEC/UFAM."/>
 	<import>compec.ufam.sicon.model.Constants.DateTimeFormatters</import>
@@ -28,7 +28,7 @@
 	<parameter name="PAR_CONCURSO" forPrompting="false" class="compec.ufam.sicon.model.Concurso"/>
 	<parameter name="PAR_CONCURSO_ID" class="java.lang.Integer"/>
 	<parameter name="PAR_INSTITUICOES" class="java.lang.String"/>
-	<query language="sql"><![CDATA[select distinct(inst_id_pk) as inst_id_pk, inst_nome, inst_logradouro, inst_numero, inst_bairro, fn_mascara_cep(inst_cep) as inst_cep, muni_nome, uf_sigla, fn_mascara_celular(inst_celular1) as inst_celular_1, fn_mascara_celular(inst_celular2) as inst_celular_2, inst_email, fn_capitaliza(colab_nome) as colab_nome, colab_email, fn_mascara_celular(colab_fixo) as colab_fixo, fn_mascara_celular(colab_celular_1) as colab_celular_1, fn_mascara_celular(colab_celular_2) as colab_celular_2
+	<query language="sql"><![CDATA[select distinct(inst_id_pk) as inst_id_pk, inst_nome, inst_logradouro, inst_numero, inst_bairro, fn_mascara_cep(inst_cep) as inst_cep, muni_nome, uf_sigla, fn_mascara_telefone(inst_celular1) as inst_celular_1, fn_mascara_telefone(inst_celular2) as inst_celular_2, inst_email, fn_capitaliza(colab_nome) as colab_nome, colab_email, fn_mascara_telefone(colab_celular) as colab_celular
 from mapa
     join instituicao on mapa_inst_id = inst_id_pk
     join funcao_concurso on mapa_fconc_id = fconc_id_pk
@@ -99,17 +99,9 @@ order by muni_id_pk, inst_codigo]]></query>
 		<property name="com.jaspersoft.studio.field.label" value="colab_email"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 	</field>
-	<field name="colab_fixo" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="colab_fixo"/>
-		<property name="com.jaspersoft.studio.field.label" value="colab_fixo"/>
-	</field>
-	<field name="colab_celular_1" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="colab_celular_1"/>
-		<property name="com.jaspersoft.studio.field.label" value="colab_celular_1"/>
-	</field>
-	<field name="colab_celular_2" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="colab_celular_2"/>
-		<property name="com.jaspersoft.studio.field.label" value="colab_celular_2"/>
+	<field name="colab_celular" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colab_celular"/>
+		<property name="com.jaspersoft.studio.field.label" value="colab_celular"/>
 	</field>
 	<background splitType="Stretch"/>
 	<detail>
@@ -337,47 +329,19 @@ order by muni_id_pk, inst_codigo]]></query>
 				<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="staticText" uuid="4cdde33b-09f3-466d-b904-7c445cd808ae" key="" positionType="FixRelativeToBottom" x="0" y="375" width="60" height="15" style="Labels">
-				<text><![CDATA[Tel.:]]></text>
-				<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				<property name="com.jaspersoft.studio.unit.x" value="px"/>
-			</element>
-			<element kind="textField" uuid="b8992296-2436-490c-bcae-a881382bd4ba" key="" x="65" y="375" width="100" height="15" blankWhenNull="true" style="Text Fields">
-				<expression><![CDATA[$F{colab_fixo}]]></expression>
-				<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				<property name="com.jaspersoft.studio.unit.x" value="px"/>
-			</element>
-			<element kind="staticText" uuid="57f9c692-3d5a-4960-9f56-b181754a1f8d" key="" positionType="FixRelativeToBottom" x="175" y="375" width="60" height="15" style="Labels">
-				<text><![CDATA[Cel. 1:]]></text>
+			<element kind="staticText" uuid="57f9c692-3d5a-4960-9f56-b181754a1f8d" key="" positionType="FixRelativeToBottom" x="0" y="375" width="60" height="15" style="Labels">
+				<text><![CDATA[Cel.:]]></text>
 				<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			</element>
-			<element kind="textField" uuid="7546afd5-c77c-448f-8a94-cc370e8229a1" key="" x="240" y="375" width="110" height="15" blankWhenNull="true" style="Text Fields">
-				<expression><![CDATA[$F{colab_celular_1}]]></expression>
+			<element kind="textField" uuid="7546afd5-c77c-448f-8a94-cc370e8229a1" key="" x="65" y="375" width="110" height="15" blankWhenNull="true" style="Text Fields">
+				<expression><![CDATA[$F{colab_celular}]]></expression>
 				<property name="com.jaspersoft.studio.unit.x" value="px"/>
-				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			</element>
-			<element kind="staticText" uuid="e32ceaa7-77f3-45f3-9f95-d8f6e010f44c" key="" positionType="FixRelativeToBottom" x="355" y="375" width="60" height="15" style="Labels">
-				<text><![CDATA[Cel. 2:]]></text>
-				<property name="com.jaspersoft.studio.unit.x" value="px"/>
-				<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			</element>
-			<element kind="textField" uuid="b631f200-13e0-4424-9985-4830230727ff" key="" x="420" y="375" width="110" height="15" blankWhenNull="true" style="Text Fields">
-				<expression><![CDATA[$F{colab_celular_2}]]></expression>
-				<property name="com.jaspersoft.studio.unit.x" value="px"/>
-				<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			</element>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</band>

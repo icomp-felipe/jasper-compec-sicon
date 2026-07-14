@@ -1,5 +1,4 @@
-<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
-<!-- 2025-06-05T17:21:25 -->
+<!-- Created with Jaspersoft Studio version 7.0.6.final using JasperReports Library version 7.0.6-5d2a603fdc6b3db8f842a83383e594f41891534d  -->
 <jasperReport name="ListaColaboradorFuncao" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0417783b-14c1-4388-9568-080baeeded93">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -47,7 +46,9 @@
 	</style>
 	<dataset name="ListaColaboradorDataset" uuid="91e9c51f-71c7-4fd7-94cf-f60d33f1028d">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Local)"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sicon (Development)"/>
+		<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="373"/>
+		<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="614"/>
 		<parameter name="TABLE_CONCURSO" class="java.lang.Integer"/>
 		<parameter name="TABLE_FUNCAO" class="java.lang.Integer"/>
 		<parameter name="TABLE_MUNICIPIO" class="java.lang.String"/>
@@ -55,7 +56,7 @@
 		<parameter name="TABLE_CELULAR_LOCALIZACAO" class="java.lang.Boolean"/>
 		<parameter name="LOCATION_ICON" class="java.awt.image.BufferedImage"/>
 		<parameter name="WPP_ICON" class="java.awt.image.BufferedImage"/>
-		<query language="sql"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, inst_codigo, inst_nome, inst_bairro, inst_municipio_id, muni_nome, colab_celular_1, fn_mascara_telefone(colab_celular_1) as colab_celular_1_mask, colab_celular_2, fn_mascara_telefone(colab_celular_2) as colab_celular_2_mask, inst_maps
+		<query language="sql"><![CDATA[select fn_capitaliza(colab_nome) as colab_nome, inst_codigo, inst_nome, inst_bairro, inst_municipio_id, muni_nome, colab_celular, fn_mascara_telefone(colab_celular) as colab_celular_mask,  inst_maps
 from inscricao
     join mapa on insc_mapa_id = mapa_id_pk
     join funcao_concurso on mapa_fconc_id = fconc_id_pk
@@ -64,7 +65,7 @@ from inscricao
     join municipio on inst_municipio_id = muni_id_pk
 where fconc_conc_id = $P{TABLE_CONCURSO}
   and fconc_func_id = $P{TABLE_FUNCAO}
-  and insc_ativa = true
+  and insc_ativa
   and muni_id_pk like '$P!{TABLE_MUNICIPIO}'
 order by $P!{TABLE_ORDER_BY}]]></query>
 		<field name="colab_nome" class="java.lang.String">
@@ -103,24 +104,15 @@ order by $P!{TABLE_ORDER_BY}]]></query>
 			<property name="com.jaspersoft.studio.field.label" value="muni_nome"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="municipio"/>
 		</field>
-		<field name="colab_celular_1" class="java.lang.String">
+		<field name="colab_celular" class="java.lang.String">
 			<description><![CDATA[]]></description>
-			<property name="com.jaspersoft.studio.field.name" value="colab_celular_1"/>
-			<property name="com.jaspersoft.studio.field.label" value="colab_celular_1"/>
+			<property name="com.jaspersoft.studio.field.name" value="colab_celular"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_celular"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
 		</field>
-		<field name="colab_celular_1_mask" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="colab_celular_1_mask"/>
-			<property name="com.jaspersoft.studio.field.label" value="colab_celular_1_mask"/>
-		</field>
-		<field name="colab_celular_2" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="colab_celular_2"/>
-			<property name="com.jaspersoft.studio.field.label" value="colab_celular_2"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="colaborador"/>
-		</field>
-		<field name="colab_celular_2_mask" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="colab_celular_2_mask"/>
-			<property name="com.jaspersoft.studio.field.label" value="colab_celular_2_mask"/>
+		<field name="colab_celular_mask" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="colab_celular_mask"/>
+			<property name="com.jaspersoft.studio.field.label" value="colab_celular_mask"/>
 		</field>
 		<field name="inst_maps" class="java.lang.String">
 			<description><![CDATA[]]></description>
@@ -249,15 +241,15 @@ where conc_id_pk = $P{PAR_CONCURSO_ID}
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 					</column>
-					<column kind="single" uuid="1dffc873-0b6a-4f57-861b-e2108a9a1c02" width="340">
+					<column kind="single" uuid="1dffc873-0b6a-4f57-861b-e2108a9a1c02" width="450">
 						<columnHeader height="20" rowSpan="1" style="Table_CH">
-							<element kind="staticText" uuid="d5744b56-ea2b-4c8b-bc9c-faae81af87cb" x="0" y="0" width="340" height="20" bold="true" hTextAlign="Center" style="Títulos (Tabela)">
+							<element kind="staticText" uuid="d5744b56-ea2b-4c8b-bc9c-faae81af87cb" x="0" y="0" width="450" height="20" bold="true" hTextAlign="Center" style="Títulos (Tabela)">
 								<text><![CDATA[Instituição (Google Maps)]]></text>
 								<box topPadding="4" style="Títulos (Tabela)"/>
 							</element>
 						</columnHeader>
 						<detailCell height="20" style="Table_TD">
-							<element kind="image" uuid="4a3f2988-fb34-4486-9413-3a96e4144be9" stretchType="ContainerHeight" x="0" y="0" width="17" height="20" onErrorType="Blank" linkType="Reference" linkTarget="Self" lazy="true" hImageAlign="Center" vImageAlign="Middle">
+							<element kind="image" uuid="4a3f2988-fb34-4486-9413-3a96e4144be9" stretchType="ContainerHeight" x="0" y="0" width="23" height="20" onErrorType="Blank" linkType="Reference" linkTarget="Self" lazy="true" hImageAlign="Center" vImageAlign="Middle">
 								<printWhenExpression><![CDATA[$F{inst_maps} != null && !$F{inst_maps}.isBlank()]]></printWhenExpression>
 								<expression><![CDATA[$P{LOCATION_ICON}]]></expression>
 								<hyperlinkReferenceExpression><![CDATA[$F{inst_maps}]]></hyperlinkReferenceExpression>
@@ -269,7 +261,7 @@ where conc_id_pk = $P{PAR_CONCURSO_ID}
 								<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
 								<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
 							</element>
-							<element kind="textField" uuid="ad0ef6b2-0e4a-46c6-8510-2e6b988dab3b" stretchType="ContainerHeight" x="17" y="0" width="323" height="20" textAdjust="StretchHeight" style="Fields (Tabela)">
+							<element kind="textField" uuid="ad0ef6b2-0e4a-46c6-8510-2e6b988dab3b" stretchType="ContainerHeight" x="23" y="0" width="427" height="20" textAdjust="StretchHeight" style="Fields (Tabela)">
 								<expression><![CDATA[String.format("%s [%s - %s]", $F{inst_nome}, $F{inst_bairro}, $F{muni_nome})]]></expression>
 								<property name="com.jaspersoft.layout.grid.x" value="-1"/>
 								<property name="com.jaspersoft.layout.grid.y" value="-1"/>
@@ -287,15 +279,15 @@ where conc_id_pk = $P{PAR_CONCURSO_ID}
 					<column kind="single" uuid="68249ca0-0361-4eee-919e-1487c48c04ff" width="110">
 						<columnHeader height="20" rowSpan="1" style="Table_CH">
 							<element kind="staticText" uuid="75b9c0be-d29e-4dc6-8196-ac4a4b86c01e" x="0" y="0" width="110" height="20" bold="true" hTextAlign="Center" style="Títulos (Tabela)">
-								<text><![CDATA[Celular 01]]></text>
+								<text><![CDATA[Celular]]></text>
 								<box padding="0" topPadding="4" style="Títulos (Tabela)"/>
 							</element>
 						</columnHeader>
 						<detailCell height="20" style="Table_TD">
 							<element kind="image" uuid="fa43338a-7405-4193-92b5-2f4714091bcc" stretchType="ContainerHeight" x="0" y="0" width="22" height="20" scaleImage="RetainShape" onErrorType="Blank" linkType="Reference" linkTarget="Self" lazy="true" removeLineWhenBlank="true" hImageAlign="Center" vImageAlign="Middle">
-								<printWhenExpression><![CDATA[$F{colab_celular_1} != null && !$F{colab_celular_1}.isBlank()]]></printWhenExpression>
+								<printWhenExpression><![CDATA[$F{colab_celular} != null && !$F{colab_celular}.isBlank()]]></printWhenExpression>
 								<expression><![CDATA[$P{WPP_ICON}]]></expression>
-								<hyperlinkReferenceExpression><![CDATA["https://api.whatsapp.com/send?phone=55" + $F{colab_celular_1}]]></hyperlinkReferenceExpression>
+								<hyperlinkReferenceExpression><![CDATA["https://api.whatsapp.com/send?phone=55" + $F{colab_celular}]]></hyperlinkReferenceExpression>
 								<property name="com.jaspersoft.layout.grid.x" value="-1"/>
 								<property name="com.jaspersoft.layout.grid.y" value="-1"/>
 								<property name="com.jaspersoft.layout.grid.weight.x" value="0.2"/>
@@ -305,7 +297,7 @@ where conc_id_pk = $P{PAR_CONCURSO_ID}
 								<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
 							</element>
 							<element kind="textField" uuid="74bd0057-1a02-4580-a084-b0885d8efbf1" stretchType="ContainerHeight" x="22" y="0" width="88" height="20" style="Fields (Tabela)">
-								<expression><![CDATA[$F{colab_celular_1_mask}]]></expression>
+								<expression><![CDATA[$F{colab_celular_mask}]]></expression>
 								<property name="com.jaspersoft.layout.grid.x" value="-1"/>
 								<property name="com.jaspersoft.layout.grid.y" value="-1"/>
 								<property name="com.jaspersoft.layout.grid.weight.x" value="0.8"/>
@@ -319,40 +311,6 @@ where conc_id_pk = $P{PAR_CONCURSO_ID}
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.grid.JSSGridBagLayout"/>
-					</column>
-					<column kind="single" uuid="23bd42d0-3404-4967-9c02-76163d2d576c" width="110">
-						<columnHeader height="20" rowSpan="1" style="Table_CH">
-							<element kind="staticText" uuid="1762aff2-8d7f-40e1-9a67-ac0389959713" x="0" y="0" width="110" height="20" bold="true" hTextAlign="Center" style="Títulos (Tabela)">
-								<text><![CDATA[Celular 02]]></text>
-								<box padding="0" topPadding="4" style="Títulos (Tabela)"/>
-							</element>
-						</columnHeader>
-						<detailCell height="20" style="Table_TD">
-							<element kind="image" uuid="8b1bc30c-b361-4c41-8235-e8ea6c0db8ce" stretchType="ContainerHeight" x="0" y="0" width="22" height="20" scaleImage="RetainShape" onErrorType="Blank" linkType="Reference" linkTarget="Self" lazy="true" removeLineWhenBlank="true" hImageAlign="Center" vImageAlign="Middle">
-								<printWhenExpression><![CDATA[$F{colab_celular_2} != null && !$F{colab_celular_2}.isBlank()]]></printWhenExpression>
-								<expression><![CDATA[$P{WPP_ICON}]]></expression>
-								<hyperlinkReferenceExpression><![CDATA["https://api.whatsapp.com/send?phone=55" + $F{colab_celular_2}]]></hyperlinkReferenceExpression>
-								<property name="com.jaspersoft.layout.grid.x" value="-1"/>
-								<property name="com.jaspersoft.layout.grid.y" value="-1"/>
-								<property name="com.jaspersoft.layout.grid.weight.x" value="0.2"/>
-								<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
-								<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
-								<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
-								<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
-							</element>
-							<element kind="textField" uuid="1a8bf7f3-6015-4ab1-9e62-faed405803d9" stretchType="ContainerHeight" x="22" y="0" width="88" height="20" style="Fields (Tabela)">
-								<expression><![CDATA[$F{colab_celular_2_mask}]]></expression>
-								<property name="com.jaspersoft.layout.grid.x" value="-1"/>
-								<property name="com.jaspersoft.layout.grid.y" value="-1"/>
-								<property name="com.jaspersoft.layout.grid.weight.x" value="0.8"/>
-								<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
-								<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
-								<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
-								<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
-							</element>
-							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.grid.JSSGridBagLayout"/>
-						</detailCell>
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
 					</column>
 				</component>
 				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
